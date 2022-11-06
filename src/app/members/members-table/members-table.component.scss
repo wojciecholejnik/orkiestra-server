@@ -1,0 +1,60 @@
+@import'../../../global-styling/colors.scss';
+
+.table-wrapper {
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
+}
+
+table.table {
+    margin: 50px auto;
+    width: 70vw;
+
+    thead {
+        th {
+            position: relative;
+
+            &:not(:last-child) {
+                border-right: 1px solid $background-gray;
+            }
+
+            &:hover {
+                color: $origin-red;
+                cursor: pointer;
+            }
+        }
+    }
+
+    tbody {
+        td {
+            button {
+                display: inline;
+
+                &:not(:last-child) {
+                    margin-right: 3px;
+                }
+            }
+        }
+
+        tr:hover {
+            background: $background-light-gray;
+            cursor: pointer;
+            color: $origin-red;
+        }
+    }
+}
+
+.sorting-arrow {
+    display: none;
+    height: 16px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    &.asc {
+        display: block;
+    }
+    &.desc {
+        display: block;
+        transform: rotate(180deg) translateY(40%) ;
+    }
+}

@@ -1,0 +1,30 @@
+@import'../../../global-styling/colors.scss';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    background-color: #ebebeb;
+    position: absolute;
+    width: 200px;
+    height: calc(100% - 80px);
+    padding-top: 150px;
+}
+
+.nav-item {
+    line-height: 36px;
+    font-size: 16px;
+    font-weight: 400;
+    color: $font-gray;
+    padding-left: 24px;
+
+    &.active {
+        color: $font-black;
+        background-color: $background-light-gray;
+        border-right: 3px solid $origin-blue;
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $origin-red;
+    }
+}

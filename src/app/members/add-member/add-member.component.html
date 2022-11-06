@@ -1,0 +1,121 @@
+<div class="action-modal">
+    <div class="action-modal">
+        <h2 *ngIf="!memberToEdit">Dodaj członka</h2>
+        <h2 *ngIf="memberToEdit">Edytuj dane członka</h2>
+        <img class="close-button" (click)="closeModal()" src="../../../assets/icons/close-button.svg">
+      
+        <form id="newMemberForm" [formGroup]="newMemberForm" (ngSubmit)="addUser()">
+
+            <div class="mb-3 form-control-wrapper d-inline-flex align-items-center date-wrapper">
+                <label for="birthDate">Data dołączenia</label>
+                <input
+                    id="joiningDate"
+                    type="date"
+                    class="form-control"
+                    formControlName="joiningDate"
+                    [class.error]="newMemberForm.controls['joiningDate'].invalid && (newMemberForm.controls['joiningDate'].dirty || newMemberForm.controls['joiningDate'].touched)"
+                >
+            </div>
+
+            <div class="mb-3 form-control-wrapper">
+                <input
+                    type="text"
+                    class="form-control"
+                    [class.error]="newMemberForm.controls['firstName'].invalid && (newMemberForm.controls['firstName'].dirty || newMemberForm.controls['firstName'].touched)"
+                    placeholder="Imię"
+                    formControlName="firstName"
+                >
+            </div>
+
+            <div class="mb-3 form-control-wrapper">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nazwisko"
+                    [class.error]="newMemberForm.controls['lastName'].invalid && (newMemberForm.controls['lastName'].dirty || newMemberForm.controls['lastName'].touched)"
+                    formControlName="lastName"
+                >
+            </div>
+
+            <div class="mb-3 form-control-wrapper">
+                <input
+                    type="tel"
+                    class="form-control"
+                    placeholder="Telefon"
+                    formControlName="phone"
+                >
+            </div>
+
+            <div class="mb-3 form-control-wrapper">
+                <input
+                    type="email"
+                    class="form-control"
+                    placeholder="E-mail"
+                    formControlName="email"
+                >
+            </div>
+            <div class="mb-3 form-control-wrapper">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Adres - ulica i nr domu"
+                    formControlName="address1"
+                >
+            </div>
+
+            <div class="mb-3 form-control-wrapper">
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Adres - kod pocztowy i miejscowość"
+                    formControlName="address2"
+                >
+            </div>
+
+            <div class="mb-3 form-control-wrapper d-inline-flex align-items-center instrument-wrapper">
+                <label for="birthDate">Instrument</label>
+                <select
+                    type="text"
+                    class="form-control"
+                    [class.error]="newMemberForm.controls['instrument'].invalid && (newMemberForm.controls['instrument'].dirty || newMemberForm.controls['instrument'].touched)"
+                    
+                    formControlName="instrument"
+                >
+                    <option *ngFor="let instrument of instruments" [value]="instrument._id">{{instrument.name}}</option>
+                </select>
+            </div>
+
+            <div class="mb-3 form-control-wrapper d-inline-flex align-items-center date-wrapper">
+                <label for="birthDate">Data urodzenia</label>
+                <input
+                    (keyup)="getAge()"
+                    (change)="getAge()"
+                    id="birthDate"
+                    type="date"
+                    class="form-control"
+                    formControlName="birthDate"
+                    [class.error]="newMemberForm.controls['birthDate'].invalid && (newMemberForm.controls['birthDate'].dirty || newMemberForm.controls['birthDate'].touched)"
+                >
+            </div>
+
+            <ng-container *ngIf="newMemberForm.value.isChild">
+                <div class="mb-3 form-control-wrapper">
+                    <input type="text" class="form-control" placeholder="Imię i nazwisko opiekuna" formControlName="parentName">
+                </div>
+                <div class="mb-3 form-control-wrapper">
+                    <input type="text" class="form-control" placeholder="Telefon do opiekuna" formControlName="parentPhone">
+                </div>
+            </ng-container>
+        </form>     
+      
+        <div class="invalid">
+        </div>
+      
+        <div class="buttons-wrapper">
+          <button class="button-secondary" (click)="closeModal()">Anuluj</button>
+          <button *ngIf="!memberToEdit" class="button-primary" type="submit" form="newMemberForm" [disabled]="newMemberForm.status === 'INVALID'">Dodaj</button>
+          <button *ngIf="memberToEdit" class="button-primary" type="submit" form="newMemberForm" [disabled]="newMemberForm.status === 'INVALID'">Edytuj</button>
+        </div>
+      </div>
+      
+</div>

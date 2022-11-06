@@ -1,0 +1,87 @@
+<div class="table-wrapper">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" (click)="changeSorting('firstName')">
+          Imię
+          <img 
+            class="sorting-arrow"
+            [class.asc]="sorting.firstName === 'asc'"
+            [class.desc]="sorting.firstName === 'desc'" 
+            src="../../../assets/icons/arrow.svg"
+            alt="sorting-arrow"
+          >
+        </th>
+        <th scope="col" (click)="changeSorting('lastName')">
+          Nazwisko
+          <img 
+            class="sorting-arrow"
+            [class.asc]="sorting.lastName === 'asc'"
+            [class.desc]="sorting.lastName === 'desc'" 
+            src="../../../assets/icons/arrow.svg"
+            alt="sorting-arrow"
+          >
+        </th>
+        <th scope="col" (click)="changeSorting('instrument')">
+          Instrument
+          <img 
+            class="sorting-arrow"
+            [class.asc]="sorting.instrument === 'asc'"
+            [class.desc]="sorting.instrument === 'desc'" 
+            src="../../../assets/icons/arrow.svg"
+            alt="sorting-arrow"
+          >
+        </th>
+        <th scope="col" (click)="changeSorting('section')">
+          Sekcja
+          <img 
+            class="sorting-arrow"
+            [class.asc]="sorting.section === 'asc'"
+            [class.desc]="sorting.section === 'desc'" 
+            src="../../../assets/icons/arrow.svg"
+            alt="sorting-arrow"
+          >
+        </th>
+        <th scope="col">
+          Akcje
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngIf="members.length">
+      <tr *ngFor="let member of members; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{member.firstName}}</td>
+        <td>{{member.lastName}}</td>
+        <td>{{member.instrument.name}}</td>
+        <td>{{member.instrument.section.name}}</td>
+        <td class="action">
+          <button class="button button-small button-primary" (click)="editMemberisOpen=true; selectedMemberAction=member">E</button>
+          <button class="button button-small button-warning" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">X</button>
+          <button *ngIf="activeTab && activeTab.exMembers" class="button button-small button-primary"
+            (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member"><</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <app-confirmation
+    *ngIf="confirmationRemoveIsOpen"
+    [type]="'removeMember'"
+    [data]="selectedMemberAction"
+    (onConfirm)="removeMember(selectedMemberAction._id, selectedMemberAction.isActive)"
+    (onAbort)="confirmationRemoveIsOpen=false"
+  ></app-confirmation>
+
+<app-confirmation
+    *ngIf="confirmationRestoreIsOpen"
+    [type]="'restoreMember'"
+    [data]="selectedMemberAction"
+    (onConfirm)="restoreMember(selectedMemberAction._id)"
+    (onAbort)="confirmationRestoreIsOpen=false"
+  ></app-confirmation>
+
+  <app-modal-wrapper *ngIf="editMemberisOpen">
+    <app-add-member [memberToEdit]="selectedMemberAction" (onEditClose)="editMemberisOpen=false"></app-add-member>
+  </app-modal-wrapper>

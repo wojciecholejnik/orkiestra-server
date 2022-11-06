@@ -1,0 +1,7 @@
+<app-members-navigation></app-members-navigation>
+
+<!-- current members -->
+<app-members-table *ngIf="tabs.currentMembers" [membersType]="'currentMembers'"></app-members-table>
+
+<!-- ex members -->
+<app-members-table *ngIf="tabs.exMembers" [membersType]="'exMembers'"></app-members-table>

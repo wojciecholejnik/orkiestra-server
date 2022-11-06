@@ -1,0 +1,18 @@
+
+<div class="bookmarks">
+    <div class="bookmark-item" [class.active]="membersTabs.currentMembers" (click)="toggleActiveTab('currentMembers')">
+        Obecni członkowie
+    </div>
+    <div class="bookmark-item" [class.active]="membersTabs.exMembers" (click)="toggleActiveTab('exMembers')">
+        Byli członkowie
+    </div>
+</div>
+
+<div class="actions">
+    <button class="button-primary" (click)="openAddMember()">Dodaj członka</button>
+</div>
+
+
+<app-modal-wrapper *ngIf="addMemberIsOpen">
+    <app-add-member></app-add-member>
+</app-modal-wrapper>

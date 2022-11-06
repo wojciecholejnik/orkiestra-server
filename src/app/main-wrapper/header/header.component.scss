@@ -1,0 +1,84 @@
+@import'../../../global-styling/colors.scss';
+
+:host {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    background-color: $background-gray;
+    padding: 0 24px;
+}
+
+img#logo {
+    height: 70px;
+}
+
+.title {
+    color: $origin-blue;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 700;
+    cursor: default;
+}
+
+.user-menu {
+    position: relative;
+
+    svg {
+        height: 40px;
+        color: white;
+        fill: $origin-blue;
+
+        &:hover {
+            cursor: pointer;
+            fill: $origin-red;
+        }
+    }
+
+    .colabsable-wrapper {
+        position: absolute;
+        width: 150px;
+        right: -8px;
+        top: 51px;
+
+        border: 1px solid #EBEBEB;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 13px 23px #0000001a;
+        z-index: 1;
+
+        &::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-top: 1px solid #EBEBEB;
+            border-left: 1px solid #EBEBEB;
+            position: absolute;
+            right: 19.85px;
+            top: -6px;
+            transform: rotate(45deg);
+            background-color: #fff;
+        }
+    }
+
+    .menu {
+        padding: 0 5px;
+        
+        .menu-item {
+            padding: 5px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                cursor: pointer;
+                color: $origin-red;
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid #EBEBEB;
+            }
+        }
+    }
+
+}

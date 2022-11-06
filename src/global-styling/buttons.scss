@@ -1,0 +1,42 @@
+button {
+    font-size: 14px;
+    line-height: 19.07px;
+    font-weight: 600;
+    font-style: italic;
+    color: #fff;
+    background-color: $origin-blue;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 140px;
+    height: 40px;
+    border: none;
+
+    &.button-small {
+        min-width: 20px;
+        height: 20px;
+        padding: 0 4px;
+    }
+
+    &.button-secondary {
+        background-color: $background-white;
+        color: $font-black;
+        border: 1px solid $origin-blue;
+    }
+
+    &.button-warning {
+        background-color: $background-warning;
+        color: $font-white;
+    }
+
+    &:hover {
+        cursor:pointer;
+        color: $origin-red;
+        background-color: $font-white;
+        border: 1px solid $origin-blue;
+    }
+}

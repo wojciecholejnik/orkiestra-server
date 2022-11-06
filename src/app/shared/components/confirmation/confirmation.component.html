@@ -1,0 +1,14 @@
+<app-modal-wrapper>
+    <div class="action-modal">
+
+        <h2>Potwierdzenie</h2>
+
+        <p class="confirmation">{{confirmationText}}</p>
+
+        <div class="buttons-wrapper">
+            <button class="button-secondary" (click)="abort()">Anuluj</button>
+            <button (click)="confirm()">Potwierdź</button>
+        </div>
+
+    </div>
+</app-modal-wrapper>

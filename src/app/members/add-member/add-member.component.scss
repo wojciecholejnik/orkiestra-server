@@ -1,0 +1,44 @@
+form {
+    margin-top: 15px;
+    max-height: 550px;
+    overflow-y: auto;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+
+    .form-control-wrapper {
+        position: relative;
+
+        .validation-error {
+            top: 0;
+        }
+    }
+
+    input.error, select.error {
+        border-color: red;
+    }
+}
+
+.isChild-wrapper {
+    input {
+        margin-bottom: 0;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+    label {
+        margin-bottom: 0;
+        width: 125px;
+    }
+}
+
+.date-wrapper, .instrument-wrapper {
+    width: 100%;
+    input {
+        width: 135px;
+    }
+    label {
+        margin-bottom: 0;
+        width: 125px;
+    }
+}
