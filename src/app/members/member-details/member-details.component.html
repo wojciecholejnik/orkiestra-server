@@ -1,0 +1,77 @@
+<div *ngIf="memberData" class="main-wrapper">
+
+    <div class="name-wrapper">
+        <h2>{{memberData.firstName + ' ' + memberData.lastName}}</h2>
+    </div>
+    
+    <div class="instrument-info">
+        <table class="table small-table">
+            <thead>
+                <tr>Info o instrumencie</tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>instrument</th>
+                <th>{{memberData.instrument.name}}</th>
+              </tr>
+              <tr>
+                <th>sekcja</th>
+                <th>{{memberData.instrument.section.name}}</th>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <div class="contact-info">
+        <table class="table small-table">
+            <thead>
+                <tr>Info kontaktowe</tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>telefon</th>
+                    <th>{{memberData.phone ? memberData.phone : '---'}}</th>
+                </tr>
+                <tr>
+                    <th>email</th>
+                    <th>{{memberData.email ? memberData.email : '---'}}</th>
+                </tr>
+                <tr>
+                    <th>ulica i nr domu</th>
+                    <th>{{memberData.address1 ? memberData.address1 : '---'}}</th>
+                </tr>
+                <tr>
+                    <th>kod pocztowy</th>
+                    <th>{{memberData.address2 ? memberData.address2 : '---'}}</th>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+
+    <div class="member-info">
+        <table class="table small-table">
+            <thead>
+                <tr>Info osobowe</tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>data urodzenia</td>
+                <th>{{memberData.birthDate ? memberData.birthDate : '---'}}</th>
+              </tr>
+              <tr>
+                <td>wiek</td>
+                <th>{{memberData.birthDate ? getAge(memberData.birthDate) : '---'}}</th>
+              </tr>
+              <tr>
+                <td>data dołączenia</td>
+                <th>{{memberData.joiningDate ? memberData.joiningDate : '---'}}</th>
+              </tr>
+              <tr>
+                <td>data dołączenia</td>
+                <th>{{memberData.joiningDate ? getAge(memberData.joiningDate) : '---'}}</th>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+

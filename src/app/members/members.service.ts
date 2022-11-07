@@ -18,6 +18,11 @@ export class MembersService {
     currentMembers: true,
     exMembers: false,
   } as MembersTabs);
+  // temporary ID
+  public memberDetailsAreOpen: BehaviorSubject<string> = new BehaviorSubject('63679e3c5c83ed6633e28d7e');
+  // temorary false
+  public membersTableIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
+
   public members: BehaviorSubject<Member[]> = new BehaviorSubject([] as Member[]);
   public addMembersIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
   public getMembers: Subject<any> = new Subject();
@@ -56,6 +61,10 @@ export class MembersService {
 
   restoreMember(id: string) {
     return this.http.post<newMemberDTO>(`${this.apiHost}/musician/${id}`, {isActive: true})
+  }
+
+  getMemberDetails(id: string) {
+    return this.http.get<any>(`${this.apiHost}/musician/${id}`);
   }
 
 }

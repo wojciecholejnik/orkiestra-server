@@ -10,16 +10,23 @@ import { MembersService } from '../members.service';
 })
 export class MembersNavigationComponent implements OnInit, OnDestroy {
 
-  membersTabs: MembersTabs = {} as MembersTabs;
   activeTabSubscription?: Subscription;
-  addMemberIsOpen: boolean = false;
   addMemberIsOpenSubscription?: Subscription;
+  membersTableViewSubsscription?: Subscription;
+  memberDetailsViewSubscription?: Subscription;
+  membersTabs: MembersTabs = {} as MembersTabs;
+  addMemberIsOpen: boolean = false;
+  membersTableIsOpen = true;
+  memberDetailsAreOpen = '';
+
 
   constructor(private membersService: MembersService) { }
 
   ngOnInit(): void {
     this.activeTabSubscription = this.membersService.activeTab.subscribe(tabs => this.membersTabs = tabs);
     this.addMemberIsOpenSubscription = this.membersService.addMembersIsOpen.subscribe(value => this.addMemberIsOpen = value);
+    this.memberDetailsViewSubscription = this.membersService.memberDetailsAreOpen.subscribe(state => this.memberDetailsAreOpen = state);
+    this.membersTableViewSubsscription = this.membersService.membersTableIsOpen.subscribe(state => this.membersTableIsOpen = state);
   }
 
   toggleActiveTab(tabtoChange: 'currentMembers' | 'exMembers'){
@@ -36,8 +43,15 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
     this.membersService.addMembersIsOpen.next(true);
   }
 
+  closeDetails(){
+    this.membersService.memberDetailsAreOpen.next('');
+    this.membersService.membersTableIsOpen.next(true);
+  }
+
   ngOnDestroy(): void {
     this.addMemberIsOpenSubscription?.unsubscribe();
     this.activeTabSubscription?.unsubscribe();
+    this.membersTableViewSubsscription?.unsubscribe();
+    this.memberDetailsViewSubscription?.unsubscribe();
   }
 }

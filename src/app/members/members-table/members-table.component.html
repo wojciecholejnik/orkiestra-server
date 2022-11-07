@@ -68,11 +68,11 @@
     </thead>
     <tbody *ngIf="members.length">
       <tr *ngFor="let member of filteredMembers; let i = index">
-        <th scope="row">{{i+1}}</th>
-        <td>{{member.firstName}}</td>
-        <td>{{member.lastName}}</td>
-        <td>{{member.instrument.name}}</td>
-        <td>{{member.instrument.section.name}}</td>
+        <th (click)="goToDetails(member._id)" scope="row">{{i+1}}</th>
+        <td (click)="goToDetails(member._id)">{{member.firstName}}</td>
+        <td (click)="goToDetails(member._id)">{{member.lastName}}</td>
+        <td (click)="goToDetails(member._id)">{{member.instrument.name}}</td>
+        <td (click)="goToDetails(member._id)">{{member.instrument.section.name}}</td>
         <td class="action">
           <button class="button button-small button-primary" (click)="editMemberisOpen=true; selectedMemberAction=member">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -96,13 +96,13 @@
   </table>
 </div>
 
-  <app-confirmation
-    *ngIf="confirmationRemoveIsOpen"
-    [type]="'removeMember'"
-    [data]="selectedMemberAction"
-    (onConfirm)="removeMember(selectedMemberAction._id, selectedMemberAction.isActive)"
-    (onAbort)="confirmationRemoveIsOpen=false"
-  ></app-confirmation>
+<app-confirmation
+  *ngIf="confirmationRemoveIsOpen"
+  [type]="'removeMember'"
+  [data]="selectedMemberAction"
+  (onConfirm)="removeMember(selectedMemberAction._id, selectedMemberAction.isActive)"
+  (onAbort)="confirmationRemoveIsOpen=false"
+></app-confirmation>
 
 <app-confirmation
     *ngIf="confirmationRestoreIsOpen"

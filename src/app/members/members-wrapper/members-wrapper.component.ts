@@ -10,21 +10,32 @@ import { MembersService } from '../members.service';
 })
 export class MembersWrapperComponent implements OnInit, OnDestroy {
 
-  membersSubscription?: Subscription;
   membersTabsSubscription?: Subscription;
+  membersTableViewSubsscription?: Subscription;
+  memberDetailsViewSubscription?: Subscription;
   tabs: MembersTabs = {} as MembersTabs;
+  membersTableIsOpen = true;
+  memberDetailsAreOpen = '';
 
   constructor(private membersService: MembersService) { }
 
   ngOnInit(): void {
+    this.membersTableViewSubsscription = this.membersService.membersTableIsOpen.subscribe(state => this.membersTableIsOpen = state);
     this.membersTabsSubscription = this.membersService.activeTab.subscribe(tabs => {
       this.tabs = tabs;
     });
+    this.memberDetailsViewSubscription = this.membersService.memberDetailsAreOpen.subscribe(state => this.memberDetailsAreOpen = state)
+  }
+
+  closeDetails(){
+    this.membersService.memberDetailsAreOpen.next('');
+    this.membersService.membersTableIsOpen.next(true);
   }
 
   ngOnDestroy(): void {
-      this.membersSubscription?.unsubscribe();
-      this.membersTabsSubscription?.unsubscribe();
+    this.membersTableViewSubsscription?.unsubscribe();
+    this.memberDetailsViewSubscription?.unsubscribe();
+    this.membersTabsSubscription?.unsubscribe();
   }
 
 }

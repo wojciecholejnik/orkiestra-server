@@ -175,4 +175,9 @@ export class MembersTableComponent implements OnInit, OnDestroy {
       this.members = [];
   }
 
+  goToDetails(id: string) {
+    this.membersService.membersTableIsOpen.next(false);
+    this.membersService.memberDetailsAreOpen.next(id);
+  }
+
 }

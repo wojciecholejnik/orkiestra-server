@@ -1,16 +1,20 @@
 
-<div class="bookmarks">
-    <div class="bookmark-item" [class.active]="membersTabs.currentMembers" (click)="toggleActiveTab('currentMembers')">
-        Obecni członkowie
+<ng-container *ngIf="membersTableIsOpen">
+    <div class="bookmarks">
+        <div class="bookmark-item" [class.active]="membersTabs.currentMembers" (click)="toggleActiveTab('currentMembers')">
+            Obecni członkowie
+        </div>
+        <div class="bookmark-item" [class.active]="membersTabs.exMembers" (click)="toggleActiveTab('exMembers')">
+            Byli członkowie
+        </div>
     </div>
-    <div class="bookmark-item" [class.active]="membersTabs.exMembers" (click)="toggleActiveTab('exMembers')">
-        Byli członkowie
+    
+    <div class="actions">
+        <button class="button-primary" (click)="openAddMember()">Dodaj członka</button>
     </div>
-</div>
+</ng-container>
 
-<div class="actions">
-    <button class="button-primary" (click)="openAddMember()">Dodaj członka</button>
-</div>
+<button *ngIf="memberDetailsAreOpen" (click)="closeDetails()">Powrót</button>
 
 
 <app-modal-wrapper *ngIf="addMemberIsOpen">
