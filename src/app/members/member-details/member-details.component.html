@@ -11,11 +11,11 @@
             </thead>
             <tbody>
               <tr>
-                <th>instrument</th>
+                <td>instrument</td>
                 <th>{{memberData.instrument.name}}</th>
               </tr>
               <tr>
-                <th>sekcja</th>
+                <td>sekcja</td>
                 <th>{{memberData.instrument.section.name}}</th>
               </tr>
             </tbody>
@@ -29,19 +29,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <th>telefon</th>
+                    <td>telefon</td>
                     <th>{{memberData.phone ? memberData.phone : '---'}}</th>
                 </tr>
                 <tr>
-                    <th>email</th>
+                    <td>email</td>
                     <th>{{memberData.email ? memberData.email : '---'}}</th>
                 </tr>
                 <tr>
-                    <th>ulica i nr domu</th>
+                    <td>ulica i nr domu</td>
                     <th>{{memberData.address1 ? memberData.address1 : '---'}}</th>
                 </tr>
                 <tr>
-                    <th>kod pocztowy</th>
+                    <td>kod pocztowy</td>
                     <th>{{memberData.address2 ? memberData.address2 : '---'}}</th>
                 </tr>
             </tbody>
@@ -56,19 +56,19 @@
             <tbody>
               <tr>
                 <td>data urodzenia</td>
-                <th>{{memberData.birthDate ? memberData.birthDate : '---'}}</th>
+                <th>{{memberData.birthDate}}</th>
               </tr>
               <tr>
                 <td>wiek</td>
-                <th>{{memberData.birthDate ? getAge(memberData.birthDate) : '---'}}</th>
+                <th>{{getAge(memberData.birthDate)}}</th>
               </tr>
               <tr>
                 <td>data dołączenia</td>
-                <th>{{memberData.joiningDate ? memberData.joiningDate : '---'}}</th>
+                <th>{{memberData.joiningDate | date:'yyyy-MM-dd'}}</th>
               </tr>
               <tr>
-                <td>data dołączenia</td>
-                <th>{{memberData.joiningDate ? getAge(memberData.joiningDate) : '---'}}</th>
+                <td>staż</td>
+                <th>{{getAge(memberData.joiningDate)}}</th>
               </tr>
             </tbody>
           </table>

@@ -6,10 +6,7 @@ import { MembersNavigationComponent } from './members-navigation/members-navigat
 import { MembersTableComponent } from './members-table/members-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddMemberComponent } from './add-member/add-member.component';
-import { DatePipe } from '@angular/common';
 import { MemberDetailsComponent } from './member-details/member-details.component';
-
-
 
 @NgModule({
   declarations: [
@@ -17,7 +14,7 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
     MembersNavigationComponent,
     MembersTableComponent,
     AddMemberComponent,
-    // MemberDetailsComponent
+    MemberDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +24,6 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
   ],
   exports: [
     MembersWrapperComponent
-  ],
-  // providers: [DatePipe]
+  ]
 })
 export class MembersModule { }

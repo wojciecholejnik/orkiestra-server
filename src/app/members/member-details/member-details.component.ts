@@ -1,5 +1,5 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { DatePipe } from '@c8y/ngx-components';
 import { Subscription } from 'rxjs';
 import { Member } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
@@ -7,7 +7,8 @@ import { MembersService } from '../members.service';
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
-  styleUrls: ['./member-details.component.scss']
+  styleUrls: ['./member-details.component.scss'],
+  providers: [DatePipe]
 })
 export class MemberDetailsComponent implements OnInit, OnDestroy {
 
@@ -16,7 +17,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
   memberData: Member = {} as Member;
   
 
-  constructor(private membersService: MembersService) { }
+  constructor(private membersService: MembersService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.detailsSubscription = this.membersService.getMemberDetails(this.id).subscribe((data) => {

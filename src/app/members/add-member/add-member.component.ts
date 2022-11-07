@@ -33,7 +33,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
     parentPhone: new FormControl(null),
     parentName: new FormControl(''),
     birthDate: new FormControl('', [Validators.required]),
-    joiningDate: new FormControl(this.datePipe.transform(Date.now(), 'yyyy-MM-dd'), [Validators.required]),
+    joiningDate: new FormControl(this.memberToEdit ? this.memberToEdit.joiningDate : this.datePipe.transform(Date.now(), 'yyyy-MM-dd'), [Validators.required]),
   });
   
   constructor(private membersService: MembersService, private datePipe: DatePipe) { }
