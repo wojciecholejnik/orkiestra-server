@@ -16,10 +16,27 @@ button {
     height: 40px;
     border: none;
 
+    &:hover {
+        cursor:pointer;
+        color: $origin-red;
+        background-color: $font-white;
+        border: 1px solid $origin-blue;
+        svg path {
+            fill: $origin-blue;
+        }
+
+    }
+
     &.button-small {
-        min-width: 20px;
-        height: 20px;
-        padding: 0 4px;
+        min-width: unset;
+        width: 30px;
+        height: 22px;
+
+        svg {
+            height: 13px;
+            width: 15px;
+        }
+
     }
 
     &.button-secondary {
@@ -31,12 +48,11 @@ button {
     &.button-warning {
         background-color: $background-warning;
         color: $font-white;
+        &:hover {
+            background-color: $font-white;
+            border: 1px solid $font-warning;
+        }
     }
 
-    &:hover {
-        cursor:pointer;
-        color: $origin-red;
-        background-color: $font-white;
-        border: 1px solid $origin-blue;
-    }
+
 }
