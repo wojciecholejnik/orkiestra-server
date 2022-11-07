@@ -116,6 +116,7 @@ export class MembersTableComponent implements OnInit, OnDestroy {
       this.membersService.getActiveMembers().subscribe(currentMembers => {
         this.members = currentMembers;
         this.filter();
+        this.changeSorting('firstName');
         this.changeSorting('lastName');
         // this.sort('asc', 'lastName');
       });
@@ -123,6 +124,7 @@ export class MembersTableComponent implements OnInit, OnDestroy {
       this.membersService.getExMembers().subscribe(exMembers => {
         this.members = exMembers;
         this.filter();
+        this.changeSorting('firstName');
         this.changeSorting('lastName');
         // this.sort('asc', 'lastName');
       });

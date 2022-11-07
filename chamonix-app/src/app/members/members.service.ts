@@ -19,9 +19,9 @@ export class MembersService {
     exMembers: false,
   } as MembersTabs);
   // temporary ID
-  public memberDetailsAreOpen: BehaviorSubject<string> = new BehaviorSubject('63679e3c5c83ed6633e28d7e');
+  public memberDetailsAreOpen: BehaviorSubject<string> = new BehaviorSubject('');
   // temorary false
-  public membersTableIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
+  public membersTableIsOpen: BehaviorSubject<any> = new BehaviorSubject(true);
 
   public members: BehaviorSubject<Member[]> = new BehaviorSubject([] as Member[]);
   public addMembersIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
