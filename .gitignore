@@ -1,45 +1,46 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/out-tsc
+chamonix-app/dist
+chamonix-app/tmp
+chamonix-app/out-tsc
 # Only exists if Bazel was run
-/bazel-out
+chamonix-app/bazel-out
 
 # dependencies
-/node_modules
+chamonix-app/node_modules
+server/node_modules
 
 # profiling files
-chrome-profiler-events*.json
+chamonix-app/chrome-profiler-events*.json
 
 # IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+chamonix-app/.idea
+chamonix-app/.project
+chamonix-app/.classpath
+chamonix-app/.c9/
+chamonix-app/*.launch
+chamonix-app/.settings/
+chamonix-app/*.sublime-workspace
 
 # IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+chamonix-app/.vscode/*
+chamonix-app/!.vscode/settings.json
+chamonix-app/!.vscode/tasks.json
+chamonix-app/!.vscode/launch.json
+chamonix-app/!.vscode/extensions.json
+chamonix-app/.history/*
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
+chamonix-app/.sass-cache
+chamonix-app/connect.lock
+chamonix-app/coverage
+chamonix-app//libpeerconnection.log
+chamonix-app/npm-debug.log
+chamonix-app/yarn-error.log
+chamonix-app/testem.log
+chamonix-app//typings
 
 # System Files
-.DS_Store
-Thumbs.db
+chamonix-app/.DS_Store
+chamonix-app/Thumbs.db
