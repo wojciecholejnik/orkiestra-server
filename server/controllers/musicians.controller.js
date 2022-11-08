@@ -115,6 +115,56 @@ exports.readExMusicians = async (req, res) => {
   }
 }
 
+exports.readMainStaffMuscians = async (req, res) => {
+  try {
+    const musicians = await Musician.find({isActive: true, isStudent: false}).populate([
+      {
+        path: 'instrument', 
+        model: Instrument,
+        populate: {
+          path: 'section', 
+          model: Section,
+        }
+      },
+      
+    ]);
+  
+    if (!musicians.length) {
+      res.status(404).json({ message: 'not found !!'});
+    } else {
+      res.json(musicians);
+    }
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.readMainStudentsMusicians = async (req, res) => {
+  try {
+    const musicians = await Musician.find({isActive: true, isStudent: true}).populate([
+      {
+        path: 'instrument', 
+        model: Instrument,
+        populate: {
+          path: 'section', 
+          model: Section,
+        }
+      },
+      
+    ]);
+  
+    if (!musicians.length) {
+      res.status(404).json({ message: 'not found !!'});
+    } else {
+      res.json(musicians);
+    }
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
 exports.updateMusician = async (req, res) => {
   try {
     let musician = await Musician.findOne({_id: req.params.id});
@@ -132,6 +182,7 @@ exports.updateMusician = async (req, res) => {
         parentName: req.body.hasOwnProperty('parentName') ? req.body.parentName : musician.parentName,
         parentPhone: req.body.hasOwnProperty('parentPhone') ? req.body.parentPhone : musician.parentPhone,
         isActive: req.body.hasOwnProperty('isActive') ? req.body.isActive : musician.isActive,
+        isStudent: req.body.hasOwnProperty('isStudent') ? req.body.isStudent : musician.isStudent,
       }});
 
       musician = await Musician.findOne({_id: req.params.id}).populate([

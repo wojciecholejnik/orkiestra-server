@@ -13,7 +13,8 @@ const musicianSchema = new mongoose.Schema({
   parentPhone: {type: Number, required: false},
   isActive: {type: Boolean, required: true},
   joiningDate: {type: String, required: true },
-  birthDate: {type: String, required: true}
+  birthDate: {type: String, required: true},
+  isStudent: {type: Boolean}
 });
 
 

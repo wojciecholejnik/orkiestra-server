@@ -33,6 +33,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
         parentName: new FormControl(''),
         birthDate: new FormControl('', [Validators.required]),
         joiningDate: new FormControl(this.datePipe.transform(Date.now(), 'yyyy-MM-dd'), [Validators.required]),
+        isStudent: new FormControl(false)
     });
   
     constructor(private membersService: MembersService, private datePipe: DatePipe) { }
@@ -56,6 +57,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
             this.newMemberForm.controls.parentName.setValue(this.memberToEdit.parentName);
             this.newMemberForm.controls.birthDate.setValue(this.datePipe.transform(new Date(this.memberToEdit.birthDate), 'yyyy-MM-dd'));
             this.newMemberForm.controls.joiningDate.setValue(this.datePipe.transform(new Date(this.memberToEdit.joiningDate), 'yyyy-MM-dd'));
+            this.newMemberForm.controls.isStudent.setValue(this.memberToEdit.isStudent);
         }
   }
 

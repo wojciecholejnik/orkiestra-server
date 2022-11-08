@@ -97,6 +97,15 @@
                     [class.error]="newMemberForm.controls['birthDate'].invalid && (newMemberForm.controls['birthDate'].dirty || newMemberForm.controls['birthDate'].touched)"
                 >
             </div>
+            <div class="mb-3 form-control-wrapper d-inline-flex align-items-center date-wrapper isStudent">
+                <label for="birthDate">Uczeń</label>
+                <input
+                    id="isStudent"
+                    type="checkbox"
+                    class="form-control"
+                    formControlName="isStudent"
+                >
+            </div>
 
             <ng-container *ngIf="newMemberForm.value.isChild">
                 <div class="mb-3 form-control-wrapper">

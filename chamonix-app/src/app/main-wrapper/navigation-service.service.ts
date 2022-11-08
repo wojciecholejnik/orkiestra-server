@@ -7,10 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 export class NavigationService {
 
     activeModule: BehaviorSubject<any> = new BehaviorSubject([
-        {name: 'Członkowie', isActive: false},
+        {name: 'Członkowie', isActive: true},
         {name: 'Dziennik', isActive: false},
         {name: 'Kalendarz', isActive: false},
-        {name: 'Zasoby', isActive: true},
+        {name: 'Zasoby', isActive: false},
     ]);
 
   constructor() { }

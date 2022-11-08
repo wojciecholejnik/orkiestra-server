@@ -6,5 +6,11 @@
 <!-- ex members -->
 <app-members-table *ngIf="tabs.exMembers && membersTableIsOpen" [membersType]="'exMembers'"></app-members-table>
 
+<!-- main staff members -->
+<app-members-table *ngIf="tabs.mainStaff && membersTableIsOpen" [membersType]="'mainStaff'"></app-members-table>
+
+<!-- main staff members -->
+<app-members-table *ngIf="tabs.students && membersTableIsOpen" [membersType]="'students'"></app-members-table>
+
 <!-- member details -->
 <app-member-details [id]="memberDetailsAreOpen" *ngIf="memberDetailsAreOpen"></app-member-details>

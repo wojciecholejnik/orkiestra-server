@@ -17,6 +17,8 @@ export class MembersService {
     public activeTab: BehaviorSubject<MembersTabs> = new BehaviorSubject({
         currentMembers: true,
         exMembers: false,
+        students: false,
+        mainStaff: false,
     } as MembersTabs);
     public memberDetailsAreOpen: BehaviorSubject<string> = new BehaviorSubject('');
     public membersTableIsOpen: BehaviorSubject<any> = new BehaviorSubject(true);
@@ -35,6 +37,14 @@ export class MembersService {
 
     getExMembers(): Observable<Member[]> {
         return this.http.get<any>(`${this.apiHost}/musicians/ex`);
+    }
+
+    getStudentsMembers(): Observable<Member[]> {
+        return this.http.get<any>(`${this.apiHost}/musicians/students`);
+    }
+
+    getMainStaffMembers(): Observable<Member[]> {
+        return this.http.get<any>(`${this.apiHost}/musicians/main-staff`);
     }
 
     getInstruments(): Observable<Instrument[]> {

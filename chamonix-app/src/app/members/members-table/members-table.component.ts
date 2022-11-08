@@ -43,9 +43,6 @@ export class MembersTableComponent implements OnInit, OnDestroy {
             this.activeTab = tabs;
             this.getMembers();
         });
-        this.membersService.getMembers.subscribe(() => {
-            this.getMembers();
-        })
     }
 
     changeSorting(clickedKey: string) {
@@ -117,10 +114,20 @@ export class MembersTableComponent implements OnInit, OnDestroy {
             this.membersService.getActiveMembers().subscribe(currentMembers => {
                 this.handleGetMembers(currentMembers);
             });
-            } else if (this.activeTab && this.activeTab.exMembers) {
+        } else if (this.activeTab && this.activeTab.exMembers) {
             this.membersService.getExMembers().subscribe(exMembers => {
                 this.handleGetMembers(exMembers);
-            });
+            }); 
+        } else if (this.activeTab && this.activeTab.mainStaff) {
+            console.log('tu')
+            this.membersService.getMainStaffMembers().subscribe(mainStaffMembers => {
+                this.handleGetMembers(mainStaffMembers);
+            }); 
+        } else if (this.activeTab && this.activeTab.students) {
+            console.log('tu')
+            this.membersService.getStudentsMembers().subscribe(studentsMembers => {
+                this.handleGetMembers(studentsMembers);
+            }); 
         }
     }
 

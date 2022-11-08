@@ -6,6 +6,8 @@ export interface NavOption {
 export interface MembersTabs {
     currentMembers: boolean,
     exMembers: boolean,
+    students: boolean,
+    mainStaff: boolean,
     [key: string]: boolean
 }
 
@@ -32,7 +34,8 @@ export interface Member {
     parentPhone: number | null,
     parentName: string,
     joiningDate: Date,
-    birthDate: Date
+    birthDate: Date,
+    isStudent: boolean,
     [key: string]: any
 }
 
@@ -61,7 +64,8 @@ export interface newMemberDTO {
     parentPhone: number | null,
     parentName: string,
     joiningDate: Date,
-    birthDate: Date
+    birthDate: Date,
+    isStudent: boolean
 }
 
 export type Sorting = 'asc' | 'desc' | '';

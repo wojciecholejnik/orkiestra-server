@@ -29,7 +29,7 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
         this.membersTableViewSubsscription = this.membersService.membersTableIsOpen.subscribe(state => this.membersTableIsOpen = state);
     }
 
-    toggleActiveTab(tabtoChange: 'currentMembers' | 'exMembers'){
+    toggleActiveTab(tabtoChange: string){
         for (let key in this.membersTabs) {
             if (key !== tabtoChange) {
                 this.membersTabs[key] = false;

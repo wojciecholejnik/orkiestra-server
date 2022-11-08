@@ -19,17 +19,12 @@ form {
     }
 }
 
-.isChild-wrapper {
-    input {
-        margin-bottom: 0;
+.isStudent {
+    input#isStudent {
         width: 20px;
         height: 20px;
-        margin-right: 10px;
     }
-    label {
-        margin-bottom: 0;
-        width: 125px;
-    }
+
 }
 
 .date-wrapper, .instrument-wrapper {
