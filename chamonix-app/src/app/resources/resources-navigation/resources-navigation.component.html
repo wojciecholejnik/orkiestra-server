@@ -1,0 +1,31 @@
+
+<ng-container *ngIf="true">
+    <div class="bookmarks">
+        <div class="bookmark-item" [class.active]="activeTab.uniforms" (click)="toggleActiveTab('uniforms')">
+            Umundurowanie
+        </div>
+        <div class="bookmark-item" [class.active]="activeTab.instruments" (click)="toggleActiveTab('instruments')">
+            Instrumenty
+        </div>
+        <div class="bookmark-item" [class.active]="activeTab.sections" (click)="toggleActiveTab('sections')">
+            Sekcje
+        </div>
+        <div class="bookmark-item" [class.active]="activeTab.instructors" (click)="toggleActiveTab('instructors')">
+            Instruktorzy
+        </div>
+        <div class="bookmark-item" [class.active]="activeTab.others" (click)="toggleActiveTab('others')">
+            Pozostałe
+        </div>
+    </div>
+    
+    <div class="actions">
+        <button class="button-primary">Dodaj rzecz</button>
+    </div>
+</ng-container>
+
+<!-- <button *ngIf="memberDetailsAreOpen" (click)="closeDetails()">Powrót</button> -->
+
+
+<!-- <app-modal-wrapper *ngIf="addMemberIsOpen">
+    <app-add-member></app-add-member>
+</app-modal-wrapper> -->

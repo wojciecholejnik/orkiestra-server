@@ -1,6 +1,6 @@
 <div *ngIf="memberData" class="main-wrapper">
 
-    <div class="name-wrapper">
+    <div *ngIf="!loading" class="name-wrapper">
         <div class="button-container">
             <button class="button button-small" (click)="editMemberisOpen=true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -11,7 +11,7 @@
       <h2>{{memberData.firstName + ' ' + memberData.lastName}}</h2>
     </div>
     
-    <div class="content-container">
+    <div *ngIf="!loading" class="content-container">
 
         <div>Informacje o zasobach </div>
         <div class="right-table-container">
@@ -52,6 +52,14 @@
                         <td>kod pocztowy</td>
                         <th>{{memberData.address2 ? memberData.address2 : '---'}}</th>
                     </tr>
+                    <tr *ngIf="memberData.parentName">
+                        <td>opiekun</td>
+                        <th>{{memberData.parentName}}</th>
+                    </tr>
+                    <tr *ngIf="memberData.parentPhone">
+                        <td>opiekun</td>
+                        <th>{{memberData.parentPhone}}</th>
+                    </tr>
                 </tbody>
 
 
@@ -82,6 +90,6 @@
 </div>
 
 <app-modal-wrapper *ngIf="editMemberisOpen">
-    <app-add-member [memberToEdit]="memberData" (onEditClose)="editMemberisOpen=false"></app-add-member>
+    <app-add-member [memberToEdit]="memberData" (onEditClose)="closeModalAndGetData()"></app-add-member>
 </app-modal-wrapper>
 

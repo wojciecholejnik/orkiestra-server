@@ -9,6 +9,15 @@ export interface MembersTabs {
     [key: string]: boolean
 }
 
+export interface ResourcesTabs {
+    instruments: boolean,
+    uniforms: boolean,
+    instructors: boolean,
+    sections: boolean,
+    others: boolean,
+    [key: string]: boolean
+}
+
 export interface Member {
     _id: string,
     firstName: string,

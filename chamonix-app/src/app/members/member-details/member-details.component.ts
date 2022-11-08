@@ -16,13 +16,19 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     detailsSubscription?: Subscription;
     memberData: Member = {} as Member;
     editMemberisOpen = false;
+    loading = true;
   
 
   constructor(private membersService: MembersService, private datePipe: DatePipe) { }
 
     ngOnInit(): void {
+        this.getData();
+    }
+
+    getData(){
         this.detailsSubscription = this.membersService.getMemberDetails(this.id).subscribe((data) => {
             this.memberData = data;
+            this.loading = false;
         });
     }
 
@@ -39,5 +45,10 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
             age--;
         }
         return age
+    }
+
+    closeModalAndGetData(){
+        this.getData();
+        this.editMemberisOpen = false;
     }
 }

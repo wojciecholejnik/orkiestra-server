@@ -4,6 +4,7 @@ import { MainWrapperComponent } from './main-wrapper.component';
 import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MembersModule } from '../members/members.module';
+import { ResourcesModule } from '../resources/resources.module';
 
 
 
@@ -15,7 +16,8 @@ import { MembersModule } from '../members/members.module';
     ],
     imports: [
         CommonModule,
-        MembersModule
+        MembersModule,
+        ResourcesModule
     ],
     exports: [
         MainWrapperComponent

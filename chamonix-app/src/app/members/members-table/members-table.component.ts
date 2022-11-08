@@ -16,6 +16,7 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     activeTab?: MembersTabs;
     activeMembersSubscription?: Subscription;
     exMembersSubscription?: Subscription;
+    loading = true;
     sorting: {[key: string]: Sorting} = {
         firstName: '',
         lastName: 'desc',
@@ -114,19 +115,21 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     getMembers(){
         if (this.activeTab && this.activeTab.currentMembers) {
             this.membersService.getActiveMembers().subscribe(currentMembers => {
-                this.members = currentMembers;
-                this.filter();
-                this.changeSorting('firstName');
-                this.changeSorting('lastName');
+                this.handleGetMembers(currentMembers);
             });
             } else if (this.activeTab && this.activeTab.exMembers) {
             this.membersService.getExMembers().subscribe(exMembers => {
-                this.members = exMembers;
-                this.filter();
-                this.changeSorting('firstName');
-                this.changeSorting('lastName');
+                this.handleGetMembers(exMembers);
             });
         }
+    }
+
+    handleGetMembers(res: Member[]) {
+        this.members = res;
+        this.filter();
+        this.changeSorting('firstName');
+        this.changeSorting('lastName');
+        this.loading = false;
     }
 
     removeMember(id: string, isActiveMember: boolean) {
