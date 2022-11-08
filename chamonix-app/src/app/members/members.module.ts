@@ -9,21 +9,21 @@ import { AddMemberComponent } from './add-member/add-member.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
 
 @NgModule({
-  declarations: [
-    MembersWrapperComponent,
-    MembersNavigationComponent,
-    MembersTableComponent,
-    AddMemberComponent,
-    MemberDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule
-  ],
-  exports: [
-    MembersWrapperComponent
-  ]
+    declarations: [
+        MembersWrapperComponent,
+        MembersNavigationComponent,
+        MembersTableComponent,
+        AddMemberComponent,
+        MemberDetailsComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule
+    ],
+    exports: [
+        MembersWrapperComponent
+    ]
 })
 export class MembersModule { }

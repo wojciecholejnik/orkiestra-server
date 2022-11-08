@@ -8,17 +8,17 @@ import { MembersModule } from '../members/members.module';
 
 
 @NgModule({
-  declarations: [
-    MainWrapperComponent,
-    HeaderComponent,
-    NavigationComponent
-  ],
-  imports: [
-    CommonModule,
-    MembersModule
-  ],
-  exports: [
-    MainWrapperComponent
-  ]
+    declarations: [
+        MainWrapperComponent,
+        HeaderComponent,
+        NavigationComponent
+    ],
+    imports: [
+        CommonModule,
+        MembersModule
+    ],
+    exports: [
+        MainWrapperComponent
+    ]
 })
 export class MainWrapperModule { }

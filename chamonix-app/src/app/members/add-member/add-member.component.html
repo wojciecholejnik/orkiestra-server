@@ -114,7 +114,7 @@
         <div class="buttons-wrapper">
           <button class="button-secondary" (click)="closeModal()">Anuluj</button>
           <button *ngIf="!memberToEdit" class="button-primary" type="submit" form="newMemberForm" [disabled]="newMemberForm.status === 'INVALID'">Dodaj</button>
-          <button *ngIf="memberToEdit" class="button-primary" type="submit" form="newMemberForm" [disabled]="newMemberForm.status === 'INVALID'">Edytuj</button>
+          <button *ngIf="memberToEdit" class="button-primary" type="submit" form="newMemberForm" [disabled]="newMemberForm.status === 'INVALID'">Zapisz</button>
         </div>
       </div>
       
