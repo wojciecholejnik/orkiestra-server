@@ -4,12 +4,56 @@
     padding: 16px 24px;
 }
 
+button {
+
+    width: 40px;
+    height: 25px;
+
+    svg {
+        height: 20px;
+    }
+}
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-table-container {
+    overflow-y: auto;
+    max-height: calc(100vh - 230px);
+    margin-top: 16px;
+}
+
 table.small-table {
-    width: 300px;
+    width: 400px;
+
+    thead {
+
+        &:first-child th {
+            height: 40px;
+        }
+
+        th {
+            height: 85px;
+            display: flex;
+            align-items: flex-end;
+            width: 175px;
+            border-top: unset;
+        }
+    }
 }
 
 .name-wrapper {
-    text-align: end;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+
+    h2 {
+        margin: 0;
+    }
 }
 
 // .instrument-info {

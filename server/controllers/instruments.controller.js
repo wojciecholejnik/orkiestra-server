@@ -20,7 +20,26 @@ exports.readInstruments = async (req, res) => {
     if (!instruments.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      res.json(instruments);
+      const sortedInstruments = instruments.sort((a, b) => a.name.localeCompare(b.name));
+      res.json(sortedInstruments);
+    }
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.readInstrumentsBySection = async (req, res) => {
+  const sectionId = req.params.id;
+  console.log(sectionId)
+  try {
+    const instruments = await Instrument.find({section: sectionId});
+  
+    if (!instruments.length) {
+      res.status(404).json({ message: 'not found !!'});
+    } else {
+      const sortedInstruments = instruments.sort((a, b) => a.name.localeCompare(b.name));
+      res.json(sortedInstruments);
     }
 
   } catch(err) {

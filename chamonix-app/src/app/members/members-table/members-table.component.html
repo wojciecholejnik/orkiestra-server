@@ -1,99 +1,99 @@
 <div class="table-wrapper">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col" (click)="changeSorting('firstName')">
-          Imię
-          <img 
-            class="sorting-arrow"
-            [class.asc]="sorting.firstName === 'asc'"
-            [class.desc]="sorting.firstName === 'desc'" 
-            src="../../../assets/icons/arrow.svg"
-            alt="sorting-arrow"
-          >
-        </th>
-        <th scope="col" (click)="changeSorting('lastName')">
-          Nazwisko
-          <img 
-            class="sorting-arrow"
-            [class.asc]="sorting.lastName === 'asc'"
-            [class.desc]="sorting.lastName === 'desc'" 
-            src="../../../assets/icons/arrow.svg"
-            alt="sorting-arrow"
-          >
-        </th>
-        <th scope="col" (click)="changeSorting('instrument')">
-          Instrument
-          <img 
-            class="sorting-arrow"
-            [class.asc]="sorting.instrument === 'asc'"
-            [class.desc]="sorting.instrument === 'desc'" 
-            src="../../../assets/icons/arrow.svg"
-            alt="sorting-arrow"
-          >
-        </th>
-        <th scope="col" (click)="changeSorting('section')">
-          Sekcja
-          <img 
-            class="sorting-arrow"
-            [class.asc]="sorting.section === 'asc'"
-            [class.desc]="sorting.section === 'desc'" 
-            src="../../../assets/icons/arrow.svg"
-            alt="sorting-arrow"
-          >
-        </th>
-        <th scope="col">
-          Akcje
-        </th>
-      </tr>
-      <tr class="search-row" [class.open]="searchingRowIsOpen">
-        <th class="search-row-toggle" scope="col" (click)="searchingRowIsOpen = !searchingRowIsOpen">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
-          </svg>
-        </th>
-        <th scope="col"><input [(ngModel)]="filtering.firstName" (keyup)="filter()" type="text"></th>
-        <th scope="col"><input [(ngModel)]="filtering.lastName" (keyup)="filter()" type="text"></th>
-        <th scope="col"><input [(ngModel)]="filtering.instrument" (keyup)="filter()" type="text"></th>
-        <th scope="col"><input [(ngModel)]="filtering.section" (keyup)="filter()" type="text"></th>
-        <th scope="col">
-          <button class="button button-small" *ngIf="isAnyFilter()" (click)="clearFilters()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-              <path fill="#fff" d="M576 128c0-35.3-28.7-64-64-64H205.3c-17 0-33.3 6.7-45.3 18.7L9.4 233.4c-6 6-9.4 14.1-9.4 22.6s3.4 16.6 9.4 22.6L160 429.3c12 12 28.3 18.7 45.3 18.7H512c35.3 0 64-28.7 64-64V128zM271 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
-          </svg>
-          </button>
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngIf="members.length">
-      <tr *ngFor="let member of filteredMembers; let i = index">
-        <th (click)="goToDetails(member._id)" scope="row">{{i+1}}</th>
-        <td (click)="goToDetails(member._id)">{{member.firstName}}</td>
-        <td (click)="goToDetails(member._id)">{{member.lastName}}</td>
-        <td (click)="goToDetails(member._id)">{{member.instrument.name}}</td>
-        <td (click)="goToDetails(member._id)">{{member.instrument.section.name}}</td>
-        <td class="action">
-          <button class="button button-small button-primary" (click)="editMemberisOpen=true; selectedMemberAction=member">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-              <path fill="#fff" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/>
-          </svg>
-          </button>
-          <button class="button button-small button-warning" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
-              <path fill="#fff" d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM472 200H616c13.3 0 24 10.7 24 24s-10.7 24-24 24H472c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/>
-          </svg>
-          </button>
-          <button *ngIf="activeTab && activeTab.exMembers" class="button button-small button-primary"
-            (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-              <path fill="#fff" d="M459.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4L288 214.3V256v41.7L459.5 440.6zM256 352V256 128 96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160C4.2 237.5 0 246.5 0 256s4.2 18.5 11.5 24.6l192 160c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V352z"/>
-              </svg>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table *ngIf="!loading" class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col" (click)="changeSorting('firstName')">
+                Imię
+                <img 
+                    class="sorting-arrow"
+                    [class.asc]="sorting.firstName === 'asc'"
+                    [class.desc]="sorting.firstName === 'desc'" 
+                    src="../../../assets/icons/arrow.svg"
+                    alt="sorting-arrow"
+                >
+                </th>
+                <th scope="col" (click)="changeSorting('lastName')">
+                Nazwisko
+                <img 
+                    class="sorting-arrow"
+                    [class.asc]="sorting.lastName === 'asc'"
+                    [class.desc]="sorting.lastName === 'desc'" 
+                    src="../../../assets/icons/arrow.svg"
+                    alt="sorting-arrow"
+                >
+                </th>
+                <th scope="col" (click)="changeSorting('instrument')">
+                Instrument
+                <img 
+                    class="sorting-arrow"
+                    [class.asc]="sorting.instrument === 'asc'"
+                    [class.desc]="sorting.instrument === 'desc'" 
+                    src="../../../assets/icons/arrow.svg"
+                    alt="sorting-arrow"
+                >
+                </th>
+                <th scope="col" (click)="changeSorting('section')">
+                Sekcja
+                <img 
+                    class="sorting-arrow"
+                    [class.asc]="sorting.section === 'asc'"
+                    [class.desc]="sorting.section === 'desc'" 
+                    src="../../../assets/icons/arrow.svg"
+                    alt="sorting-arrow"
+                >
+                </th>
+                <th scope="col">
+                Akcje
+                </th>
+            </tr>
+            <tr class="search-row" [class.open]="searchingRowIsOpen">
+                <th class="search-row-toggle" scope="col" (click)="searchingRowIsOpen = !searchingRowIsOpen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/>
+                    </svg>
+                </th>
+                <th scope="col"><input [(ngModel)]="filtering.firstName" (keyup)="filter()" type="text"></th>
+                <th scope="col"><input [(ngModel)]="filtering.lastName" (keyup)="filter()" type="text"></th>
+                <th scope="col"><input [(ngModel)]="filtering.instrument" (keyup)="filter()" type="text"></th>
+                <th scope="col"><input [(ngModel)]="filtering.section" (keyup)="filter()" type="text"></th>
+                <th scope="col">
+                    <button class="button button-small" *ngIf="isAnyFilter()" (click)="clearFilters()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                            <path fill="#fff" d="M576 128c0-35.3-28.7-64-64-64H205.3c-17 0-33.3 6.7-45.3 18.7L9.4 233.4c-6 6-9.4 14.1-9.4 22.6s3.4 16.6 9.4 22.6L160 429.3c12 12 28.3 18.7 45.3 18.7H512c35.3 0 64-28.7 64-64V128zM271 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+                        </svg>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="members.length">
+            <tr *ngFor="let member of filteredMembers; let i = index">
+                <th (click)="goToDetails(member._id)" scope="row">{{i+1}}</th>
+                <td (click)="goToDetails(member._id)">{{member.firstName}}</td>
+                <td (click)="goToDetails(member._id)">{{member.lastName}}</td>
+                <td (click)="goToDetails(member._id)">{{member.instrument.name}}</td>
+                <td (click)="goToDetails(member._id)">{{member.instrument.section.name}}</td>
+                <td class="action">
+                    <button class="button button-small button-primary" (click)="editMemberisOpen=true; selectedMemberAction=member">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                            <path fill="#fff" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/>
+                        </svg>
+                    </button>
+                    <button class="button button-small button-warning" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+                            <path fill="#fff" d="M352 128c0 70.7-57.3 128-128 128s-128-57.3-128-128S153.3 0 224 0s128 57.3 128 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM472 200H616c13.3 0 24 10.7 24 24s-10.7 24-24 24H472c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/>
+                        </svg>
+                    </button>
+                    <button *ngIf="activeTab && activeTab.exMembers" class="button button-small button-primary"
+                        (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path fill="#fff" d="M459.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4L288 214.3V256v41.7L459.5 440.6zM256 352V256 128 96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160C4.2 237.5 0 246.5 0 256s4.2 18.5 11.5 24.6l192 160c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V352z"/>
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <app-confirmation
@@ -110,8 +110,8 @@
     [data]="selectedMemberAction"
     (onConfirm)="restoreMember(selectedMemberAction._id)"
     (onAbort)="confirmationRestoreIsOpen=false"
-  ></app-confirmation>
+></app-confirmation>
 
-  <app-modal-wrapper *ngIf="editMemberisOpen">
+<app-modal-wrapper *ngIf="editMemberisOpen">
     <app-add-member [memberToEdit]="selectedMemberAction" (onEditClose)="editMemberisOpen=false"></app-add-member>
-  </app-modal-wrapper>
+</app-modal-wrapper>

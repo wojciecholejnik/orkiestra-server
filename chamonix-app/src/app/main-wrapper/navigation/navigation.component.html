@@ -1,4 +1,3 @@
-
 <ng-container *ngFor="let option of navOptions">
-    <div (click)="changeActiveItem(option.name)" class="nav-item" [class.active]="option.isActive">{{option.name}}</div>
+    <div (click)="changeActiveItem(option.name)" class="nav-item" [class.active]="option.isActive"><h5>{{option.name}}</h5></div>
 </ng-container>

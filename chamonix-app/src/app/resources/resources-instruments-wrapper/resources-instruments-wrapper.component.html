@@ -1,0 +1,11 @@
+<ng-container *ngIf="!loading">
+    <ng-container *ngIf="resources">
+        <app-resources-instruments-group [groupName]="'brass'" [group]="resources.brass"></app-resources-instruments-group>
+        <app-resources-instruments-group [groupName]="'woodwinds'" [group]="resources.woodwinds"></app-resources-instruments-group>
+        <app-resources-instruments-group [groupName]="'percussions'" [group]="resources.percussions"></app-resources-instruments-group>
+        <app-resources-instruments-group [groupName]="'others'" [group]="resources.others"></app-resources-instruments-group>
+    </ng-container>
+    <ng-container *ngIf="!resources">
+        <div>brak instrumentów do wyświetlenia</div>
+    </ng-container>
+</ng-container>

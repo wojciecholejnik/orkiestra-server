@@ -4,6 +4,12 @@
         <div class="bookmark-item" [class.active]="membersTabs.currentMembers" (click)="toggleActiveTab('currentMembers')">
             Obecni członkowie
         </div>
+        <div class="bookmark-item" [class.active]="membersTabs.mainStaff" (click)="toggleActiveTab('mainStaff')">
+            Muzycy
+        </div>
+        <div class="bookmark-item" [class.active]="membersTabs.students" (click)="toggleActiveTab('students')">
+            Uczniowie
+        </div>
         <div class="bookmark-item" [class.active]="membersTabs.exMembers" (click)="toggleActiveTab('exMembers')">
             Byli członkowie
         </div>

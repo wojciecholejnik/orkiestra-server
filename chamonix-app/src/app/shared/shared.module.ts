@@ -6,16 +6,16 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
 
 
 @NgModule({
-  declarations: [
-    ModalWrapperComponent,
-    ConfirmationComponent
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    ModalWrapperComponent,
-    ConfirmationComponent
-  ]
+    declarations: [
+        ModalWrapperComponent,
+        ConfirmationComponent
+    ],
+    imports: [
+        CommonModule
+    ],
+    exports: [
+        ModalWrapperComponent,
+        ConfirmationComponent
+    ]
 })
 export class SharedModule { }

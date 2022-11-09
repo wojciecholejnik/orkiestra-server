@@ -24,3 +24,14 @@
 	    border: 2px solid #555555;
     }
 }
+
+// body {
+//     max-height: 100vh;
+//     overflow-y: hidden;
+// }
+
+.box-shadow {
+    -webkit-box-shadow: 4px 4px 7px 7px rgba(23, 83, 126, 0.15);
+    -moz-box-shadow: 4px 4px 7px 7px rgba(23, 83, 126, 0.15);
+    box-shadow: 4px 4px 7px 7px rgba(23, 83, 126, 0.15);
+}

@@ -8,18 +8,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainWrapperModule } from './main-wrapper/main-wrapper.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MainWrapperModule
-  ],
-  providers: [DatePipe],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MainWrapperModule
+    ],
+    providers: [DatePipe],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
