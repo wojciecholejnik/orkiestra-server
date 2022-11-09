@@ -112,7 +112,6 @@ export class ResourcesInstrumentsGroupComponent implements OnInit, OnDestroy, On
     }
 
     closeEditingModal(){
-        console.log('dizał')
         this.resourcesService.shouldGetResourcesInstruments.next(true);
         this.editingIsOpen = false;
         this.selectedInstrument = {};
