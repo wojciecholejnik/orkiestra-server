@@ -134,8 +134,6 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     handleGetMembers(res: Member[]) {
         this.members = res;
         this.filter();
-        this.changeSorting('firstName');
-        this.changeSorting('lastName');
         this.loading = false;
     }
 

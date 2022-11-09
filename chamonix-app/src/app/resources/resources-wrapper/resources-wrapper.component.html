@@ -1,1 +1,55 @@
 <app-resources-navigation></app-resources-navigation>
+
+<app-add-resource *ngIf="addResourceIsOpen" (onModalClose)="closeAddResourceModal()"></app-add-resource>
+<div class="modules-container">
+    
+<ng-container *ngIf="resources">
+    <h4>Blacha</h4>
+    <ng-container *ngFor="let resource of resources.brass">
+        <ul cl="mb-4">
+            <li>{{resource.brand}}</li>
+            <li>{{resource.serialNumber}}</li>
+            <li>{{resource.type.name}}</li>
+            <li>{{resource.user.firstName + ' ' + resource.user.lastName}}</li>
+            <li>{{resource._id}}</li>
+            <li><button (click)="deleteResource(resource._id)">usuń</button></li>
+        </ul>
+    </ng-container>
+
+    <h4>Drewno</h4>
+    <ng-container *ngFor="let resource of resources.woodwinds">
+        <ul cl="mb-4">
+            <li>{{resource.brand}}</li>
+            <li>{{resource.serialNumber}}</li>
+            <li>{{resource.type.name}}</li>
+            <li>{{resource.user.firstName + ' ' + resource.user.lastName}}</li>
+            <li>{{resource._id}}</li>
+            <li><button (click)="deleteResource(resource._id)">usuń</button></li>
+        </ul>
+    </ng-container>
+    <h4>Perksuja</h4>
+    <ng-container *ngFor="let resource of resources.percussion">
+        <ul cl="mb-4">
+            <li>{{resource.brand}}</li>
+            <li>{{resource.serialNumber}}</li>
+            <li>{{resource.type.name}}</li>
+            <li>{{resource.user.firstName + ' ' + resource.user.lastName}}</li>
+            <li>{{resource._id}}</li>
+            <li><button (click)="deleteResource(resource._id)">usuń</button></li>
+
+        </ul>
+    </ng-container>
+    <h4>Pozostałe</h4>
+    <ng-container *ngFor="let resource of resources.others">
+        <ul cl="mb-4">
+            <li>{{resource.brand}}</li>
+            <li>{{resource.serialNumber}}</li>
+            <li>{{resource.type.name}}</li>
+            <li>{{resource.user.firstName + ' ' + resource.user.lastName}}</li>
+            <li>{{resource._id}}</li>
+            <li><button (click)="deleteResource(resource._id)">usuń</button></li>
+
+        </ul>
+    </ng-container>
+</ng-container>
+</div>

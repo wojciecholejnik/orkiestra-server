@@ -2,6 +2,15 @@ const Musician = require('../models/musician.model');
 const Instrument = require('../models/instrument.model'); 
 const Section = require('../models/section.model');
 
+const sortByLastName = function(a, b) {
+  const result = a.lastName.localeCompare(b.lastName);
+  if (result === 0) {
+    return a.firstName.localeCompare(b.firstName)
+  } else {
+    return result
+  }
+}
+
 exports.createMusician = async (req, res) => {
   const newMusician = {...req.body};
 
@@ -32,7 +41,8 @@ exports.readMusicians = async (req, res) => {
     if (!musicians.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      res.json(musicians);
+      const sortedMusicians = musicians.sort((a, b) => sortByLastName(a, b));
+      res.json(sortedMusicians);
     }
 
   } catch(err) {
@@ -82,7 +92,8 @@ exports.readActiveMusicians = async (req, res) => {
     if (!musicians.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      res.json(musicians);
+      const sortedMusicians = musicians.sort((a, b) => sortByLastName(a, b));
+      res.json(sortedMusicians);
     }
 
   } catch(err) {
@@ -107,7 +118,8 @@ exports.readExMusicians = async (req, res) => {
     if (!musicians.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      res.json(musicians);
+      const sortedMusicians = musicians.sort((a, b) => sortByLastName(a, b));
+      res.json(sortedMusicians);
     }
 
   } catch(err) {
@@ -132,7 +144,9 @@ exports.readMainStaffMuscians = async (req, res) => {
     if (!musicians.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      res.json(musicians);
+            const sortedMusicians = musicians.sort((a, b) => sortByLastName(a, b));
+
+      res.json(sortedMusicians);
     }
 
   } catch(err) {
@@ -157,7 +171,9 @@ exports.readMainStudentsMusicians = async (req, res) => {
     if (!musicians.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      res.json(musicians);
+            const sortedMusicians = musicians.sort((a, b) => sortByLastName(a, b));
+
+      res.json(sortedMusicians);
     }
 
   } catch(err) {

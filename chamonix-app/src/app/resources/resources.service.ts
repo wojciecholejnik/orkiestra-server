@@ -1,19 +1,55 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { ResourcesTabs } from '../shared/models';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Instrument, Member, newResourceDTO, ResourcesTabs, Section } from '../shared/models';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ResourcesService {
 
-  public activeTab: BehaviorSubject<ResourcesTabs> = new BehaviorSubject({
-    uniforms: true,
-    instruments: false,
-    sections: false,
-    instructors: false,
-    others: false
-  } as ResourcesTabs);
+    private httpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=utf-8' }),
+    };
+    private apiHost: string;
 
-  constructor() { }
+    public activeTab: BehaviorSubject<ResourcesTabs> = new BehaviorSubject({
+        uniforms: false,
+        instruments: true,
+        sections: false,
+        instructors: false,
+        others: false
+    } as ResourcesTabs);
+
+    public addReourceIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
+    public shouldGetResources: Subject<any> = new Subject();
+
+    constructor(private http: HttpClient) { 
+        this.apiHost = environment.baseApiUrl;
+    }
+
+    getAllResourcess(): Observable<any[]> {
+        return this.http.get<any>(`${this.apiHost}/resources`);
+    }
+
+    getSections(): Observable<Section[]> {
+        return this.http.get<any>(`${this.apiHost}/sections`);
+    }
+
+    getInstrumentsBySection(sectionId: string): Observable<Instrument[]> {
+        return this.http.get<any>(`${this.apiHost}/instrumentsBySection/${sectionId}`);
+    }
+
+    getActiveMembers(): Observable<Member[]> {
+        return this.http.get<any>(`${this.apiHost}/musicians/active`);
+    }
+
+    deleteResource(resourceId: string): Observable<any> {
+        return this.http.post<any>(`${this.apiHost}/resource/desele/${resourceId}`, null);
+    }
+
+    addResource(DTO: newResourceDTO) {
+        return this.http.post<any>(`${this.apiHost}/resources`, DTO);
+    }
 }

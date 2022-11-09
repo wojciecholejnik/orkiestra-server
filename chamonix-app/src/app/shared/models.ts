@@ -51,6 +51,17 @@ export interface Section {
     instructor: string
 }
 
+
+export interface InstrumentDetails {
+    type: Instrument,
+    brand: string,
+    model: string,
+    serialNumber: string,
+    user: string,
+    condition: string,
+    description: string
+}
+
 export interface newMemberDTO {
     firstName: string,
     lastName: string,
@@ -66,6 +77,16 @@ export interface newMemberDTO {
     joiningDate: Date,
     birthDate: Date,
     isStudent: boolean
+}
+
+export interface newResourceDTO {
+    type: string,
+    brand: string, 
+    model: string, 
+    serialNumber: string, 
+    condition: string,
+    description: string,
+    user: string,
 }
 
 export type Sorting = 'asc' | 'desc' | '';

@@ -4,7 +4,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const musiciansRoutes = require('./routes/musicians.routes');
 const sectionsRoutes = require('./routes/sections.routes');
-const instrumentsRoutes = require('./routes/instruments.routes')
+const instrumentsRoutes = require('./routes/instruments.routes');
+const resourcesRoutes = require('./routes/resources.routes');
 
 
 const app = express();
@@ -26,6 +27,7 @@ db.once('error', () => {console.log('error')});
 app.use('/api', musiciansRoutes);
 app.use('/api', sectionsRoutes);
 app.use('/api', instrumentsRoutes);
+app.use('/api', resourcesRoutes);
 
 const port = 3000;
 app.listen(port, () => {
