@@ -23,7 +23,7 @@ export class ResourcesService {
     } as ResourcesTabs);
 
     public addReourceIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
-    public shouldGetResources: Subject<any> = new Subject();
+    public shouldGetResourcesInstruments: Subject<any> = new Subject();
 
     constructor(private http: HttpClient) { 
         this.apiHost = environment.baseApiUrl;
@@ -31,6 +31,10 @@ export class ResourcesService {
 
     getAllResourcess(): Observable<any[]> {
         return this.http.get<any>(`${this.apiHost}/resources`);
+    }
+
+    getAllResourcesInstruments(): Observable<any[]> {
+        return this.http.get<any>(`${this.apiHost}/resources/instruments`);
     }
 
     getSections(): Observable<Section[]> {
@@ -46,10 +50,14 @@ export class ResourcesService {
     }
 
     deleteResource(resourceId: string): Observable<any> {
-        return this.http.post<any>(`${this.apiHost}/resource/desele/${resourceId}`, null);
+        return this.http.post<any>(`${this.apiHost}/resource/delete/${resourceId}`, null);
     }
 
     addResource(DTO: newResourceDTO) {
         return this.http.post<any>(`${this.apiHost}/resources`, DTO);
+    }
+
+    updateResource(id: string, DTO: any) {
+        return this.http.post<any>(`${this.apiHost}/resource/update/${id}`, DTO);
     }
 }

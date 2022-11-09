@@ -16,9 +16,18 @@ exports.createResource = async (req, res) => {
   }
 }
 
-exports.readResources = async (req, res) => {
+exports.readResourcesInstruments = async (req, res) => {
+  const sotrGroup = function(a, b) {
+    const result = a.type.name.toLowerCase().localeCompare(b.type.name.toLowerCase());
+    if (result !== 0) {
+      return result;
+    } else {
+      return a.brand.toLowerCase().localeCompare(b.brand.toLowerCase())
+    }
+  }
   try {
-    const resources = await Resource.find().populate([
+    const resources = await Resource.find()
+    .populate([
       {
         path: 'type', 
         model: Instrument,
@@ -29,9 +38,9 @@ exports.readResources = async (req, res) => {
         }
       },
       {
-        path: 'user', 
         model: Musician,
-        select: { 'firstName': 1,'lastName':1},
+        'path': 'user',
+        'match': { 'user': {'$ne': ''} }
       }
       
     ]);
@@ -41,9 +50,13 @@ exports.readResources = async (req, res) => {
     } else {
       const brass = resources.filter(resource => resource.type.section.name === 'blacha');
       const woodwinds = resources.filter(resource => resource.type.section.name === 'drewno');
-      const percussion = resources.filter(resource => resource.type.section.name === 'perkusja');
+      const percussions = resources.filter(resource => resource.type.section.name === 'perkusja');
       const others = resources.filter(resource => resource.type.section.name === 'pozostałe');
-      const DTO = {brass, woodwinds, percussion, others};
+      brass.sort((a,b) => sotrGroup(a,b));
+      woodwinds.sort((a,b) => sotrGroup(a,b));
+      percussions.sort((a,b) => sotrGroup(a,b));
+      others.sort((a,b) => sotrGroup(a,b));
+      const DTO = {brass, woodwinds, percussions, others};
       res.json(DTO);
     }
 
@@ -100,6 +113,31 @@ exports.deleteResource = async (req, res) => {
     }
   }
   catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.updateResource = async (req, res) => {
+  try {
+    let resource = await Resource.findOne({_id: req.params.id});
+    if (resource) {      
+      await Resource.updateOne({ _id: req.params.id }, { $set: {
+        brand: req.body.hasOwnProperty('brand') ? req.body.brand : resource.brand,
+        model: req.body.hasOwnProperty('model') ? req.body.model : resource.model,
+        condition: req.body.hasOwnProperty('condition') ? req.body.condition : resource.condition,
+        description: req.body.hasOwnProperty('description') ? req.body.description : resource.description,
+        serialNumber: req.body.hasOwnProperty('serialNumber') ? req.body.serialNumber : resource.serialNumber,
+        type: req.body.hasOwnProperty('type') ? req.body.type : resource.type,
+        user: req.body.hasOwnProperty('user') ? req.body.user : resource.user,
+      }});
+
+      
+      res.json({mess: 'ok'});
+    } else {
+      res.status(404).json({message: 'Musician not found.'})
+    }
+
+  } catch(err) {
     res.status(500).json({ message: err });
   }
 }

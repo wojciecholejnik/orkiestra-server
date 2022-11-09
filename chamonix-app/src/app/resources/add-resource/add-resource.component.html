@@ -1,6 +1,7 @@
 <app-modal-wrapper>
     <div class="action-modal">
-        <h2 >Dodaj rzecz</h2>
+        <h2 *ngIf="!editingItem">Dodaj rzecz</h2>
+        <h2 *ngIf="editingItem">Edytuj rzecz</h2>
         
         <div class="m-3">
             <label for="birthDate">Kategoria</label>
@@ -27,7 +28,7 @@
             </select>
         </div>
 
-        <form id="instrumentForm" *ngIf="activeInstrument" [formGroup]="instrumentForm" (ngSubmit)="addInstrument()">
+        <form id="instrumentForm" *ngIf="activeInstrument" [formGroup]="instrumentForm" (ngSubmit)="editingItem ? updateInstrument() : addInstrument()">
             <div class="mb-2 form-control-wrapper">
                 <label for="brand">Marka</label>
                 <input
@@ -83,7 +84,8 @@
             <div class="mb-2 form-control-wrapper">
                 <label for="model">Osoba przypisana</label>
                 <select formControlName="user">
-                    <option *ngFor="let member of activeMembers" [value]="member._id">{{member.firstName + ' ' + member.lastName}}</option>
+                    <option value="">nikt</option>
+                    <option *ngFor="let member of activeMembers" [value]="member._id">{{member.lastName + ' ' + member.firstName}}</option>
                 </select>
             </div>
         </form>
@@ -91,7 +93,8 @@
 
         <div class="buttons-wrapper">
             <button class="button-secondary" (click)="closeModal()">Anuluj</button>
-            <button class="button-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Dodaj</button>
+            <button *ngIf="!editingItem" class="button-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Dodaj</button>
+            <button *ngIf="editingItem" class="button-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Zapisz</button>
         </div>
     </div>
     

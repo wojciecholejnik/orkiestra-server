@@ -22,23 +22,17 @@ export class ResourcesWrapperComponent implements OnInit {
     ngOnInit(): void {
         this._activeTab = this.resourcesService.activeTab.subscribe(tabs => this.activeTab = tabs);
         this._addResourceIsOpen = this.resourcesService.addReourceIsOpen.subscribe(state => this.addResourceIsOpen = state);
-        this.getResources();
-        this.resourcesService.shouldGetResources.subscribe(() => this.getResources());
     }
 
-    getResources(){
-        this.resourcesService.getAllResourcess().subscribe(res => 
-            this.resources = res)
-    }
 
     closeAddResourceModal(){
         this.resourcesService.addReourceIsOpen.next(false);
     }
 
-    deleteResource(id: string) {
-        this.resourcesService.deleteResource(id).subscribe(() => {
-            this.getResources()
-        });
-    }
+    // deleteResource(id: string) {
+    //     this.resourcesService.deleteResource(id).subscribe(() => {
+    //         this.getResources()
+    //     });
+    // }
 
 }

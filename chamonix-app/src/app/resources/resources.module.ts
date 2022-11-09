@@ -5,6 +5,8 @@ import { ResourcesNavigationComponent } from './resources-navigation/resources-n
 import { AddResourceComponent } from './add-resource/add-resource.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ResourcesInstrumentsGroupComponent } from './resources-instruments-group/resources-instruments-group.component';
+import { ResourcesInstrumentsWrapperComponent } from './resources-instruments-wrapper/resources-instruments-wrapper.component';
 
 
 
@@ -12,7 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     declarations: [
         ResourcesWrapperComponent,
         ResourcesNavigationComponent,
-        AddResourceComponent
+        AddResourceComponent,
+        ResourcesInstrumentsGroupComponent,
+        ResourcesInstrumentsWrapperComponent
     ],
     imports: [
         CommonModule,

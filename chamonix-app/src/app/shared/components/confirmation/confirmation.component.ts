@@ -24,6 +24,10 @@ export class ConfirmationComponent implements OnInit {
         if (this.type === 'restoreMember') {
             this.confirmationText = 'Czy na pewno przywrócić członka ' + this.data.firstName + ' ' + this.data.lastName + ' ?'
         }
+
+        if (this.type === 'removeInstrument') {
+            this.confirmationText = 'Czy na pewno usunąć instrument ' + this.data.brand + ' ' + this.data.model + ' ?'
+        }
         
     }
 

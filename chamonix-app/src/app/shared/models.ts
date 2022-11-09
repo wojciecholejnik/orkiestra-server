@@ -20,6 +20,15 @@ export interface ResourcesTabs {
     [key: string]: boolean
 }
 
+
+export interface InstrumentsSectionView {
+    brass: boolean,
+    woodwinds: boolean,
+    percussions: boolean,
+    others: boolean,
+    [key: string]: boolean
+}
+
 export interface Member {
     _id: string,
     firstName: string,
@@ -90,4 +99,4 @@ export interface newResourceDTO {
 }
 
 export type Sorting = 'asc' | 'desc' | '';
-export type ConfirmationModalType = 'restoreMember' | 'removeMember' | '';
+export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | '';

@@ -1,0 +1,72 @@
+@import '../../../global-styling/colors.scss';
+
+.section-header {
+    padding: 8px 20px;
+    width: 100%;
+    border: 1px solid $origin-blue;
+    border-radius: $radius;
+    margin-bottom: 24px;
+
+    h4 {
+        font-size: 1.3rem;
+    }
+
+    .section-header-wrapper {
+        display: flex;
+
+        .info {
+            display: flex;
+            flex:8;
+            gap: 10px;
+        }
+
+        .filters {
+            display: flex;
+            align-items: center;
+            flex:2;
+            gap: 10px;
+
+            p {
+                margin: 0;
+            }
+
+            button {
+                min-width: unset;
+                font-size: 13px;
+                height: 25px;
+
+                &.active {
+                    background-color: $background-gray;
+                    border: 2px solid green;
+                }
+            }
+        }
+    }
+}
+
+.actions-wrapper {
+    display: flex;
+    gap: 3px;
+}
+
+table {
+    thead {
+        font-size: .85rem;
+    }
+
+    tbody {
+        font-size: .75rem;
+
+        .serialNumber {
+            max-width: 175px;
+        }
+
+        .description {
+            width: 200px;
+        }
+
+        .actions {
+            width: 120px;
+        }
+    }
+}
