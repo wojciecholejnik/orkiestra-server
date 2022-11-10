@@ -5,9 +5,9 @@
     flex-direction: column;
     background-color: #ebebeb;
     position: absolute;
-    width: 200px;
+    width: $margin-left-width;
     height: calc(100% - 80px);
-    padding-top: 150px;
+    padding-top: 60px;
 }
 
 .nav-item {

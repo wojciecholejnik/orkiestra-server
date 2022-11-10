@@ -16,13 +16,15 @@
 
         <div *ngIf="activeCategory==='instruments'" class="mb-3">
             <label for="birthDate">Sekcja</label>
-            <select *ngIf="sections" [(ngModel)]="activeSection" (change)="getInstrumentsBbySection()">
+            <app-loading *ngIf="sectionsLoading" [small]="true"></app-loading>
+            <select *ngIf="sections && !sectionsLoading" [(ngModel)]="activeSection" (change)="getInstrumentsBbySection()">
                 <option *ngFor="let section of sections" [value]="section._id">{{section.name}}</option>
             </select>
         </div>
 
-        <div *ngIf="instrumentsReady" class="mb-3">
+        <div *ngIf="activeSection" class="mb-3">
             <label for="instrumentsBySection">Instrument</label>
+            <app-loading *ngIf="!instrumentsBySection.length" [small]="true"></app-loading>
             <select *ngIf="instrumentsBySection.length" [(ngModel)]="activeInstrument">
                 <option *ngFor="let instrument of instrumentsBySection" [value]="instrument._id">{{instrument.name}}</option>
             </select>
@@ -83,7 +85,8 @@
 
             <div class="mb-2 form-control-wrapper">
                 <label for="model">Osoba przypisana</label>
-                <select formControlName="user">
+                <app-loading *ngIf="!activeMembers" [small]="true"></app-loading>
+                <select *ngIf="activeMembers" formControlName="user">
                     <option value="">nikt</option>
                     <option *ngFor="let member of activeMembers" [value]="member._id">{{member.lastName + ' ' + member.firstName}}</option>
                 </select>

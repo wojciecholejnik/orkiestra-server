@@ -7,6 +7,7 @@ import { MembersTableComponent } from './members-table/members-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { MemberDetailsComponent } from './member-details/member-details.componen
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        ClipboardModule
     ],
     exports: [
         MembersWrapperComponent

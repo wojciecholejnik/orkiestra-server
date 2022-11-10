@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const resourcesItemsSchema = new mongoose.Schema({
+const resourcesInstrumentSchema = new mongoose.Schema({
   type: { type: String, required: true, ref: 'Instrument' },
   brand: {type: String},
   model: {type: String},
@@ -8,6 +8,6 @@ const resourcesItemsSchema = new mongoose.Schema({
   user: {type: String},
   condition: {type: String},
   description: {type: String}
-});
+}, {collection: 'resourceInstruments'});
 
-module.exports = mongoose.model('Resources', resourcesItemsSchema);
+module.exports = mongoose.model('Resource', resourcesInstrumentSchema);

@@ -21,9 +21,11 @@ export class AddResourceComponent implements OnInit, OnDestroy {
     activeCategory: any;
     activeSection: any;
     activeInstrument: any;
-    activeMembers: Member[] = [];
+    activeMembers: {firstName: string, lastName: string, _id: string}[] = [];
     instrumentsBySection: Instrument[] = [];
     instrumentsReady = false;
+    sectionsLoading = false;
+    error = '';
 
     
     constructor(private resourcesService: ResourcesService, private fb: FormBuilder) { }
@@ -38,7 +40,14 @@ export class AddResourceComponent implements OnInit, OnDestroy {
     })
 
     ngOnInit(): void {
-        this._getSections = this.resourcesService.getSections().subscribe(sections => this.sections = sections);
+        this.sectionsLoading = true;
+        this._getSections = this.resourcesService.getSections().subscribe({
+            next: (sections) => {
+                this.sections = sections;
+                this.sectionsLoading = false;
+            },
+            error: () => this.error = 'Coś poszlo nie tak. Spróbuj ponownie'
+        });
         if (this.editingItem) {
             this.activeCategory = this.editingItem.activeCategory;
             this.activeSection = this.editingItem.type.section._id;
@@ -70,7 +79,7 @@ export class AddResourceComponent implements OnInit, OnDestroy {
     }
 
     getActiveMembers(){
-        this._getActiveMembers = this.resourcesService.getActiveMembers().subscribe(members => {
+        this._getActiveMembers = this.resourcesService.getMembersNames().subscribe(members => {
             this.activeMembers = members;
         })
     }

@@ -1,4 +1,6 @@
+@import '../../global-styling/colors.scss';
+
 .modules-container {
-    margin-left: 200px;
+    margin-left: $margin-left-width;
     height: calc(100vh - 80px);
 }

@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const musiciansRoutes = require('./routes/musicians.routes');
 const sectionsRoutes = require('./routes/sections.routes');
 const instrumentsRoutes = require('./routes/instruments.routes');
-const resourcesRoutes = require('./routes/resources.routes');
+const resourcesInstrumentRoutes = require('./routes/resourcesInstruments.routes');
 
 
 const app = express();
@@ -17,17 +17,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-const dbURI = `mongodb+srv://wwwojtasss:wwwojtasss@cluster0.bpoyn.mongodb.net/orkiestra`;
+const dbURI = `mongodb+srv://chamonix-app:chamonix-app@cluster0.bpoyn.mongodb.net/orkiestra`;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
-db.once('open', () => {});
+db.once('open', () => {console.log('Databse connected.')});
 db.once('error', () => {console.log('error')});
 
 
 app.use('/api', musiciansRoutes);
 app.use('/api', sectionsRoutes);
 app.use('/api', instrumentsRoutes);
-app.use('/api', resourcesRoutes);
+app.use('/api', resourcesInstrumentRoutes);
 
 const port = 3000;
 app.listen(port, () => {

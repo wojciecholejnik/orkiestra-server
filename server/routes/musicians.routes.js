@@ -8,6 +8,7 @@ router.get('/musicians/active', musicianController.readActiveMusicians);
 router.get('/musicians/ex', musicianController.readExMusicians);
 router.get('/musicians/main-staff', musicianController.readMainStaffMuscians);
 router.get('/musicians/students', musicianController.readMainStudentsMusicians);
+router.get('/musicians/name&id', musicianController.readActiveMusiciansNames);
 router.post('/musicians', musicianController.createMusician);
 router.post('/musician/:id', musicianController.updateMusician);
 router.post('/musician/delete/:id', musicianController.deleteMusician);

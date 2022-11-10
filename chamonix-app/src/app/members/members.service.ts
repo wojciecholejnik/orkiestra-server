@@ -47,12 +47,16 @@ export class MembersService {
         return this.http.get<any>(`${this.apiHost}/musicians/main-staff`);
     }
 
+    getNamesMembers(): Observable<{firstName: string, lastName: string, _id: string}[]> {
+        return this.http.get<any>(`${this.apiHost}/musicians/name&id`);
+    }
+
     getInstruments(): Observable<Instrument[]> {
         return this.http.get<any>(`${this.apiHost}/instruments`);
     }
 
     addNewMember(member: newMemberDTO) {
-        return this.http.post<newMemberDTO>(`${this.apiHost}/musicians`, member)
+        return this.http.post<newMemberDTO>(`${this.apiHost}/musicians/asds`, member)
     }
 
     moveMemberToExMembers(id: string) {

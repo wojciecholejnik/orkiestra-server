@@ -45,8 +45,8 @@ export class ResourcesService {
         return this.http.get<any>(`${this.apiHost}/instrumentsBySection/${sectionId}`);
     }
 
-    getActiveMembers(): Observable<Member[]> {
-        return this.http.get<any>(`${this.apiHost}/musicians/active`);
+    getMembersNames(): Observable<{firstName: string, lastName: string, _id: string}[]> {
+        return this.http.get<any>(`${this.apiHost}/musicians/name&id`);
     }
 
     deleteResource(resourceId: string): Observable<any> {

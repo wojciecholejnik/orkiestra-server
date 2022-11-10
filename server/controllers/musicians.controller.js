@@ -1,6 +1,7 @@
 const Musician = require('../models/musician.model');
 const Instrument = require('../models/instrument.model'); 
 const Section = require('../models/section.model');
+const ResourceInstrument = require('../models/resourceInstrument.model');
 
 const sortByLastName = function(a, b) {
   const result = a.lastName.localeCompare(b.lastName);
@@ -63,11 +64,25 @@ exports.readMusicianById = async (req, res) => {
       },
       
     ]);
+
+    const resourceInstruments = await ResourceInstrument.find({user: req.params.id}).populate({
+      path: 'type', 
+      model: Instrument,
+      select: '-user'
+    }).sort('type');
   
     if (!musician) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      res.json(musician);
+
+      const DTO = {
+        ...musician._doc,
+        resources: {
+          instruments: resourceInstruments
+        }
+      };  
+      
+      res.json(DTO);
     }
 
   } catch(err) {
@@ -88,6 +103,22 @@ exports.readActiveMusicians = async (req, res) => {
       },
       
     ]);
+  
+    if (!musicians.length) {
+      res.status(404).json({ message: 'not found !!'});
+    } else {
+      const sortedMusicians = musicians.sort((a, b) => sortByLastName(a, b));
+      res.json(sortedMusicians);
+    }
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.readActiveMusiciansNames = async (req, res) => {
+  try {
+    const musicians = await Musician.find({isActive: true}).select('firstName lastName');
   
     if (!musicians.length) {
       res.status(404).json({ message: 'not found !!'});

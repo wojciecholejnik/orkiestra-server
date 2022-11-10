@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainWrapperModule } from './main-wrapper/main-wrapper.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -17,7 +18,8 @@ import { MainWrapperModule } from './main-wrapper/main-wrapper.module';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        MainWrapperModule
+        MainWrapperModule,
+        BrowserAnimationsModule
     ],
     providers: [DatePipe],
     bootstrap: [AppComponent]

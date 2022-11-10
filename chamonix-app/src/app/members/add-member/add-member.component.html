@@ -3,6 +3,8 @@
         <h2 *ngIf="!memberToEdit">Dodaj członka</h2>
         <h2 *ngIf="memberToEdit">Edytuj dane członka</h2>
         <img class="close-button" (click)="closeModal()" src="../../../assets/icons/close-button.svg">
+
+        <div class="invalid" *ngIf="error"><p>{{error}}</p></div>
       
         <form id="newMemberForm" [formGroup]="newMemberForm" (ngSubmit)="addUser()">
 
@@ -74,7 +76,11 @@
 
             <div class="mb-3 form-control-wrapper d-inline-flex align-items-center instrument-wrapper">
                 <label for="birthDate">Instrument</label>
+                <div class="loading-wrapper" *ngIf="loadingInstruments">
+                    <app-loading [small]="true"></app-loading>
+                </div>
                 <select
+                    *ngIf="!loadingInstruments"
                     type="text"
                     class="form-control"
                     [class.error]="newMemberForm.controls['instrument'].invalid && (newMemberForm.controls['instrument'].dirty || newMemberForm.controls['instrument'].touched)"
