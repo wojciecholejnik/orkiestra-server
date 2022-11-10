@@ -199,6 +199,7 @@ exports.updateMusician = async (req, res) => {
         parentPhone: req.body.hasOwnProperty('parentPhone') ? req.body.parentPhone : musician.parentPhone,
         isActive: req.body.hasOwnProperty('isActive') ? req.body.isActive : musician.isActive,
         isStudent: req.body.hasOwnProperty('isStudent') ? req.body.isStudent : musician.isStudent,
+        birthDate: req.body.hasOwnProperty('birthDate') ? req.body.birthDate : musician.birthDate,
       }});
 
       musician = await Musician.findOne({_id: req.params.id}).populate([
