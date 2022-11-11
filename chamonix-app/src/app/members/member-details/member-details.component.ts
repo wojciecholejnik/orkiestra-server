@@ -34,7 +34,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.detailsSubscription?.unsubscribe;
+        this.detailsSubscription?.unsubscribe();
     }
 
     getAge(dateString: Date) {

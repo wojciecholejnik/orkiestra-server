@@ -56,7 +56,7 @@ export class MembersService {
     }
 
     addNewMember(member: newMemberDTO) {
-        return this.http.post<newMemberDTO>(`${this.apiHost}/musicians/asds`, member)
+        return this.http.post<newMemberDTO>(`${this.apiHost}/musicians`, member)
     }
 
     moveMemberToExMembers(id: string) {

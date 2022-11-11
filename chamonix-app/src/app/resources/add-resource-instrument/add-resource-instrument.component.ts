@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Instrument, Member, newResourceDTO, Section } from 'src/app/shared/models';
+import { Instrument, newResourceDTO, Section } from 'src/app/shared/models';
 import { ResourcesService } from '../resources.service';
 
 @Component({
-    selector: 'app-add-resource',
-    templateUrl: './add-resource.component.html',
-    styleUrls: ['./add-resource.component.scss']
+    selector: 'app-add-resource-instrument',
+    templateUrl: './add-resource-instrument.component.html',
+    styleUrls: ['./add-resource-instrument.component.scss']
 })
-export class AddResourceComponent implements OnInit, OnDestroy {
+export class AddResourceInstrumentComponent implements OnInit, OnDestroy {
 
     @Input() editingItem?: any;
     @Output() onModalClose: EventEmitter<any> = new EventEmitter()
@@ -52,7 +52,7 @@ export class AddResourceComponent implements OnInit, OnDestroy {
             this.activeCategory = this.editingItem.activeCategory;
             this.activeSection = this.editingItem.type.section._id;
             this.activeInstrument = this.editingItem.type._id;
-            this.getActiveMembers();
+            this.getInstrumentsBbySection();
             this.instrumentForm.controls.brand.setValue(this.editingItem.brand);
             this.instrumentForm.controls.model.setValue(this.editingItem.model);
             this.instrumentForm.controls.serialNumber.setValue(this.editingItem.serialNumber);
@@ -91,7 +91,7 @@ export class AddResourceComponent implements OnInit, OnDestroy {
         };
         if (!DTO.user.length) {DTO.user = '63623d124e6e26c95b316f52'};
         this.resourcesService.addResource(DTO).subscribe(() => this.resourcesService.shouldGetResourcesInstruments.next());
-        this.resourcesService.addReourceIsOpen.next(false);
+        this.resourcesService.addResourceInstrumentIsOpen.next(false);
     }
 
     updateInstrument() {

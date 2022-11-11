@@ -1,20 +1,9 @@
 <app-modal-wrapper>
     <div class="action-modal">
-        <h2 *ngIf="!editingItem">Dodaj rzecz</h2>
-        <h2 *ngIf="editingItem">Edytuj rzecz</h2>
-        
-        <div class="m-3">
-            <label for="birthDate">Kategoria</label>
-            <select [(ngModel)]="activeCategory">
-                <option value="instruments">instrumenty</option>
-                <option value="uniforms">umundurowanie</option>
-                <option value="sections">sekcje</option>
-                <option value="instructors">instruktorzy</option>
-                <option value="others">pozostałe</option>
-            </select>
-        </div>
+        <h2 *ngIf="!editingItem">Dodaj instrumnet</h2>
+        <h2 *ngIf="editingItem">Edytuj instrument</h2>
 
-        <div *ngIf="activeCategory==='instruments'" class="mb-3">
+        <div class="mb-3 mt-4">
             <label for="birthDate">Sekcja</label>
             <app-loading *ngIf="sectionsLoading" [small]="true"></app-loading>
             <select *ngIf="sections && !sectionsLoading" [(ngModel)]="activeSection" (change)="getInstrumentsBbySection()">
@@ -24,7 +13,7 @@
 
         <div *ngIf="activeSection" class="mb-3">
             <label for="instrumentsBySection">Instrument</label>
-            <app-loading *ngIf="!instrumentsBySection.length" [small]="true"></app-loading>
+            <app-loading *ngIf="!instrumentsReady" [small]="true"></app-loading>
             <select *ngIf="instrumentsBySection.length" [(ngModel)]="activeInstrument">
                 <option *ngFor="let instrument of instrumentsBySection" [value]="instrument._id">{{instrument.name}}</option>
             </select>

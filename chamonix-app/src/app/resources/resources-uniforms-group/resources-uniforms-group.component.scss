@@ -1,0 +1,57 @@
+@import '../../../global-styling/colors.scss';
+
+.section-header {
+    padding: 8px 20px;
+    width: 100%;
+    border: 1px solid $origin-blue;
+    border-radius: $radius;
+    margin-bottom: 24px;
+
+    h4 {
+        font-size: 1.3rem;
+    }
+
+    .section-header-wrapper {
+        display: flex;
+
+        .info {
+            width: 90%;
+        }
+    }
+
+    .filters {
+        display: flex;
+        align-items: center;
+        flex:2;
+        gap: 10px;
+
+        p {
+            margin: 0;
+        }
+
+        button {
+            min-width: 110px;
+            font-size: 13px;
+            height: 25px;
+        }
+    }
+
+}
+
+table.table {
+    width: 50%;
+    margin-top: 24px;
+
+    .state {
+        width: 100px;
+    }
+
+    .actions {
+        width: 100px;
+    }
+}
+
+.actions-wrapper {
+    display: flex;
+    gap: 3px;
+}

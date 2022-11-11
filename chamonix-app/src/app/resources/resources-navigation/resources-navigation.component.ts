@@ -29,8 +29,11 @@ export class ResourcesNavigationComponent implements OnInit {
         }
     }
 
-    toggleAddResource(state: boolean): void {
-        this.resourcesService.addReourceIsOpen.next(state);
+    toggleAddResourceInstrument(state: boolean): void {
+        this.resourcesService.addResourceInstrumentIsOpen.next(state);
     }
- 
+    
+    toggleAddResourceUniforms(state: boolean): void {
+        this.resourcesService.addResourceUniformsIsOpen.next(state);
+    }
 }

@@ -38,8 +38,6 @@
         </div>
 
 
-
-
         <div class="right-table-container">
             <table class="table small-table">
 
@@ -113,6 +111,10 @@
             </table>
         </div>
     </div>
+</div>
+
+<div class="loading-wrapper" *ngIf="loading">
+    <app-loading></app-loading>
 </div>
 
 <app-modal-wrapper *ngIf="editMemberisOpen">

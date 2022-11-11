@@ -18,14 +18,8 @@
         </div>
     </div>
     
-    <div class="actions">
-        <button class="button-primary" (click)="toggleAddResource(true)">Dodaj rzecz</button>
+    <div class="actions">        
+        <button *ngIf="activeTab.instruments" class="button-primary" (click)="toggleAddResourceInstrument(true)">Dodaj instrument</button>
+        <button *ngIf="activeTab.uniforms" class="button-primary" (click)="toggleAddResourceUniforms(true)">Dodaj umundurowanie</button>
     </div>
 </ng-container>
-
-<!-- <button *ngIf="memberDetailsAreOpen" (click)="closeDetails()">Powrót</button> -->
-
-
-<!-- <app-modal-wrapper *ngIf="addMemberIsOpen">
-    <app-add-member></app-add-member>
-</app-modal-wrapper> -->

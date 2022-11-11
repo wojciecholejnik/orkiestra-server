@@ -104,18 +104,18 @@ export class AddMemberComponent implements OnInit, OnDestroy {
                 joiningDate: new Date(),
             }
         
-        this.membersService.addNewMember(newMemberDTO).subscribe({
-            next: () => {
-                this.requestPending = false;
-                this.membersService.getMembers.next(true);
-                this.closeModal();
-            },
-            error: () => {
-                this.requestPending = false;
-                this.error = 'Coś poszło nie tak. Spróbuj ponownie.'
-                this.newMemberForm.enable();
-            }
-        })
+            this.membersService.addNewMember(newMemberDTO).subscribe({
+                next: () => {
+                    this.requestPending = false;
+                    this.membersService.getMembers.next(true);
+                    this.closeModal();
+                },
+                error: () => {
+                    this.requestPending = false;
+                    this.error = 'Coś poszło nie tak. Spróbuj ponownie.'
+                    this.newMemberForm.enable();
+                }
+            })
         }
 
         if (this.memberToEdit && this.newMemberForm.status === 'VALID') {
