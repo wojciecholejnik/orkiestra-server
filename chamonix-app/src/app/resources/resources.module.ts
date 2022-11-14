@@ -10,6 +10,7 @@ import { ResourcesInstrumentsWrapperComponent } from './resources-instruments-wr
 import { ResourcesUniformsWrapperComponent } from './resources-uniforms-wrapper/resources-uniforms-wrapper.component';
 import { ResourcesUniformsGroupComponent } from './resources-uniforms-group/resources-uniforms-group.component';
 import { AddResourceUniformComponent } from './add-resource-uniform/add-resource-uniform.component';
+import { AddResourceUniformPartComponent } from './add-resource-uniform-part/add-resource-uniform-part.component';
 
 
 
@@ -23,6 +24,7 @@ import { AddResourceUniformComponent } from './add-resource-uniform/add-resource
         ResourcesUniformsWrapperComponent,
         ResourcesUniformsGroupComponent,
         AddResourceUniformComponent,
+        AddResourceUniformPartComponent,
     ],
     imports: [
         CommonModule,

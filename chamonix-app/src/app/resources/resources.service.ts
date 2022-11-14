@@ -74,4 +74,20 @@ export class ResourcesService {
     addUnfirmsGroup(DTO: {name: string}) {
         return this.http.post<any>(`${this.apiHost}/resources/uniforms/add-group`, DTO);
     }
+
+    removeUniformsGroup(id: string) {
+        return this.http.post<any>(`${this.apiHost}/resources/uniforms/remove-group/${id}`, null);
+    }
+
+    editUnfirmsGroup(DTO: {id: string, name: string}) {
+        return this.http.post<any>(`${this.apiHost}/resources/uniforms/edit-group/${DTO.id}`, DTO);
+    }
+
+    addUniformParts(DTO: any) {
+        return this.http.post<any>(`${this.apiHost}/resources/uniforms/add-parts`, DTO);
+    }
+
+    removePart(id: string) {
+        return this.http.post<any>(`${this.apiHost}/resources/uniforms/remove-part/${id}`, null);
+    }
 }

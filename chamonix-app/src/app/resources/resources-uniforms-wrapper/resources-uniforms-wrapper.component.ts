@@ -20,7 +20,10 @@ export class ResourcesUniformsWrapperComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
       this.getUniformsGroup();
-      this._getUniformsGroups = this.resourcesService.shuldGetResourcesUniforms.subscribe(() => this.getUniformsGroup())
+      this._getUniformsGroups = this.resourcesService.shuldGetResourcesUniforms.subscribe(() => {
+        this.uniforms = [];
+        this.getUniformsGroup();
+      })
     }
 
     ngOnDestroy(): void {
@@ -31,11 +34,13 @@ export class ResourcesUniformsWrapperComponent implements OnInit, OnDestroy {
       this.loading = true;
       this._getUniformsGroups = this.resourcesService.getUniformsGroups().subscribe({
         next: (groups) => {
+          this.uniformsGroups = [];
           this.uniformsGroups = groups;
           this.loading = false;
         },
         error: () => {
           this.loading = false;
+          this.uniformsGroups = [];
         }
       });
     }

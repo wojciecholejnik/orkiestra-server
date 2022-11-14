@@ -1,0 +1,51 @@
+<app-modal-wrapper>
+
+    <div class="action-modal">
+        <h2 *ngIf="!editingItem">Dodaj element</h2>
+        <h2 *ngIf="editingItem">Edytuj element</h2>
+        <h5>dla grupy: <strong>{{uniformGroup.name}}</strong></h5>
+        <ng-container *ngIf="!requestPending">
+
+            <form id="partsForm" [formGroup]="form" >
+                <div *ngFor="let control of  partsFieldAsFormArray.controls ;let i = index;" formArrayName='parts' class="mb-3 mt-3 form-control-wrapper">
+                    <div class="control-wrapper name" [formGroupName]="i">
+                        <label for="uniformsGroupName">Nazwa elementu</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="np. Mundury galowe ..."
+                            formControlName="name"
+                        >
+                    </div>
+                    <div class="control-wrapper amount" [formGroupName]="i">
+                        <label for="uniformsGroupName">Ilość</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            formControlName="amount"
+                            min="1"
+                        >
+                    </div>
+                    <div class="control-wrapper remove">
+                        <label for="uniformsGroupName" style="color:#fff;">Usuń</label>
+                        <button class="button button-small button-warning" (click)="remove(i)">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M13.295 2.115C13.6844 1.72564 13.6844 1.09436 13.295 0.705C12.9056 0.315639 12.2744 0.315639 11.885 0.705L7 5.59L2.115 0.705C1.72564 0.315639 1.09436 0.315639 0.705 0.705C0.315639 1.09436 0.315639 1.72564 0.705 2.115L5.59 7L0.705 11.885C0.315639 12.2744 0.315639 12.9056 0.705 13.295C1.09436 13.6844 1.72564 13.6844 2.115 13.295L7 8.41L11.885 13.295C12.2744 13.6844 12.9056 13.6844 13.295 13.295C13.6844 12.9056 13.6844 12.2744 13.295 11.885L8.41 7L13.295 2.115Z" fill="#fff"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                </div>
+                <button class="add-control" (click)="addControl()">Dodaj kolejny</button>
+            </form>
+        </ng-container>
+
+        <app-loading *ngIf="requestPending"></app-loading>
+
+        <div class="buttons-wrapper">
+            <button class="button-secondary" (click)="closeModal()">Anuluj</button>
+            <button class="button butto-primary" (click)="addParts()">Zapisz</button>
+        </div>
+    </div>
+
+</app-modal-wrapper>

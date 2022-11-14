@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ResourcesService } from '../resources.service';
 
@@ -7,24 +7,40 @@ import { ResourcesService } from '../resources.service';
     templateUrl: './resources-uniforms-group.component.html',
     styleUrls: ['./resources-uniforms-group.component.scss']
 })
-export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy {
+export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy, OnChanges {
 
   @Input() uniformsGroup!: {_id: string, name: string};
   _getParts?: Subscription;
   parts: any;
   loading = true;
   isOpen = false;
+  confirmationIsOpen = false;
+  editGroupIsOpen = false;
+  addPartsIsOpen = false;
 
     constructor(private resourcesService: ResourcesService) { 
     }
 
     ngOnInit(): void {
+      this.getParts();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+      this.getParts();
+    }
+
+    getParts() {
       this._getParts = this.resourcesService.getPartsForUniformsGroup(this.uniformsGroup?._id).subscribe({
         next: (parts) => {
+          console.log(this.uniformsGroup.name, this.parts)
+          this.parts = [];
           this.parts = parts;
           this.loading = false;
         },
-        error: () => this.loading = false
+        error: () =>  {
+          this.parts = [];
+          this.loading = false;
+        }
       })
     }
 
@@ -34,6 +50,46 @@ export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy {
 
     toggleCard(){
       this.isOpen = !this.isOpen;
+    }
+
+    openConfirmation(){
+      this.confirmationIsOpen = true;
+    }
+
+    removeGroup() {
+      this.resourcesService.removeUniformsGroup(this.uniformsGroup._id).subscribe({
+        next: () => {
+          this.resourcesService.shuldGetResourcesUniforms.next(true);
+        },
+        error: () => {},
+
+      })
+    }
+
+    openModalEditGroup() {
+      this.editGroupIsOpen = true;
+    }
+
+    closeEditModal() {
+      this.resourcesService.shuldGetResourcesUniforms.next(true);
+      this.editGroupIsOpen = false;
+    }
+
+    openAddParts() {
+      this.addPartsIsOpen = true;
+    }
+
+    closeAddPartsModal() {
+      this.addPartsIsOpen = false;
+      this.getParts();
+    }
+
+    removePart(id: string) {
+      this.resourcesService.removePart(id).subscribe({
+        next: () => {
+          this.getParts();
+        }
+      })
     }
 
 }

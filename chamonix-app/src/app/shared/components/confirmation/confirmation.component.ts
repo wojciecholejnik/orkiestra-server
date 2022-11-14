@@ -29,6 +29,9 @@ export class ConfirmationComponent implements OnInit {
             this.confirmationText = 'Czy na pewno usunąć instrument ' + this.data.brand + ' ' + this.data.model + ' ?'
         }
         
+        if (this.type === 'removeUniformGroup') {
+            this.confirmationText = 'Czy na pewno usunąć grupę umundurowania ' + this.data.name + ' ?'
+        }
     }
 
     confirm(){

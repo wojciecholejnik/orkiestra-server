@@ -99,4 +99,4 @@ export interface newResourceDTO {
 }
 
 export type Sorting = 'asc' | 'desc' | '';
-export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | '';
+export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | '';

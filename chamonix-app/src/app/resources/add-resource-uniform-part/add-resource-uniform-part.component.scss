@@ -1,0 +1,38 @@
+@import '../../../global-styling/colors.scss';
+
+.form-control-wrapper {
+    display: flex;
+    gap: 10px;
+    border-bottom: $table-border;
+    padding-bottom: 10px;
+}
+
+button.add-control {
+    margin: 0 auto;;
+}
+
+.control-wrapper  {
+
+    input {
+        width: 100%;
+    }
+    
+    &.name {
+        width: 68%;
+    };
+
+    &.amount {
+        width: 15%;
+    }
+    &.remove {
+        display: flex;
+        height: 70px;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+form {
+    max-height: 70vh;
+    overflow-y: auto;
+}

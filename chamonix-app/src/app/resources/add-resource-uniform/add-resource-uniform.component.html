@@ -3,19 +3,23 @@
     <div class="action-modal">
         <h2 *ngIf="!editingItem">Dodaj umundurowanie</h2>
         <h2 *ngIf="editingItem">Edytuj umundurowanie</h2>
+        <ng-container *ngIf="!requestPending">
 
-        <form id="groupForm" >
-            <div class="mb-3 mt-3 form-control-wrapper">
-                <label for="uniformsGroupName">Nazwa umundurowania</label>
-                <input
-                    id="uniformsGroupName"
-                    type="text"
-                    class="form-control"
-                    placeholder="np. Mundury galowe ..."
-                    [formControl]="uniformsGroupName"
-                >
-            </div>
-        </form>
+            <form id="groupForm" >
+                <div class="mb-3 mt-3 form-control-wrapper">
+                    <label for="uniformsGroupName">Nazwa umundurowania</label>
+                    <input
+                        id="uniformsGroupName"
+                        type="text"
+                        class="form-control"
+                        placeholder="np. Mundury galowe ..."
+                        [formControl]="uniformsGroupName"
+                    >
+                </div>
+            </form>
+        </ng-container>
+
+        <app-loading *ngIf="requestPending"></app-loading>
 
         <div class="buttons-wrapper">
             <button class="button-secondary" (click)="closeModal()">Anuluj</button>
