@@ -1,6 +1,10 @@
 <app-resources-navigation></app-resources-navigation>
 
-<app-add-resource *ngIf="addResourceIsOpen" (onModalClose)="closeAddResourceModal()"></app-add-resource>
+<app-add-resource-instrument *ngIf="addResourceInstrumentIsOpen" (onModalClose)="closeAddResourceInstrumentModal()"></app-add-resource-instrument>
+<app-add-resource-uniform *ngIf="addResourceUniformIsOpen"></app-add-resource-uniform>
+
+
 <div class="modules-container">
     <app-resources-instruments-wrapper *ngIf="activeTab && activeTab.instruments"></app-resources-instruments-wrapper>
+    <app-resources-uniforms-wrapper *ngIf="activeTab && activeTab.uniforms"></app-resources-uniforms-wrapper>
 </div>

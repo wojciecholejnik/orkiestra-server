@@ -19,6 +19,9 @@ export class AddMemberComponent implements OnInit, OnDestroy {
     instrumentsSubscription?: Subscription;
     instruments: Instrument[] = [];
     todayDate: any;
+    loadingInstruments = true;
+    error = '';
+    requestPending = true;
     newMemberForm = new FormGroup({
         firstName: new FormControl('', [Validators.required]),
         lastName: new FormControl('', [Validators.required]),
@@ -41,6 +44,7 @@ export class AddMemberComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.instrumentsSubscription = this.membersService.getInstruments().subscribe(instruments => {
             this.instruments = instruments;
+            this.loadingInstruments = false;
         });
 
         if (this.memberToEdit) {
@@ -93,15 +97,25 @@ export class AddMemberComponent implements OnInit, OnDestroy {
     }
 
     addUser(){
+        this.requestPending = true;
         if (!this.memberToEdit && this.newMemberForm.status === 'VALID') {
             const newMemberDTO: newMemberDTO = {
                 ...this.newMemberForm.value,
                 joiningDate: new Date(),
             }
-        this.membersService.addNewMember(newMemberDTO).subscribe(() => {
-            this.membersService.getMembers.next(true);
-            this.closeModal();
-        })
+        
+            this.membersService.addNewMember(newMemberDTO).subscribe({
+                next: () => {
+                    this.requestPending = false;
+                    this.membersService.getMembers.next(true);
+                    this.closeModal();
+                },
+                error: () => {
+                    this.requestPending = false;
+                    this.error = 'Coś poszło nie tak. Spróbuj ponownie.'
+                    this.newMemberForm.enable();
+                }
+            })
         }
 
         if (this.memberToEdit && this.newMemberForm.status === 'VALID') {

@@ -63,8 +63,8 @@
     (onConfirm)="removeInstrument(selectedInstrument._id)"
     (onAbort)="confirmationRemoveIsOpen=false"
 ></app-confirmation>
-<app-add-resource 
+<app-add-resource-instrument 
     *ngIf="editingIsOpen"
     [editingItem]="selectedInstrument"
     (onModalClose)="closeEditingModal()"
-></app-add-resource>
+></app-add-resource-instrument>

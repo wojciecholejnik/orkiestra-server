@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ResourcesTabs } from 'src/app/shared/models';
 import { ResourcesService } from '../resources.service';
@@ -8,31 +8,32 @@ import { ResourcesService } from '../resources.service';
     templateUrl: './resources-wrapper.component.html',
     styleUrls: ['./resources-wrapper.component.scss']
 })
-export class ResourcesWrapperComponent implements OnInit {
+export class ResourcesWrapperComponent implements OnInit, OnDestroy {
 
     _activeTab?: Subscription;
     activeTab?: ResourcesTabs;
-    _addResourceIsOpen?: Subscription;
-    addResourceIsOpen = false;
-    // TEMPORARY
-    resources: any;
+    _addResourceInstrumentIsOpen?: Subscription;
+    addResourceInstrumentIsOpen: any;
+    _addResourceUniformIsOpen?: Subscription;
+    addResourceUniformIsOpen: any;
 
     constructor(private resourcesService: ResourcesService) { }
 
     ngOnInit(): void {
         this._activeTab = this.resourcesService.activeTab.subscribe(tabs => this.activeTab = tabs);
-        this._addResourceIsOpen = this.resourcesService.addReourceIsOpen.subscribe(state => this.addResourceIsOpen = state);
+        this._addResourceInstrumentIsOpen = this.resourcesService.addResourceInstrumentIsOpen.subscribe(state => this.addResourceInstrumentIsOpen = state);
+        this._addResourceUniformIsOpen = this.resourcesService.addResourceUniformsIsOpen.subscribe(state => this.addResourceUniformIsOpen = state);
+    }
+
+    ngOnDestroy(): void {
+        this._activeTab?.unsubscribe();
+        this._addResourceInstrumentIsOpen?.unsubscribe();
+        this._addResourceUniformIsOpen?.unsubscribe();
     }
 
 
-    closeAddResourceModal(){
-        this.resourcesService.addReourceIsOpen.next(false);
+    closeAddResourceInstrumentModal(){
+        this.resourcesService.addResourceInstrumentIsOpen.next(false);
     }
-
-    // deleteResource(id: string) {
-    //     this.resourcesService.deleteResource(id).subscribe(() => {
-    //         this.getResources()
-    //     });
-    // }
 
 }

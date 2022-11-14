@@ -1,0 +1,37 @@
+@import'../../../global-styling/colors.scss';
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    &::after {
+        content: "";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        border-color: $origin-blue transparent $origin-red transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+      }
+
+    &.small {
+        width: 40px;
+        height: 40px;
+
+        &::after {
+            width: 30px;
+            height: 30px;
+        }
+    }
+  }
+  
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

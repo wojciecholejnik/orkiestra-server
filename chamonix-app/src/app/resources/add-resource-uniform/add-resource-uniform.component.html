@@ -1,0 +1,26 @@
+<app-modal-wrapper>
+
+    <div class="action-modal">
+        <h2 *ngIf="!editingItem">Dodaj umundurowanie</h2>
+        <h2 *ngIf="editingItem">Edytuj umundurowanie</h2>
+
+        <form id="groupForm" >
+            <div class="mb-3 mt-3 form-control-wrapper">
+                <label for="uniformsGroupName">Nazwa umundurowania</label>
+                <input
+                    id="uniformsGroupName"
+                    type="text"
+                    class="form-control"
+                    placeholder="np. Mundury galowe ..."
+                    [formControl]="uniformsGroupName"
+                >
+            </div>
+        </form>
+
+        <div class="buttons-wrapper">
+            <button class="button-secondary" (click)="closeModal()">Anuluj</button>
+            <button class="button butto-primary" (click)="addUniformGroup()">Dodaj</button>
+        </div>
+    </div>
+
+</app-modal-wrapper>

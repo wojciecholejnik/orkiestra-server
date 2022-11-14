@@ -13,7 +13,31 @@
     
     <div *ngIf="!loading" class="content-container">
 
-        <div>Informacje o zasobach </div>
+        <div class="left-container">
+            <div class="instruments">
+                <h4>Instrumenty</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>rodzaj</th>
+                            <th>marka</th>
+                            <th>model</th>
+                            <th>nr seryjny</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let instrument of memberData.resources.instruments">
+                            <td>{{instrument.type.name}}</td>
+                            <td>{{instrument.brand}}</td>
+                            <td>{{instrument.model}}</td>
+                            <td>{{instrument.serialNumber}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
         <div class="right-table-container">
             <table class="table small-table">
 
@@ -30,38 +54,6 @@
                     <th>{{memberData.instrument.section.name}}</th>
                 </tr>
                 </tbody>
-
-
-                <thead>
-                    <th>Info kontaktowe</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>telefon</td>
-                        <th>{{memberData.phone ? memberData.phone : '---'}}</th>
-                    </tr>
-                    <tr>
-                        <td>email</td>
-                        <th>{{memberData.email ? memberData.email : '---'}}</th>
-                    </tr>
-                    <tr>
-                        <td>ulica i nr domu</td>
-                        <th>{{memberData.address1 ? memberData.address1 : '---'}}</th>
-                    </tr>
-                    <tr>
-                        <td>kod pocztowy</td>
-                        <th>{{memberData.address2 ? memberData.address2 : '---'}}</th>
-                    </tr>
-                    <tr *ngIf="memberData.parentName">
-                        <td>opiekun</td>
-                        <th>{{memberData.parentName}}</th>
-                    </tr>
-                    <tr *ngIf="memberData.parentPhone">
-                        <td>opiekun</td>
-                        <th>{{memberData.parentPhone}}</th>
-                    </tr>
-                </tbody>
-
 
                 <thead>
                     <th>Info osobowe</th>
@@ -84,9 +76,45 @@
                         <th>{{getAge(memberData.joiningDate)}}</th>
                     </tr>
                 </tbody>
+
+
+                <thead>
+                    <th>Info kontaktowe</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>telefon</td>
+                        <th (click)="copyToClipboard(memberData.phone)">{{memberData.phone ? memberData.phone : '---'}}</th>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <th (click)="copyToClipboard(memberData.email)" >{{memberData.email ? memberData.email : '---'}}</th>
+                    </tr>
+                    <tr>
+                        <td>ulica i nr domu</td>
+                        <th>{{memberData.address1 ? memberData.address1 : '---'}}</th>
+                    </tr>
+                    <tr>
+                        <td>kod pocztowy</td>
+                        <th>{{memberData.address2 ? memberData.address2 : '---'}}</th>
+                    </tr>
+                    <tr *ngIf="memberData.parentName">
+                        <td>opiekun</td>
+                        <th>{{memberData.parentName}}</th>
+                    </tr>
+                    <tr *ngIf="memberData.parentPhone">
+                        <td>opiekun</td>
+                        <th>{{memberData.parentPhone}}</th>
+                    </tr>
+                </tbody>
+
             </table>
         </div>
     </div>
+</div>
+
+<div class="loading-wrapper" *ngIf="loading">
+    <app-loading></app-loading>
 </div>
 
 <app-modal-wrapper *ngIf="editMemberisOpen">

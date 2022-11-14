@@ -3,6 +3,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Member } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
+import {Clipboard} from '@angular/cdk/clipboard'
 
 @Component({
     selector: 'app-member-details',
@@ -19,7 +20,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     loading = true;
   
 
-  constructor(private membersService: MembersService, private datePipe: DatePipe) { }
+  constructor(private membersService: MembersService, private clipboard: Clipboard) { }
 
     ngOnInit(): void {
         this.getData();
@@ -33,7 +34,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.detailsSubscription?.unsubscribe;
+        this.detailsSubscription?.unsubscribe();
     }
 
     getAge(dateString: Date) {
@@ -50,5 +51,9 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     closeModalAndGetData(){
         this.getData();
         this.editMemberisOpen = false;
+    }
+
+    copyToClipboard(value: any){
+        this.clipboard.copy(value);
     }
 }

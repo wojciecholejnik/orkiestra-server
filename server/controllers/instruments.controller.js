@@ -31,7 +31,6 @@ exports.readInstruments = async (req, res) => {
 
 exports.readInstrumentsBySection = async (req, res) => {
   const sectionId = req.params.id;
-  console.log(sectionId)
   try {
     const instruments = await Instrument.find({section: sectionId});
   

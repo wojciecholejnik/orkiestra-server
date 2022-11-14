@@ -15,15 +15,17 @@ export class ResourcesService {
     private apiHost: string;
 
     public activeTab: BehaviorSubject<ResourcesTabs> = new BehaviorSubject({
-        uniforms: false,
-        instruments: true,
+        uniforms: true,
+        instruments: false,
         sections: false,
         instructors: false,
         others: false
     } as ResourcesTabs);
 
-    public addReourceIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
+    public addResourceInstrumentIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
+    public addResourceUniformsIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
     public shouldGetResourcesInstruments: Subject<any> = new Subject();
+    public shuldGetResourcesUniforms: Subject<any> = new Subject();
 
     constructor(private http: HttpClient) { 
         this.apiHost = environment.baseApiUrl;
@@ -45,8 +47,8 @@ export class ResourcesService {
         return this.http.get<any>(`${this.apiHost}/instrumentsBySection/${sectionId}`);
     }
 
-    getActiveMembers(): Observable<Member[]> {
-        return this.http.get<any>(`${this.apiHost}/musicians/active`);
+    getMembersNames(): Observable<{firstName: string, lastName: string, _id: string}[]> {
+        return this.http.get<any>(`${this.apiHost}/musicians/name&id`);
     }
 
     deleteResource(resourceId: string): Observable<any> {
@@ -59,5 +61,17 @@ export class ResourcesService {
 
     updateResource(id: string, DTO: any) {
         return this.http.post<any>(`${this.apiHost}/resource/update/${id}`, DTO);
+    }
+
+    getUniformsGroups() {
+        return this.http.get<any>(`${this.apiHost}/resources/uniforms-groups`);
+    }
+
+    getPartsForUniformsGroup(groupId: string) {
+        return this.http.get<any>(`${this.apiHost}/resources/uniforms-group-parts/${groupId}`);
+    }
+
+    addUnfirmsGroup(DTO: {name: string}) {
+        return this.http.post<any>(`${this.apiHost}/resources/uniforms/add-group`, DTO);
     }
 }

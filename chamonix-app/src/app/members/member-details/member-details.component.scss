@@ -4,6 +4,13 @@
     padding: 16px 24px;
 }
 
+.loading-wrapper {
+    height: calc(100vh - 165px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 button {
 
     width: 40px;
@@ -23,11 +30,10 @@ button {
     overflow-y: auto;
     max-height: calc(100vh - 230px);
     margin-top: 16px;
+    width: 40%;
 }
 
 table.small-table {
-    width: 400px;
-
     thead {
 
         &:first-child th {
@@ -40,6 +46,15 @@ table.small-table {
             align-items: flex-end;
             width: 175px;
             border-top: unset;
+        }
+    }
+
+    tbody {
+        th {
+            max-width: 285px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 }
@@ -56,8 +71,10 @@ table.small-table {
     }
 }
 
-// .instrument-info {
-// }
+.right-table-container {
+    border-left: $table-border;
+}
 
-// .contact-info {
-// }
+.left-container {
+    width: 55%;
+}
