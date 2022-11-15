@@ -115,5 +115,23 @@ exports.removePart = async (req, res) => {
   }
 }
 
+exports.editPart = async (req, res) => {
+  try {
+    let part = await UniformItem.findOne({_id: req.params.id});
+    if (part) {      
+      await UniformItem.updateOne({ _id: req.params.id }, { $set: {
+        name: req.body.hasOwnProperty('name') ? req.body.name : part.name,
+        state: req.body.hasOwnProperty('state') ? req.body.state : part.state,
+      }});
+      res.json({mess: 'ok'});
+    } else {
+      res.status(404).json({message: 'Unfirm part not found.'})
+    }
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
 
 

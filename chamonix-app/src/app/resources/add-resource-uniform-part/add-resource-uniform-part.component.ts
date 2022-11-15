@@ -25,10 +25,17 @@ export class AddResourceUniformPartComponent implements OnInit {
     }
 
     part(): any {
-        return this.fb.group({
-          name: this.fb.control(''),
-          amount: this.fb.control(null)
-        });
+        if (!this.editingItem) {
+            return this.fb.group({
+                name: this.fb.control(''),
+                amount: this.fb.control(null)
+            });
+        } else {
+            return this.fb.group({
+                name: this.fb.control(this.editingItem.name),
+                amount: this.fb.control(this.editingItem.state)
+            });
+        }
     }
 
     get partsFieldAsFormArray(): any {
@@ -54,9 +61,31 @@ export class AddResourceUniformPartComponent implements OnInit {
         };
         this.resourvesService.addUniformParts(DTO).subscribe({
             next: () => {
-                this.onCloseModal.emit(true)
+                this.handleRequest();
+            },
+            error: () => {
+                this.handleRequest();
             }
         })
+    }
+
+    editPart() {
+        const DTO = {
+            name: this.form.value.parts[0].name,
+            state: this.form.value.parts[0].amount
+        };
+        this.resourvesService.editPart(this.editingItem._id, DTO).subscribe({
+            next: () => {
+                this.handleRequest();
+            },
+            error: () => {
+                this.handleRequest();
+            }
+        })
+    }
+
+    handleRequest(){
+        this.onCloseModal.emit(true);
     }
 
 }

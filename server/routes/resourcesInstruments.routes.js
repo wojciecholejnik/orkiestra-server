@@ -19,6 +19,7 @@ router.post('/resources/uniforms/edit-group/:id', uniformGroups.editGroup);
 // RESOURCE UNIFORMS PARTS
 router.post('/resources/uniforms/add-parts', uniformGroups.addParts);
 router.post('/resources/uniforms/remove-part/:id', uniformGroups.removePart);
+router.post('/resources/uniforms/edit-part/:id', uniformGroups.editPart);
 
 
 module.exports = router;

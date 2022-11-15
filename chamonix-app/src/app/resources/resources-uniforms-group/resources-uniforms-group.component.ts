@@ -17,79 +17,86 @@ export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy, OnCha
   confirmationIsOpen = false;
   editGroupIsOpen = false;
   addPartsIsOpen = false;
+  editPartIsOpen = false;
+  selectedPart: any;
 
-    constructor(private resourcesService: ResourcesService) { 
-    }
+  constructor(private resourcesService: ResourcesService) { 
+  }
 
-    ngOnInit(): void {
-      this.getParts();
-    }
+  ngOnInit(): void {
+    this.getParts();
+  }
 
-    ngOnChanges(changes: SimpleChanges): void {
-      this.getParts();
-    }
+  ngOnChanges(): void {
+    this.getParts();
+  }
 
-    getParts() {
-      this._getParts = this.resourcesService.getPartsForUniformsGroup(this.uniformsGroup?._id).subscribe({
-        next: (parts) => {
-          console.log(this.uniformsGroup.name, this.parts)
-          this.parts = [];
-          this.parts = parts;
-          this.loading = false;
-        },
-        error: () =>  {
-          this.parts = [];
-          this.loading = false;
-        }
-      })
-    }
+  getParts() {
+    this._getParts = this.resourcesService.getPartsForUniformsGroup(this.uniformsGroup?._id).subscribe({
+      next: (parts) => {
+        this.parts = [];
+        this.parts = parts;
+        this.loading = false;
+      },
+      error: () =>  {
+        this.parts = [];
+        this.loading = false;
+      }
+    })
+  }
 
-    ngOnDestroy(): void {
-        this._getParts?.unsubscribe();
-    }
+  ngOnDestroy(): void {
+      this._getParts?.unsubscribe();
+  }
 
-    toggleCard(){
-      this.isOpen = !this.isOpen;
-    }
+  toggleCard(){
+    this.isOpen = !this.isOpen;
+  }
 
-    openConfirmation(){
-      this.confirmationIsOpen = true;
-    }
+  openConfirmation(){
+    this.confirmationIsOpen = true;
+  }
 
-    removeGroup() {
-      this.resourcesService.removeUniformsGroup(this.uniformsGroup._id).subscribe({
-        next: () => {
-          this.resourcesService.shuldGetResourcesUniforms.next(true);
-        },
-        error: () => {},
+  removeGroup() {
+    this.resourcesService.removeUniformsGroup(this.uniformsGroup._id).subscribe({
+      next: () => {
+        this.resourcesService.shuldGetResourcesUniforms.next(true);
+      },
+      error: () => {},
 
-      })
-    }
+    })
+  }
 
-    openModalEditGroup() {
-      this.editGroupIsOpen = true;
-    }
+  openModalEditGroup() {
+    this.editGroupIsOpen = true;
+  }
 
-    closeEditModal() {
-      this.resourcesService.shuldGetResourcesUniforms.next(true);
-      this.editGroupIsOpen = false;
-    }
+  closeEditModal() {
+    this.resourcesService.shuldGetResourcesUniforms.next(true);
+    this.editGroupIsOpen = false;
+  }
 
-    openAddParts() {
-      this.addPartsIsOpen = true;
-    }
+  openAddParts() {
+    this.addPartsIsOpen = true;
+  }
 
-    closeAddPartsModal() {
-      this.addPartsIsOpen = false;
-      this.getParts();
-    }
+  closeAddPartsModal() {
+    this.addPartsIsOpen = false;
+    this.editPartIsOpen = false;
+    this.getParts();
+  }
 
-    removePart(id: string) {
-      this.resourcesService.removePart(id).subscribe({
-        next: () => {
-          this.getParts();
-        }
-      })
-    }
+  removePart(id: string) {
+    this.resourcesService.removePart(id).subscribe({
+      next: () => {
+        this.getParts();
+      }
+    })
+  }
+
+  selectEditingPart(part: any) {
+    this.selectedPart = part;
+    this.editPartIsOpen = true;
+  }
 
 }

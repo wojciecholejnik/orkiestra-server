@@ -36,7 +36,7 @@
                     </div>
                     
                 </div>
-                <button class="add-control" (click)="addControl()">Dodaj kolejny</button>
+                <button *ngIf="!editingItem" class="add-control" (click)="addControl()">Dodaj kolejny</button>
             </form>
         </ng-container>
 
@@ -44,7 +44,8 @@
 
         <div class="buttons-wrapper">
             <button class="button-secondary" (click)="closeModal()">Anuluj</button>
-            <button class="button butto-primary" (click)="addParts()">Zapisz</button>
+            <button *ngIf="!editingItem" class="button butto-primary" (click)="addParts()">Zapisz</button>
+            <button *ngIf="editingItem" class="button butto-primary" (click)="editPart()">Zapisz</button>
         </div>
     </div>
 
