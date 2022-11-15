@@ -58,7 +58,7 @@ export class AddResourceInstrumentComponent implements OnInit, OnDestroy {
             this.instrumentForm.controls.serialNumber.setValue(this.editingItem.serialNumber);
             this.instrumentForm.controls.condition.setValue(this.editingItem.condition);
             this.instrumentForm.controls.description.setValue(this.editingItem.description);
-            this.instrumentForm.controls.user.setValue(this.editingItem.user._id)
+            this.instrumentForm.controls.user.setValue(this.editingItem.user ? this.editingItem.user._id : '');
         }
     }
 
