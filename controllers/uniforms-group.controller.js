@@ -6,7 +6,7 @@ exports.readGroups = async (req, res) => {
     const groups = await UniformsGroup.find().populate({
       path: 'parts', 
       model: UniformItem,
-    });
+    }).sort({name: 1});
    
   
     if (!groups.length) {
@@ -22,7 +22,7 @@ exports.readGroups = async (req, res) => {
 
 exports.readGroupParts = async (req, res) => {
   try {
-    const items = await UniformItem.find({group: req.params.id}).select('-group');
+    const items = await UniformItem.find({group: req.params.id}).select('-group').sort({name: 1});
   
     if (!items.length) {
       res.status(404).json({ message: 'not found !!'});
@@ -175,6 +175,3 @@ exports.assignMemberToPart = async (req, res) => {
     res.status(500).json({ message: err });
   }
 }
-
-
-
