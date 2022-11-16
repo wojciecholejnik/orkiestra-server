@@ -87,8 +87,8 @@ export class ResourcesService {
         return this.http.post<any>(`${this.apiHost}/resources/uniforms/add-parts`, DTO);
     }
 
-    removePart(id: string) {
-        return this.http.post<any>(`${this.apiHost}/resources/uniforms/remove-part/${id}`, null);
+    removePart(id: string, groupId: string) {
+        return this.http.post<any>(`${this.apiHost}/resources/uniforms/remove-part/${id}`, {groupId});
     }
 
     editPart(id: string, DTO: {name: string, state: number}) {

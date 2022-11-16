@@ -2,6 +2,8 @@ const Musician = require('../models/musician.model');
 const Instrument = require('../models/instrument.model'); 
 const Section = require('../models/section.model');
 const ResourceInstrument = require('../models/resourceInstrument.model');
+const UniformGroup = require('../models/uniform-group.model');
+const UniformItem = require('../models/uniform-item.model');
 
 const sortByLastName = function(a, b) {
   const result = a.lastName.localeCompare(b.lastName);
@@ -263,6 +265,26 @@ exports.deleteMusician = async (req, res) => {
     } else {
       res.status(404).json({message: 'Musician not found'})
     }
+  }
+  catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.readMemberUniforms = async (req, res) => {
+  try {
+    await UniformGroup.find().populate({
+      path: 'parts',
+      model: UniformItem,
+      select: 'name usingMembers',
+    }).then(groupToRes => {
+      if (groupToRes)  {
+        res.json(groupToRes);
+      } else {
+        res.json([])
+      }
+    })
+
   }
   catch(err) {
     res.status(500).json({ message: err });

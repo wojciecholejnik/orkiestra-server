@@ -1,0 +1,21 @@
+.host-container {
+    border: 1px solid black;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 12px;
+
+    h4 {
+        width: 100%;
+    }
+}

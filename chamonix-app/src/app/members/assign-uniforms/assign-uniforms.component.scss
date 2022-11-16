@@ -1,0 +1,22 @@
+form {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
+.control-wrapper {
+    // &.group {
+
+    // }
+
+    &.part {
+        display: flex;
+
+        p {
+            width: 70%;
+        }
+
+        input {
+            width: unset;
+        }
+    }
+}

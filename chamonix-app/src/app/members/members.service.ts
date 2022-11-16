@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Instrument, Member, MembersTabs, newMemberDTO } from '../shared/models';
+import { Instrument, Member, MembersTabs, newMemberDTO, UniformGroupAndPart } from '../shared/models';
 
 @Injectable({
     providedIn: 'root'
@@ -55,28 +55,36 @@ export class MembersService {
         return this.http.get<any>(`${this.apiHost}/instruments`);
     }
 
-    addNewMember(member: newMemberDTO) {
+    addNewMember(member: newMemberDTO): Observable<any> {
         return this.http.post<newMemberDTO>(`${this.apiHost}/musicians`, member)
     }
 
-    moveMemberToExMembers(id: string) {
+    moveMemberToExMembers(id: string): Observable<any> {
         return this.http.post<newMemberDTO>(`${this.apiHost}/musician/${id}`, {isActive: false})
     }
 
-    editMemberData(id: string, memberDTO: newMemberDTO) {
+    editMemberData(id: string, memberDTO: newMemberDTO): Observable<any> {
         return this.http.post<newMemberDTO>(`${this.apiHost}/musician/${id}`, memberDTO)
     }
 
-    removeMember(id: string) {
+    removeMember(id: string): Observable<any> {
         return this.http.post<newMemberDTO>(`${this.apiHost}/musician/delete/${id}`, null)
     }
 
-    restoreMember(id: string) {
+    restoreMember(id: string): Observable<any> {
         return this.http.post<newMemberDTO>(`${this.apiHost}/musician/${id}`, {isActive: true})
     }
 
-    getMemberDetails(id: string) {
+    getMemberDetails(id: string): Observable<any> {
         return this.http.get<any>(`${this.apiHost}/musician/${id}`);
+    }
+
+    getUniformsGroupsAndParts(memberId: string): Observable<UniformGroupAndPart[]> {
+        return this.http.get<UniformGroupAndPart[]>(`${this.apiHost}/member/details/uniforms/${memberId}`);
+    }
+
+    assignUniforms(DTO: {memberId: string, parts: any[]}): Observable<any> {
+        return this.http.post<any>(`${this.apiHost}/resources/uniforms-parts/assign`, DTO);
     }
 
 }

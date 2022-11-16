@@ -20,6 +20,7 @@ router.post('/resources/uniforms/edit-group/:id', uniformGroups.editGroup);
 router.post('/resources/uniforms/add-parts', uniformGroups.addParts);
 router.post('/resources/uniforms/remove-part/:id', uniformGroups.removePart);
 router.post('/resources/uniforms/edit-part/:id', uniformGroups.editPart);
+router.post('/resources/uniforms-parts/assign', uniformGroups.assignMemberToPart);
 
 
 module.exports = router;

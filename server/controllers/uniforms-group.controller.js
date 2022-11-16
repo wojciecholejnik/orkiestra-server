@@ -3,13 +3,15 @@ const UniformItem = require('../models/uniform-item.model');
 
 exports.readGroups = async (req, res) => {
   try {
-    const groups = await UniformsGroup.find();
+    const groups = await UniformsGroup.find().populate({
+      path: 'parts', 
+      model: UniformItem,
+    });
    
   
     if (!groups.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      // const groups = instruments.sort((a, b) => a.name.localeCompare(b.name));
       res.json(groups);
     }
 
@@ -34,7 +36,7 @@ exports.readGroupParts = async (req, res) => {
 }
 
 exports.createGroup = async (req, res) => {
-  const newGroup = {...req.body};
+  const newGroup = {...req.body, parts: []};
 
   try {
     const group = new UniformsGroup(newGroup);
@@ -82,19 +84,26 @@ exports.editGroup = async (req, res) => {
 exports.addParts = async (req, res) => {
   const groupId = req.body.groupId;
   const parts = req.body.parts;
-
   try {
-    parts.forEach(async (part) => {
-      const newPart = new UniformItem({
+
+    const partsToSave = parts.map(part => {
+      return {
         group: groupId,
         name: part.name,
         state: part.amount
-      });
-      await newPart.save();
+      }
     });
 
-    res.json({ message: 'OK' });
-
+    UniformItem.insertMany(partsToSave).then(async (newParts) => {
+      await UniformsGroup.findById(groupId).exec(async (err, data) => {
+        const dataParts = data && data.parts && data.parts.length ? data.parts : [];
+        const newPartsIds = newParts.map(part => part._id);
+        await UniformsGroup.updateOne({_id: groupId}, {$set: {
+            parts: dataParts.concat(newPartsIds)
+          }}).exec(() => res.json('OK'));
+        });
+    })
+    
   } catch(err) {
     res.status(500).json({ message: err });
   }
@@ -104,8 +113,18 @@ exports.removePart = async (req, res) => {
   try {
     const partToDelete = await UniformItem.findOne({ _id: req.params.id });
     if (partToDelete) {
-      await UniformItem.deleteOne({ _id: req.params.id });
-      res.json({ message: 'OK' });
+      await UniformItem.deleteOne({ _id: req.params.id }).then(async () => {
+        await UniformsGroup.findById(req.body.groupId).exec(async (err,data) => {
+          const items = data.parts.map(part => part.valueOf());
+          const index = items.indexOf(req.params.id);
+         if (index >= 0) {
+          items.splice(index, 1);
+          await UniformsGroup.updateOne({_id: data._id}, {$set: {
+            parts: items
+          }}).then(() => res.json({ message: 'OK' }))
+         }
+        })
+      });
     } else {
       res.status(404).json({message: 'Uniforms part not found'})
     }
@@ -128,6 +147,30 @@ exports.editPart = async (req, res) => {
       res.status(404).json({message: 'Unfirm part not found.'})
     }
 
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.assignMemberToPart = async (req, res) => {
+  try {
+    const memberId = req.body.memberId;
+    const parts = req.body.parts;
+    parts.forEach( async (part) => {
+      const partToEdit = await UniformItem.findById(part.id);
+      const index = partToEdit.usingMembers.indexOf(memberId);
+      if (partToEdit && part.assigned && index < 0) {
+        await UniformItem.updateOne({_id: partToEdit._id}, {$set: {
+          usingMembers: partToEdit.usingMembers.concat(memberId)
+        }})
+      } else if (partToEdit && !part.assigned && index >= 0) {
+        partToEdit.usingMembers.splice(index, 1);
+        await UniformItem.updateOne({_id: partToEdit._id}, {$set: {
+          usingMembers: partToEdit.usingMembers
+        }})
+      }
+    })
+    res.json({mess: 'ok'});
   } catch(err) {
     res.status(500).json({ message: err });
   }

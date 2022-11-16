@@ -9,16 +9,16 @@ import { ResourcesService } from '../resources.service';
 })
 export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy, OnChanges {
 
-  @Input() uniformsGroup!: {_id: string, name: string};
+  @Input() uniformsGroup!: {_id: string, name: string, parts: any[]};
   _getParts?: Subscription;
-  parts: any;
+  parts: Part[] = [];
   loading = true;
   isOpen = false;
   confirmationIsOpen = false;
   editGroupIsOpen = false;
   addPartsIsOpen = false;
   editPartIsOpen = false;
-  selectedPart: any;
+  selectedPart?: Part;
 
   constructor(private resourcesService: ResourcesService) { 
   }
@@ -27,9 +27,9 @@ export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy, OnCha
     this.getParts();
   }
 
-  ngOnChanges(): void {
+ngOnChanges(changes: SimpleChanges): void {
     this.getParts();
-  }
+}
 
   getParts() {
     this._getParts = this.resourcesService.getPartsForUniformsGroup(this.uniformsGroup?._id).subscribe({
@@ -87,16 +87,33 @@ export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy, OnCha
   }
 
   removePart(id: string) {
-    this.resourcesService.removePart(id).subscribe({
+    this.resourcesService.removePart(id, this.uniformsGroup._id).subscribe({
       next: () => {
         this.getParts();
-      }
+      },
+      error: () => this.resourcesService.shuldGetResourcesUniforms.next(true)
     })
   }
 
-  selectEditingPart(part: any) {
+  selectEditingPart(part: Part) {
     this.selectedPart = part;
     this.editPartIsOpen = true;
   }
 
+  comupteState(part: Part) {
+
+    return {
+      state: part.state,
+      inUse: part.usingMembers.length,
+      free: part.state - part.usingMembers.length
+    }
+  }
+
+}
+
+interface Part {
+  _id: string;
+  name: string;
+  state: number;
+  usingMembers: string[]
 }

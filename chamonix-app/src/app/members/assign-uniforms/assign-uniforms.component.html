@@ -1,0 +1,29 @@
+<app-modal-wrapper>
+    <div class="action-modal">
+        <h2>Dodaj umundurowanie</h2>
+        <h4>dla członka: <strong>{{member.firstName + ' ' + member.lastName}}</strong></h4>
+        <form *ngIf="form" id="form" [formGroup]="form" >
+            <ng-container
+                *ngFor="let groupControl of groupsFieldAsFormArray.controls; let i = index;"
+                class="mb-3 mt-3 form-control-wrapper" formArrayName='groups'>
+                <div class="control-wrapper group" [formGroupName]="i">
+                    <h5 for="uniformsGroupName">{{groupControl.value.name}}</h5>
+                    <ng-container *ngFor="let partControl of partsFieldsAsFormArray(i).controls; let j = index;" 
+                        formArrayName='parts'>
+                        <div class="control-wrapper part" [formGroupName]="j">
+                            <p for="uniformsGroupName">{{partControl.value.name}}</p>
+                            <input type="checkbox" formControlName="assigned">
+                        </div>
+                    </ng-container>
+                </div>
+
+
+            </ng-container>
+        </form>
+
+        <div class="buttons-wrapper">
+            <button class="button-secondary" (click)="closeModal()">Anuluj</button>
+            <button class="button-primary" (click)="save()">Zapisz</button>
+          </div>
+    </div>
+</app-modal-wrapper>

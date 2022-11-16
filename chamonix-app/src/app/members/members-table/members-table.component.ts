@@ -119,12 +119,10 @@ export class MembersTableComponent implements OnInit, OnDestroy {
                 this.handleGetMembers(exMembers);
             }); 
         } else if (this.activeTab && this.activeTab.mainStaff) {
-            console.log('tu')
             this.membersService.getMainStaffMembers().subscribe(mainStaffMembers => {
                 this.handleGetMembers(mainStaffMembers);
             }); 
         } else if (this.activeTab && this.activeTab.students) {
-            console.log('tu')
             this.membersService.getStudentsMembers().subscribe(studentsMembers => {
                 this.handleGetMembers(studentsMembers);
             }); 

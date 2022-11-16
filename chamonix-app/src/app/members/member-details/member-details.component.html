@@ -14,27 +14,11 @@
     <div *ngIf="!loading" class="content-container">
 
         <div class="left-container">
-            <div class="instruments">
-                <h4>Instrumenty</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>rodzaj</th>
-                            <th>marka</th>
-                            <th>model</th>
-                            <th>nr seryjny</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let instrument of memberData.resources.instruments">
-                            <td>{{instrument.type.name}}</td>
-                            <td>{{instrument.brand}}</td>
-                            <td>{{instrument.model}}</td>
-                            <td>{{instrument.serialNumber}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
+            <app-member-instruments [instruments]="memberData.resources.instruments"></app-member-instruments>
+            
+            <app-member-uniforms [member]="memberData" [id]="id"></app-member-uniforms>
+            
         </div>
 
 

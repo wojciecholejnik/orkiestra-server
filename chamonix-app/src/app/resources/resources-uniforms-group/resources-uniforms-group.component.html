@@ -27,7 +27,11 @@
             <tbody>
                 <tr *ngFor="let item of parts">
                     <td>{{item.name}}</td>
-                    <td clas="state">{{item.state}}</td>
+                    <td clas="state">
+                        <span class="mr-3">{{'stan: ' + comupteState(item).state }}</span>
+                        <span class="mr-3">{{'wydane: ' + comupteState(item).inUse }}</span>
+                        <span>{{'wolne: ' + comupteState(item).free }}</span>
+                    </td>
                     <td class="actions">
                         <div class="actions-wrapper">
                             <button class="button button-small button-primary" (click)="selectEditingPart(item)">

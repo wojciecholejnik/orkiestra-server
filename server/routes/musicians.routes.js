@@ -13,4 +13,6 @@ router.post('/musicians', musicianController.createMusician);
 router.post('/musician/:id', musicianController.updateMusician);
 router.post('/musician/delete/:id', musicianController.deleteMusician);
 
+router.get('/member/details/uniforms/:id', musicianController.readMemberUniforms);
+
 module.exports = router;

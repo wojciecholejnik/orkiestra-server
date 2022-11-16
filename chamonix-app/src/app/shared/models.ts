@@ -98,5 +98,18 @@ export interface newResourceDTO {
     user: string,
 }
 
+export interface UniformPart {
+    _id: string;
+    name: string;
+    group: string;
+    usingMembers: any[]; 
+}
+
+export interface UniformGroupAndPart {
+    _id: string;
+    name: string;
+    parts: UniformPart[];
+}
+
 export type Sorting = 'asc' | 'desc' | '';
 export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | '';

@@ -1,7 +1,7 @@
 @import '../../../global-styling/colors.scss';
 
 .main-wrapper {
-    padding: 16px 24px;
+    padding: 10px;
 }
 
 .loading-wrapper {
@@ -76,5 +76,11 @@ table.small-table {
 }
 
 .left-container {
-    width: 55%;
+    width: 60%;
+    padding: 0 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: calc(100vh - 215px);
 }

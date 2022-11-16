@@ -8,6 +8,9 @@ import { SharedModule } from '../shared/shared.module';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { MemberDetailsComponent } from './member-details/member-details.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MemberUniformsComponent } from './member-uniforms/member-uniforms.component';
+import { AssignUniformsComponent } from './assign-uniforms/assign-uniforms.component';
+import { MemberInstrumentsComponent } from './member-instruments/member-instruments.component';
 
 @NgModule({
     declarations: [
@@ -15,7 +18,10 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
         MembersNavigationComponent,
         MembersTableComponent,
         AddMemberComponent,
-        MemberDetailsComponent
+        MemberDetailsComponent,
+        MemberUniformsComponent,
+        AssignUniformsComponent,
+        MemberInstrumentsComponent
     ],
     imports: [
         CommonModule,

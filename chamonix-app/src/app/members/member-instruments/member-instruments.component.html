@@ -1,0 +1,23 @@
+<div class="host-container">
+    <div class="header">
+        <h4 class="mb-3" (click)="toggleIsOpen()">Instrumenty</h4>
+    </div>
+    <table *ngIf="isOpen" class="table">
+        <thead>
+            <tr>
+                <th>rodzaj</th>
+                <th>marka</th>
+                <th>model</th>
+                <th>nr seryjny</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let instrument of instruments">
+                <td>{{instrument.type.name}}</td>
+                <td>{{instrument.brand}}</td>
+                <td>{{instrument.model}}</td>
+                <td>{{instrument.serialNumber}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
