@@ -1,5 +1,5 @@
 <div class="host-container">
-    <div class="header mb-3">
+    <div class="header">
         <h4 (click)="tableIsOpen()">Umundurowanie</h4>
         <button class="button button-primaty button-small" (click)="assignUniformsIsOpen=true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -18,13 +18,14 @@
                 <thead>
                     <tr>
                         <th (click)="toggleIsOpen(group._id)">{{group.name}}</th>
-                        <th></th>
+                        
                     </tr>
                 </thead>
                 <tbody class="mb-5" *ngIf="group.isOpen">
                     <tr *ngFor="let part of group.parts">
-                        <td>{{part.name}}</td>
-                        <td>{{isMemberHasPart(part.usingMembers) ? 'Ma' : ' Nie ma'}}</td>
+                        <ng-container *ngIf="isMemberHasPart(part.usingMembers)">
+                            <td class="pl-5">{{part.name}}</td>
+                        </ng-container>
                     </tr>
                 </tbody>
             </ng-container>

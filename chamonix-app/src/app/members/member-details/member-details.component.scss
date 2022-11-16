@@ -29,7 +29,7 @@ button {
 .right-table-container {
     overflow-y: auto;
     max-height: calc(100vh - 230px);
-    margin-top: 16px;
+    // margin-top: 16px;
     width: 40%;
 }
 
@@ -72,7 +72,8 @@ table.small-table {
 }
 
 .right-table-container {
-    border-left: $table-border;
+    // border-left: $table-border;
+    border: 1px solid black;
 }
 
 .left-container {

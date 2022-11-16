@@ -1,3 +1,5 @@
+@import '../../../global-styling/colors.scss';
+
 .host-container {
     border: 1px solid black;
 }
@@ -6,9 +8,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 8px 12px;
+    padding: 8px 12px;
+    background: $background-light-gray;
 
     h4 {
         width: 100%;
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $origin-red;
     }
 }
