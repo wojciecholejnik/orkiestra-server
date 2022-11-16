@@ -9,7 +9,7 @@ chamonix-app/bazel-out
 
 # dependencies
 chamonix-app/node_modules
-server/node_modules
+node_modules
 
 # profiling files
 chamonix-app/chrome-profiler-events*.json
