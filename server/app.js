@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const musiciansRoutes = require('./routes/musicians.routes');
@@ -16,6 +17,8 @@ app.use(bodyParser.json());
 //support parsing of application/x-www-form-urlencoded post data
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(express.static(path.join(__dirname, './public/client')));
+
 
 const dbURI = `mongodb+srv://chamonix-app:chamonix-app@cluster0.bpoyn.mongodb.net/orkiestra`;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -28,6 +31,9 @@ app.use('/api', musiciansRoutes);
 app.use('/api', sectionsRoutes);
 app.use('/api', instrumentsRoutes);
 app.use('/api', resourcesInstrumentRoutes);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/public/client/index.html'));
+});
 
 const port = 3000;
 app.listen(port, () => {
