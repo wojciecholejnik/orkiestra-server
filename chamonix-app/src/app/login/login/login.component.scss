@@ -1,0 +1,51 @@
+@import '../../../global-styling/colors.scss';
+
+
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../../../assets/logo.png');
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: 80vh;
+    background-color: rgba(255, 255, 255, 0.70);
+    background-blend-mode: lighten;
+
+    padding-top: 66px;
+    padding-bottom: 48px;
+    border: 1px solid #EBEBEB;
+    box-shadow: 0 13px 23px #0000001a;
+}
+
+.wrapper {
+    width: 350px;
+    height: 350px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $font-white;
+    gap: 16px;
+}
+
+input {
+    padding: 12px 9px;
+    font-size: 16px;
+    line-height: 21.79px;
+    color: #3e3e3e;
+    border: none;
+    border-radius: 8px;
+    background-color: #ebebeb;
+
+    &.password {
+        margin-top: 12px;
+    }
+}
+
+.error-message {
+    color: $origin-red;
+    height: 40px;
+}

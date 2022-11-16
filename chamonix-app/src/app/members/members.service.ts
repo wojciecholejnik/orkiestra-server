@@ -87,4 +87,8 @@ export class MembersService {
         return this.http.post<any>(`${this.apiHost}/resources/uniforms-parts/assign`, DTO);
     }
 
+    loginUser(DTO: {login: string, password: string}) {
+        return this.http.post<any>(`${this.apiHost}/user/login`, DTO);
+    }
+
 }

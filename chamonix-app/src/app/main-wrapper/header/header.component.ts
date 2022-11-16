@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from '../navigation-service.service';
 
 @Component({
     selector: 'app-header',
@@ -9,7 +10,7 @@ export class HeaderComponent implements OnInit {
 
     menuIsOpen = false;
 
-    constructor() {}
+    constructor(private navigationService: NavigationService) {}
 
     ngOnInit(): void {}
 
@@ -18,6 +19,11 @@ export class HeaderComponent implements OnInit {
     }
 
     userMenuOptionClick(): void {
+        this.menuIsOpen = false;
+    }
+
+    logout(){
+        this.navigationService.isUserLogged.next(false);
         this.menuIsOpen = false;
     }
 }

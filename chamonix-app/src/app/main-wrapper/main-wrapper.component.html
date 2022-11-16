@@ -1,6 +1,10 @@
-<app-header></app-header>
-<app-navigation></app-navigation>
-<div class="modules-container">
-    <app-members-wrapper *ngIf="navOptions[0].isActive"></app-members-wrapper>
-    <app-resources-wrapper *ngIf="navOptions[3].isActive"></app-resources-wrapper>
-</div>
+<ng-container *ngIf="userLogged">
+    <app-header></app-header>
+    <app-navigation></app-navigation>
+    <div class="modules-container">
+        <app-members-wrapper *ngIf="navOptions[0].isActive"></app-members-wrapper>
+        <app-resources-wrapper *ngIf="navOptions[3].isActive"></app-resources-wrapper>
+    </div>
+</ng-container>
+
+<app-login *ngIf="!userLogged"></app-login>

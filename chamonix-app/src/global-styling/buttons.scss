@@ -54,5 +54,14 @@ button {
         }
     }
 
+}
 
+button:disabled {
+    background: $font-gray !important;
+    color: $font-black !important;
+    &:hover {
+        background: $font-gray !important;
+        color: $font-black !important;
+        cursor: not-allowed;
+    }
 }

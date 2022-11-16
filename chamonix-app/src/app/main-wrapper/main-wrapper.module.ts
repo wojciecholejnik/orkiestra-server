@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MembersModule } from '../members/members.module';
 import { ResourcesModule } from '../resources/resources.module';
+import { LoginModule } from '../login/login.module';
 
 
 
@@ -17,7 +18,8 @@ import { ResourcesModule } from '../resources/resources.module';
     imports: [
         CommonModule,
         MembersModule,
-        ResourcesModule
+        ResourcesModule,
+        LoginModule
     ],
     exports: [
         MainWrapperComponent

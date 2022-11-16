@@ -15,4 +15,6 @@ router.post('/musician/delete/:id', musicianController.deleteMusician);
 
 router.get('/member/details/uniforms/:id', musicianController.readMemberUniforms);
 
+router.post('/user/login', musicianController.loginUser);
+
 module.exports = router;

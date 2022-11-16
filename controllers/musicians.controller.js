@@ -4,6 +4,7 @@ const Section = require('../models/section.model');
 const ResourceInstrument = require('../models/resourceInstrument.model');
 const UniformGroup = require('../models/uniform-group.model');
 const UniformItem = require('../models/uniform-item.model');
+const User = require('../models/user.model');
 
 const sortByLastName = function(a, b) {
   const result = a.lastName.localeCompare(b.lastName);
@@ -287,6 +288,22 @@ exports.readMemberUniforms = async (req, res) => {
 
   }
   catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.loginUser = async (req, res) => {
+  console.log(req.body)
+  try {
+    const user = await User.findOne({login: req.body.login, password: req.body.password}).select('name login role');
+  
+    if (!user) {
+      res.status(404).json({ message: 'invalid credentials'});
+    } else {
+      res.json(user);
+    }
+    
+  } catch(err) {
     res.status(500).json({ message: err });
   }
 }

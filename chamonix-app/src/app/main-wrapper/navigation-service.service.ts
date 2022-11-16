@@ -13,6 +13,8 @@ export class NavigationService {
         {name: 'Zasoby', isActive: false},
     ]);
 
+    isUserLogged: BehaviorSubject<any> = new BehaviorSubject(false);
+
   constructor() { }
 
 }

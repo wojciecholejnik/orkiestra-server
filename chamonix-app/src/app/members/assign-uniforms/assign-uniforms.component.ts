@@ -51,13 +51,6 @@ export class AssignUniformsComponent implements OnInit, OnChanges {
             })))
         });
         let i = 0;
-        // this.groupsFieldAsFormArray.controls.forEach(groupcontrol => {
-        //     console.log(groupcontrol.value.name);
-        //     this.partsFieldsAsFormArray(i).controls.forEach(part => {
-        //         console.log(part)
-        //     });
-        //     i++
-        // })
     }
 
     get groupsFieldAsFormArray(): FormArray {

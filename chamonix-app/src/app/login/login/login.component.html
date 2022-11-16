@@ -1,0 +1,27 @@
+<div class="wrapper box-shadow">
+    <h2>Chamonix-app</h2>
+    <form class="form" [formGroup]="form" >
+        <div class="login-control">
+            <input placeholder="Login" type="text" formControlName="login" (change)="errorMessage=''">
+        </div>
+        <div class="login-control">
+            <input 
+            class="password" 
+            placeholder="Hasło" 
+            type="password" 
+            formControlName="password" 
+            (keydown.enter)="login()"
+            (change)="errorMessage=''"
+            >
+        </div>
+    </form>
+    <div class="error-message">
+        <p [hidden]="!errorMessage">{{errorMessage}}n</p>
+    </div>
+    <div class="buttons-wrapper">
+        <button class="button button-primary" (click)="login()">Zaloguj</button>
+    </div>
+</div>
+
+
+
