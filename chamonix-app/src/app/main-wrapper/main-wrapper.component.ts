@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NavOption } from '../shared/models';
+import { NavOption, User } from '../shared/models';
 import { NavigationService } from './navigation-service.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class MainWrapperComponent implements OnInit, OnDestroy {
     navigationSubscription?: Subscription;
     navOptions: NavOption[] = [];
     _userLogged?: Subscription;
-    userLogged = false;
+    userLogged?: User;
 
     constructor(private navigationService: NavigationService) { }
 

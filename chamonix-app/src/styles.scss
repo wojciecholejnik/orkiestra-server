@@ -68,5 +68,19 @@
     box-shadow: 4px 4px 7px 7px rgba(23, 83, 126, 0.15);
 }
 
+input {
+    padding: 12px 9px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #3e3e3e;
+    border: none;
+    border-radius: 8px;
+    background-color: #ebebeb;
+
+    &.password {
+        margin-top: 12px;
+    }
+}
+
 // html, body { height: 100%; }
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

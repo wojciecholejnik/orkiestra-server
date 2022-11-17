@@ -23,6 +23,8 @@ img#logo {
 
 .user-menu {
     position: relative;
+    display: flex;
+    align-items: center;
 
     svg {
         height: 40px;
@@ -33,6 +35,12 @@ img#logo {
             cursor: pointer;
             fill: $origin-red;
         }
+    }
+
+    h6 {
+        margin-bottom: 0;
+        color: $origin-blue;
+        font-weight: 600;
     }
 
     .colabsable-wrapper {

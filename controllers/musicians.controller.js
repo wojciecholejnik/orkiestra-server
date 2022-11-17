@@ -293,7 +293,6 @@ exports.readMemberUniforms = async (req, res) => {
 }
 
 exports.loginUser = async (req, res) => {
-  console.log(req.body)
   try {
     const user = await User.findOne({login: req.body.login, password: req.body.password}).select('name login role');
   
@@ -301,6 +300,50 @@ exports.loginUser = async (req, res) => {
       res.status(404).json({ message: 'invalid credentials'});
     } else {
       res.json(user);
+    }
+    
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.addUser = async (req, res) => {
+  try {
+    const user = await new User({
+      name: req.body.name,
+      password: req.body.password,
+      login: req.body.login,
+      role: roles[req.body.role]
+    });
+    
+    await user.save();
+    res.json("new user saved");
+    
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.editUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.body.id)
+    
+    if (user) {
+      if (user.password === req.body.password) {
+        await User.updateOne({_id: req.body.id}, {$set: {
+          name: req.body.name ? req.body.name : user.name,
+          password: req.body.password1 ? req.body.password1 : user.password,
+          login: req.body.login ? req.body.login : user.login,
+          role: req.body.role ? req.body.role : user.role,
+        }})
+        await user.save();
+        res.json("user updated")
+      }
+      else {
+        res.status(404).json({ message: 'invalid credentials'});
+      }
+    } else {
+      res.status(404).json({ message: 'user not found'});
     }
     
   } catch(err) {
