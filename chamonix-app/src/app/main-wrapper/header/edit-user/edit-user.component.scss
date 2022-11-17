@@ -1,0 +1,20 @@
+@import '../../../../global-styling/colors.scss';
+
+form {
+    width: 70%;
+}
+
+.control-wrapper {
+    margin-top: 4px;
+
+    label {
+        margin-bottom: 4px;
+
+        span {
+            font-weight: unset;
+            &.error {
+                color: $font-warning;
+            }
+        }
+    }
+}

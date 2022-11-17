@@ -111,5 +111,29 @@ export interface UniformGroupAndPart {
     parts: UniformPart[];
 }
 
+export interface UserDTO {
+    id: string
+    login: string,
+    name: string,
+    password: string;
+    password1: string,
+    password2: string,
+    role?: string
+}
+
+export interface User {
+    _id: string
+    login: string,
+    name: string,
+    role: string
+}
+
+export enum Roles {
+    bandDirecotr = '0',
+    instructor = '1',
+    inspector = '2',
+    member = '3'
+}
+
 export type Sorting = 'asc' | 'desc' | '';
 export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | '';

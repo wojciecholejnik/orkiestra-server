@@ -1,0 +1,51 @@
+<app-modal-wrapper>
+
+    <div class="action-modal">
+        <h2>Edytuj dane</h2>
+        <form class="mt-4 mb-4" *ngIf="form && form.controls" [autocomplete]="false" [formGroup]="form">
+            <div class="control-wrapper old-password">
+                <label for="old-password">
+                    <span>Hasło</span>
+                    <span class="error" *ngIf="form && form.errors && form.errors.noPassword">* to pole jest wymagane</span>
+                </label>
+                <input id="old-password" type="password" autocomplete="off" formControlName="password">
+            </div>
+            <div class="control-wrapper">
+                <label for="name">
+                    <span>imię i nazwisko</span>
+                    <span class="error" *ngIf="form && form.errors && form.errors.noName">* to pole jest wymagane</span>
+                </label>
+                <input id="name" type="text" autocomplete="off" formControlName="name">
+            </div>
+            <div class="control-wrapper">
+                <label for="login">
+                    <span>Login</span>
+                    <span class="error" *ngIf="form && form.errors && form.errors.noLogin">* to pole jest wymagane</span>
+                </label>
+                <input id="login" type="text" autocomplete="off" formControlName="login">
+            </div>
+            <div class="control-wrapper">
+                <label for="new-password-1">
+                    <span>Nowe hasło</span>
+                    <span class="error" *ngIf="form && form.errors && form.errors.newPasswordsNotTheSame">* te pola musza być identyczne</span>
+                </label>
+                <input id="new-password-1" type="password" autocomplete="off" formControlName="newPassword1">
+            </div>
+            <div class="control-wrapper">
+                <label for="new-password-2">
+                    <span>Powtórz nowe hasło</span>
+                    <span class="error" *ngIf="form && form.errors && form.errors.newPasswordsNotTheSame">* te pola musza być identyczne</span>
+                </label>
+                <input id="new-password-2" type="password" autocomplete="off" formControlName="newPassword2">
+            </div>
+        </form>
+
+        <div class="buttons-wrapper">
+            <button class="button button-secondary" (click)="closeModal()">Anuluj</button>
+            <button [disabled]="disableSaveButton()" class="button button-primary" (click)="save()">Zapisz</button>
+        </div>
+    </div>
+
+    
+
+</app-modal-wrapper>
