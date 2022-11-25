@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-modal-wrapper',
     templateUrl: './modal-wrapper.component.html',
     styleUrls: ['./modal-wrapper.component.scss']
 })
-export class ModalWrapperComponent implements OnInit {
+export class ModalWrapperComponent {
 
-    constructor() { }
+    constructor() {}
 
-    ngOnInit(): void { }
 
 }

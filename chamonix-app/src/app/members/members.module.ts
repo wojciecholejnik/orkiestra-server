@@ -11,6 +11,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MemberUniformsComponent } from './member-uniforms/member-uniforms.component';
 import { AssignUniformsComponent } from './assign-uniforms/assign-uniforms.component';
 import { MemberInstrumentsComponent } from './member-instruments/member-instruments.component';
+import { NgbDropdown, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -21,14 +22,15 @@ import { MemberInstrumentsComponent } from './member-instruments/member-instrume
         MemberDetailsComponent,
         MemberUniformsComponent,
         AssignUniformsComponent,
-        MemberInstrumentsComponent
+        MemberInstrumentsComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        ClipboardModule
+        ClipboardModule,
+        NgbModule
     ],
     exports: [
         MembersWrapperComponent

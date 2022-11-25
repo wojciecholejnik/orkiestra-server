@@ -33,7 +33,7 @@
                     alt="sorting-arrow"
                 >
                 </th>
-                <th scope="col" (click)="changeSorting('section')">
+                <th scope="col" (click)="changeSorting('section')" *ngIf="!viewOnPhone()">
                 Sekcja
                 <img 
                     class="sorting-arrow"
@@ -56,7 +56,7 @@
                 <th scope="col"><input [(ngModel)]="filtering.firstName" (keyup)="filter()" type="text"></th>
                 <th scope="col"><input [(ngModel)]="filtering.lastName" (keyup)="filter()" type="text"></th>
                 <th scope="col"><input [(ngModel)]="filtering.instrument" (keyup)="filter()" type="text"></th>
-                <th scope="col"><input [(ngModel)]="filtering.section" (keyup)="filter()" type="text"></th>
+                <th scope="col" *ngIf="!viewOnPhone()"><input [(ngModel)]="filtering.section" (keyup)="filter()" type="text"></th>
                 <th scope="col">
                     <button class="button button-small" *ngIf="isAnyFilter()" (click)="clearFilters()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -72,8 +72,10 @@
                 <td (click)="goToDetails(member._id)">{{member.firstName}}</td>
                 <td (click)="goToDetails(member._id)">{{member.lastName}}</td>
                 <td (click)="goToDetails(member._id)">{{member.instrument.name}}</td>
-                <td (click)="goToDetails(member._id)">{{member.instrument.section.name}}</td>
-                <td class="action">
+                <td (click)="goToDetails(member._id)"  *ngIf="!viewOnPhone()">{{member.instrument.section.name}}</td>
+
+                <!-- ACTION ON TABLET / LAPTOP -->
+                <td *ngIf="!viewOnPhone()" class="action">
                     <button class="button button-small button-primary" (click)="editMemberisOpen=true; selectedMemberAction=member">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                             <path fill="#fff" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H322.8c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l40.3-40.3c-32.1-31-75.7-50.1-123.9-50.1H178.3zm435.5-68.3c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM375.9 417c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5 .2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4L576.1 358.7l-71-71L375.9 417z"/>
@@ -90,6 +92,23 @@
                             <path fill="#fff" d="M459.5 440.6c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4L288 214.3V256v41.7L459.5 440.6zM256 352V256 128 96c0-12.4-7.2-23.7-18.4-29s-24.5-3.6-34.1 4.4l-192 160C4.2 237.5 0 246.5 0 256s4.2 18.5 11.5 24.6l192 160c9.5 7.9 22.8 9.7 34.1 4.4s18.4-16.6 18.4-29V352z"/>
                         </svg>
                     </button>
+                </td>
+
+                <!-- ACTION ON PHONE -->
+                <td *ngIf="viewOnPhone()" class="action" ngbDropdown>
+                    <div class="trigger" ngbDropdownToggle></div>
+                    <div class="buttons" ngbDropdownMenu >
+                        <button ngbDropdownItem class="" (click)="editMemberisOpen=true; selectedMemberAction=member">
+                            edytuj
+                        </button>
+                        <button ngbDropdownItem class="remove" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">
+                            usuń
+                        </button>
+                        <button ngbDropdownItem *ngIf="activeTab && activeTab.exMembers" class=""
+                            (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member">
+                            przywróć
+                        </button>
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -116,6 +135,5 @@
     (onAbort)="confirmationRestoreIsOpen=false"
 ></app-confirmation>
 
-<app-modal-wrapper *ngIf="editMemberisOpen">
-    <app-add-member [memberToEdit]="selectedMemberAction" (onEditClose)="editMemberisOpen=false"></app-add-member>
-</app-modal-wrapper>
+<app-add-member *ngIf="editMemberisOpen" [memberToEdit]="selectedMemberAction" (onEditClose)="editMemberisOpen=false"></app-add-member>
+

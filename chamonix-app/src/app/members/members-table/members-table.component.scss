@@ -1,8 +1,12 @@
 @import'../../../global-styling/colors.scss';
+@import'../../../global-styling/mixins.scss';
 
 .table-wrapper {
     overflow-y: auto;
     max-height: calc(100vh - 200px);
+    @include phone {
+        padding: 8px;
+    }
 }
 
 table.table {
@@ -47,6 +51,32 @@ table.table {
             color: $origin-red;
         }
     }
+
+    @include phone {
+        width: 90vw;
+        th, td {
+            padding: 1px;
+            vertical-align: middle;
+            font-size: 15px;
+            max-width: 100px;
+            height: 45px;
+
+            &.action {
+                .trigger {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                button {
+                    font-style: normal;
+
+                    &.remove {
+                        color: $background-warning;
+                    }
+                }
+             }
+        }
+    }
 }
 
 .sorting-arrow {
@@ -71,6 +101,10 @@ table.table {
 
     th {
         padding: 0 10px;
+
+        @include phone {
+            height: unset !important;
+        }
     }
 
     input {

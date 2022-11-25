@@ -1,4 +1,5 @@
 @import'./colors.scss';
+@import './mixins.scss';
 
 .action-modal {
     background-color: $background-white;
@@ -11,11 +12,16 @@
     position: relative;
     border-radius: $radius;
 
-    &.wide-modal {
-        width: 742px;
-        overflow-y: auto;
-        max-height: 870px;
+    @include phone {
+        width: 85%;
+        padding: 12px;
     }
+
+    // &.wide-modal {
+    //     width: 742px;
+    //     overflow-y: auto;
+    //     max-height: 870px;
+    // }
 
     h2 {
         font-size: 38px;
@@ -24,6 +30,10 @@
         text-align: center;
         color: $origin-blue;
         margin: 0;
+        @include phone {
+            font-size: 30px;
+        }
+    
     }
 
         p {
@@ -55,6 +65,10 @@
 
     select {
         width: 220px;
+        @include phone {
+            width: 50%
+        }
+    
     }
 
     input {
@@ -64,6 +78,11 @@
         &:last-child {
             margin-bottom: 0;
         }
+
+        @include phone {
+            width: 90%;
+        }
+    
     }
     
     .buttons-wrapper {
@@ -73,6 +92,10 @@
         justify-content: space-between;
         width: 100%;
         padding: 0 60px;
+        @include phone {
+            padding: 0 10px;
+        }
+    
     }
     
     .close-button {

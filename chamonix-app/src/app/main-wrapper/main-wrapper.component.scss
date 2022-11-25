@@ -7,5 +7,6 @@
 
     @include phone {
         margin-left: 0;
+        height: unset;
     }
 }

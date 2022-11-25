@@ -1,5 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { take } from "rxjs/operators";
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { Member, MembersTabs, Sorting } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
 
@@ -11,11 +13,13 @@ import { MembersService } from '../members.service';
 export class MembersTableComponent implements OnInit, OnDestroy {
 
     @Input('membersType') membersType!: string;
+    _members?: Subscription;
+    _getData?: Subscription;
+    _activeTab?: Subscription;
+    _deviceType?: Subscription;
     members: Member[] = [];
     filteredMembers: Member[] = [];
     activeTab?: MembersTabs;
-    activeMembersSubscription?: Subscription;
-    exMembersSubscription?: Subscription;
     loading = true;
     sorting: {[key: string]: Sorting} = {
         firstName: '',
@@ -35,14 +39,20 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     confirmationRemoveIsOpen = false;
     confirmationRestoreIsOpen = false;
     editMemberisOpen = false;
+    deviceType = '';
 
-    constructor(private membersService: MembersService) { }
+    constructor(private membersService: MembersService, private navigationService: NavigationService) {}
 
     ngOnInit(): void {
-        this.membersService.activeTab.subscribe(tabs => {
+        this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
+        this._activeTab = this.membersService.activeTab.subscribe(tabs => {
             this.activeTab = tabs;
             this.getMembers();
         });
+        this._getData = this.membersService.addMembersIsOpen.subscribe(() => {
+            this.getMembers();
+        })
+
     }
 
     changeSorting(clickedKey: string) {
@@ -111,19 +121,19 @@ export class MembersTableComponent implements OnInit, OnDestroy {
 
     getMembers(){
         if (this.activeTab && this.activeTab.currentMembers) {
-            this.membersService.getActiveMembers().subscribe(currentMembers => {
+            this._members = this.membersService.getActiveMembers().subscribe(currentMembers => {
                 this.handleGetMembers(currentMembers);
             });
         } else if (this.activeTab && this.activeTab.exMembers) {
-            this.membersService.getExMembers().subscribe(exMembers => {
+            this._members = this.membersService.getExMembers().subscribe(exMembers => {
                 this.handleGetMembers(exMembers);
             }); 
         } else if (this.activeTab && this.activeTab.mainStaff) {
-            this.membersService.getMainStaffMembers().subscribe(mainStaffMembers => {
+            this._members = this.membersService.getMainStaffMembers().subscribe(mainStaffMembers => {
                 this.handleGetMembers(mainStaffMembers);
             }); 
         } else if (this.activeTab && this.activeTab.students) {
-            this.membersService.getStudentsMembers().subscribe(studentsMembers => {
+            this._members = this.membersService.getStudentsMembers().subscribe(studentsMembers => {
                 this.handleGetMembers(studentsMembers);
             }); 
         }
@@ -137,11 +147,11 @@ export class MembersTableComponent implements OnInit, OnDestroy {
 
     removeMember(id: string, isActiveMember: boolean) {
         if (isActiveMember) {
-            this.membersService.moveMemberToExMembers(id).subscribe(() => {
+            this.membersService.moveMemberToExMembers(id).pipe(take(1)).subscribe(() => {
             this.getMembers();
         })
         } else {
-            this.membersService.removeMember(id).subscribe(() => {
+            this.membersService.removeMember(id).pipe(take(1)).subscribe(() => {
             this.getMembers();
         });
         }
@@ -150,7 +160,7 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     }
 
     restoreMember(id: string) {
-        this.membersService.restoreMember(id).subscribe(() => {
+        this.membersService.restoreMember(id).pipe(take(1)).subscribe(() => {
             this.getMembers();
         });
         this.confirmationRestoreIsOpen = false;
@@ -175,9 +185,15 @@ export class MembersTableComponent implements OnInit, OnDestroy {
         this.filter();
     }
 
+    viewOnPhone(){
+        return this.deviceType === 'phone'
+    }
+
     ngOnDestroy(): void {
-        this.activeMembersSubscription?.unsubscribe();
-        this.exMembersSubscription?.unsubscribe();
+        this._members?.unsubscribe();
+        this._getData?.unsubscribe();
+        this._activeTab?.unsubscribe();
+        this._deviceType?.unsubscribe();
         this.members = [];
     }
 

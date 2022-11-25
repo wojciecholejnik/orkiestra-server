@@ -1,4 +1,4 @@
-<div class="action-modal">
+<app-modal-wrapper>
     <div class="action-modal">
         <h2 *ngIf="!memberToEdit">Dodaj członka</h2>
         <h2 *ngIf="memberToEdit">Edytuj dane członka</h2>
@@ -131,6 +131,5 @@
           <button *ngIf="!memberToEdit" class="button-primary" type="submit" form="newMemberForm" [disabled]="newMemberForm.status === 'INVALID'">Dodaj</button>
           <button *ngIf="memberToEdit" class="button-primary" type="submit" form="newMemberForm" [disabled]="newMemberForm.status === 'INVALID'">Zapisz</button>
         </div>
-      </div>
-      
-</div>
+    </div>
+</app-modal-wrapper>
