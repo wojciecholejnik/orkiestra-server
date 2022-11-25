@@ -10,20 +10,25 @@ import { NavigationService } from './navigation-service.service';
 })
 export class MainWrapperComponent implements OnInit, OnDestroy {
 
-    navigationSubscription?: Subscription;
+    _navOptions?: Subscription;
     navOptions: NavOption[] = [];
     _userLogged?: Subscription;
     userLogged?: User;
+    _deviceType?: Subscription;
+    deviceType = '';
 
     constructor(private navigationService: NavigationService) { }
 
     ngOnInit(): void {
-        this.navigationSubscription = this.navigationService.activeModule.subscribe(options => this.navOptions = options);
+        this._navOptions = this.navigationService.activeModule.subscribe(options => this.navOptions = options);
         this._userLogged = this.navigationService.isUserLogged.subscribe(state => this.userLogged = state);
+        this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
     }
 
     ngOnDestroy(): void {
-        this.navigationSubscription?.unsubscribe();
+        this._navOptions?.unsubscribe();
+        this._userLogged?.unsubscribe();
+        this._deviceType?.unsubscribe();
     }
 
 }

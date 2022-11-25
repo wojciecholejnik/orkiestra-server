@@ -1,4 +1,5 @@
 @import'../../../global-styling/colors.scss';
+@import'../../../global-styling/mixins.scss';
 
 :host {
     display: flex;
@@ -19,6 +20,10 @@ img#logo {
     font-size: 24px;
     font-weight: 700;
     cursor: default;
+
+    @include phone {
+        display: none;
+    }
 }
 
 .user-menu {

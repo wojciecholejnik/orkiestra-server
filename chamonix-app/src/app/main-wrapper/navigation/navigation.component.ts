@@ -10,14 +10,17 @@ import { NavigationService } from '../navigation-service.service';
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 
-  navigationSubscription?: Subscription;
+  _navOptions?: Subscription;
+  _deviceType?: Subscription;
+  navOptions: NavOption[] = []
+  deviceType = '';
+  navIsOpen = false;
 
   constructor(private navigationService: NavigationService) { }
 
-  navOptions: NavOption[] = []
-
   ngOnInit(): void {
-    this.navigationSubscription = this.navigationService.activeModule.subscribe(options => this.navOptions = options);
+    this._navOptions = this.navigationService.activeModule.subscribe(options => this.navOptions = options);
+    this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
   }
 
   changeActiveItem(name: string){
@@ -32,7 +35,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      this.navigationSubscription?.unsubscribe();
+      this._navOptions?.unsubscribe();
+      this._deviceType?.unsubscribe();
+  }
+
+  toggleNav(){
+    this.navIsOpen = !this.navIsOpen;
   }
 
 }

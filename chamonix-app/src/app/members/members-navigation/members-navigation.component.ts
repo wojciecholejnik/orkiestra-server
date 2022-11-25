@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { MembersTabs } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
 
@@ -14,24 +15,27 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
     addMemberIsOpenSubscription?: Subscription;
     membersTableViewSubsscription?: Subscription;
     memberDetailsViewSubscription?: Subscription;
+    deviceTypeSubscription?: Subscription;
     membersTabs: MembersTabs = {} as MembersTabs;
     addMemberIsOpen: boolean = false;
     membersTableIsOpen = true;
     memberDetailsAreOpen = '';
+    deviceType = '';
 
-
-    constructor(private membersService: MembersService) { }
+    constructor(private membersService: MembersService, private navigationService: NavigationService) { }
 
     ngOnInit(): void {
         this.activeTabSubscription = this.membersService.activeTab.subscribe(tabs => this.membersTabs = tabs);
         this.addMemberIsOpenSubscription = this.membersService.addMembersIsOpen.subscribe(value => this.addMemberIsOpen = value);
         this.memberDetailsViewSubscription = this.membersService.memberDetailsAreOpen.subscribe(state => this.memberDetailsAreOpen = state);
         this.membersTableViewSubsscription = this.membersService.membersTableIsOpen.subscribe(state => this.membersTableIsOpen = state);
+        this.deviceTypeSubscription = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
     }
 
-    toggleActiveTab(tabtoChange: string){
+    toggleActiveTab(tabtoChange: any ){
+        const valueToChange = tabtoChange.target ? tabtoChange.target.value : tabtoChange
         for (let key in this.membersTabs) {
-            if (key !== tabtoChange) {
+            if (key !== valueToChange) {
                 this.membersTabs[key] = false;
             } else {
                 this.membersTabs[key] = true;
@@ -53,5 +57,6 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
         this.activeTabSubscription?.unsubscribe();
         this.membersTableViewSubsscription?.unsubscribe();
         this.memberDetailsViewSubscription?.unsubscribe();
+        this.deviceTypeSubscription?.unsubscribe();
     }
 }

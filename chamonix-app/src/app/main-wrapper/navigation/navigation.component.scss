@@ -1,6 +1,8 @@
 @import'../../../global-styling/colors.scss';
+@import'../../../global-styling/mixins.scss';
 
-:host {
+
+.laptop-container {
     display: flex;
     flex-direction: column;
     background-color: #ebebeb;
@@ -8,6 +10,7 @@
     width: $margin-left-width;
     height: calc(100% - 80px);
     padding-top: 60px;
+    z-index: 999;
 }
 
 .nav-item {
@@ -16,11 +19,38 @@
     font-weight: 400;
     color: $font-gray;
     padding: 15px 0 15px 24px;
+    @include phone {
+        padding-right: 24px;
+        display: flex;
+        justify-content: space-between;
+        h5 {
+            margin-bottom: 0;
+        }
+
+        svg {
+            width: 20px;
+            display: none;
+
+            &.rotate {
+                transform: rotate(180deg)
+            }
+        }
+
+        &.active {
+            svg {
+                display: block;
+            }
+        }
+    }
 
     &.active {
         color: $font-black;
         background-color: $background-light-gray;
         border-right: 3px solid $origin-blue;
+
+        @include phone {
+            border: none;
+        }
     }
 
     &:hover {

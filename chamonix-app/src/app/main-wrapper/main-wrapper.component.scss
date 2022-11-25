@@ -1,6 +1,11 @@
 @import '../../global-styling/colors.scss';
+@import '../../global-styling/mixins.scss';
 
 .modules-container {
     margin-left: $margin-left-width;
     height: calc(100vh - 80px);
+
+    @include phone {
+        margin-left: 0;
+    }
 }

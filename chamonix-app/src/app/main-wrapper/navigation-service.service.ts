@@ -12,9 +12,24 @@ export class NavigationService {
         {name: 'Kalendarz', isActive: false},
         {name: 'Zasoby', isActive: false},
     ]);
-
+    deviceType: BehaviorSubject<string> = new BehaviorSubject('');
     isUserLogged: BehaviorSubject<any> = new BehaviorSubject(false);
 
   constructor() { }
+
+  setScreenWidth() {
+    const width = window.innerWidth;
+    console.log(width);
+    let type = '';
+    if (width <= 420) {
+      type = 'phone';
+    } else if (width > 420 && width <= 1200) {
+      type = 'tablet'
+    } else {
+      type = 'laptop'
+    }
+
+    this.deviceType.next(type);
+  }
 
 }

@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="membersTableIsOpen">
-    <div class="bookmarks">
+    <div *ngIf="deviceType === 'laptop'" class="bookmarks">
         <div class="bookmark-item" [class.active]="membersTabs.currentMembers" (click)="toggleActiveTab('currentMembers')">
             Obecni członkowie
         </div>
@@ -14,6 +14,18 @@
             Byli członkowie
         </div>
     </div>
+
+    <select 
+    *ngIf="deviceType === 'phone' || deviceType === 'tablet'"
+    name="Group to show"
+    id="group-to-show"
+    (change)="toggleActiveTab($event)"
+    class="form-control">
+        <option value="currentMembers">Obecni członkowie</option>
+        <option value="mainStaff">Muzycy</option>
+        <option value="students">Uczniowie</option>
+        <option value="exMembers">Byli członkowie</option>
+    </select>
     
     <div class="actions">
         <button class="button-primary" (click)="openAddMember()">Dodaj członka</button>
