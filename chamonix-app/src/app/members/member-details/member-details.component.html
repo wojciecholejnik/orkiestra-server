@@ -1,6 +1,6 @@
 <div *ngIf="memberData" class="main-wrapper">
 
-    <div *ngIf="!loading" class="name-wrapper mb-4 mr-4">
+    <div *ngIf="!loading" class="name-wrapper mb-4">
         <div class="button-container">
             <button class="button button-small" (click)="editMemberisOpen=true">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
@@ -22,11 +22,14 @@
         </div>
 
 
-        <div class="right-table-container">
-            <table class="table small-table">
+        <div class="right-table-container host-container">
+            <div class="header">
+                <h4 (click)="toggleContactInfoIsOpen()">Dane osobowe</h4>
+            </div>
+            <table *ngIf="contactInfoIsOpen" class="table small-table">
 
                 <thead>
-                    <th>Info o instrumencie</th>
+                    <th>Techniczne</th>
                 </thead>
                 <tbody>
                 <tr>
@@ -40,7 +43,7 @@
                 </tbody>
 
                 <thead>
-                    <th>Info osobowe</th>
+                    <th>Osobowe</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -63,16 +66,24 @@
 
 
                 <thead>
-                    <th>Info kontaktowe</th>
+                    <th>Kontaktowe</th>
                 </thead>
                 <tbody>
                     <tr>
                         <td>telefon</td>
-                        <th (click)="copyToClipboard(memberData.phone)">{{memberData.phone ? memberData.phone : '---'}}</th>
+                        <th (click)="copyToClipboard(memberData.phone)">
+                            <a [href]="'tel:'+memberData.phone">
+                                {{memberData.phone ? memberData.phone : '---'}}
+                            </a>
+                        </th>
                     </tr>
                     <tr>
                         <td>email</td>
-                        <th (click)="copyToClipboard(memberData.email)" >{{memberData.email ? memberData.email : '---'}}</th>
+                        <th (click)="copyToClipboard(memberData.email)">
+                            <a [href]="'mailto:'+memberData.email">
+                                {{memberData.email ? memberData.email : '---'}}
+                            </a>
+                        </th>
                     </tr>
                     <tr>
                         <td>ulica i nr domu</td>

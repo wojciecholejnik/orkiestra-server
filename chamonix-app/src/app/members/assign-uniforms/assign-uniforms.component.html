@@ -6,7 +6,7 @@
             <ng-container
                 *ngFor="let groupControl of groupsFieldAsFormArray.controls; let i = index;"
                 class="mb-3 mt-3 form-control-wrapper" formArrayName='groups'>
-                <div class="control-wrapper group" [formGroupName]="i">
+                <div class="control-wrapper group card" [formGroupName]="i">
                     <h5 for="uniformsGroupName">{{groupControl.value.name}}</h5>
                     <ng-container *ngFor="let partControl of partsFieldsAsFormArray(i).controls; let j = index;" 
                         formArrayName='parts'>

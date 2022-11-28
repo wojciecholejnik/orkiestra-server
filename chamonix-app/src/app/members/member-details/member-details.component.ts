@@ -18,6 +18,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     memberData: Member = {} as Member;
     editMemberisOpen = false;
     loading = true;
+    contactInfoIsOpen = true;
   
 
   constructor(private membersService: MembersService, private clipboard: Clipboard) { }
@@ -55,5 +56,9 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
 
     copyToClipboard(value: any){
         this.clipboard.copy(value);
+    }
+
+    toggleContactInfoIsOpen() {
+        this.contactInfoIsOpen = !this.contactInfoIsOpen;
     }
 }

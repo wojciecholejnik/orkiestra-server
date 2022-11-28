@@ -19,7 +19,6 @@ export class NavigationService {
 
   setScreenWidth() {
     const width = window.innerWidth;
-    console.log(width);
     let type = '';
     if (width <= 420) {
       type = 'phone';

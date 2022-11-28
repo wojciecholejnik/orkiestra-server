@@ -1,4 +1,5 @@
 @import '../../../global-styling/colors.scss';
+@import '../../../global-styling/mixins.scss';
 
 .main-wrapper {
     padding: 10px;
@@ -24,37 +25,50 @@ button {
 .content-container {
     display: flex;
     justify-content: space-between;
+
+    @include phone {
+        flex-direction: column;
+    }
 }
 
 .right-table-container {
     overflow-y: auto;
     max-height: calc(100vh - 230px);
-    // margin-top: 16px;
     width: 40%;
+    @include phone {
+        width: 100%;
+        max-height: unset !important;
+        margin-top: 10px;
+    }
 }
 
 table.small-table {
     thead {
 
         &:first-child th {
-            height: 40px;
+            height: 50px;
         }
 
         th {
             height: 85px;
             display: flex;
             align-items: flex-end;
-            width: 175px;
+            width: 100px;
             border-top: unset;
         }
     }
 
     tbody {
+        
         th {
             max-width: 285px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+        }
+
+        th, td {
+            font-size: 13px;
         }
     }
 }
@@ -65,9 +79,18 @@ table.small-table {
     align-items: center;
     flex-direction: row;
     gap: 10px;
+    margin-right: 1.5rem;
 
     h2 {
-        margin: 0;
+        font-size: 22px;
+        font-weight: 700;
+        font-style: italic;
+        margin-bottom: 0;
+        color: $origin-blue;
+    }
+
+    @include phone {
+        margin: 10px
     }
 }
 
@@ -84,4 +107,32 @@ table.small-table {
     flex-direction: column;
     gap: 10px;
     max-height: calc(100vh - 215px);
+    @include phone {
+        width: 100%;
+        padding: 0;
+        max-height: unset !important;
+        margin-top: 10px;
+    }
+}
+
+.host-container {
+    border: 1px solid black;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: $background-light-gray;
+    border-bottom: 1px solid #dee2e6;
+
+    h4 {
+        width: 100%;
+    }
+
+    &:hover {
+        cursor: pointer;
+        color: $origin-red;
+    }
 }

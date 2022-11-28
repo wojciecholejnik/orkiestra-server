@@ -26,6 +26,11 @@
         cursor: pointer;
         color: $origin-red;
     }
+
+    button {
+        width: 34px;
+        height: 30px;
+    }
 }
 
 thead tr :hover {

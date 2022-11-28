@@ -1,22 +1,53 @@
+@import '../../../global-styling/colors.scss';
+@import '../../../global-styling/mixins.scss';
+
+@include phone {
+    h4 {
+        font-size: 15px;  
+    }
+}
+
 form {
-    max-height: 75vh;
+    max-height: 70vh;
     overflow-y: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .control-wrapper {
-    // &.group {
 
-    // }
+    h5 {
+        text-align: center;
+        font-weight: 600;
+    }
+    
+    &.group {
+        margin: 16px 0;
+        width: 75%;
+        padding: 15px;
+        background-color: $background-light-gray;
+
+        @include phone {
+            width: 90%;
+        }
+    }
 
     &.part {
         display: flex;
+        height: 40px;
+        align-items: center;
 
         p {
-            width: 70%;
+            width: 50%;
+            text-align: end;
+            padding-right: 8px;
         }
 
         input {
-            width: unset;
+            width: 16px;
+            height: 16px;
         }
     }
 }
