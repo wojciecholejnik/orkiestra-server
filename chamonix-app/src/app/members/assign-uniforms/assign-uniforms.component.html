@@ -2,7 +2,7 @@
     <div class="action-modal">
         <h2>Dodaj umundurowanie</h2>
         <h4>dla członka: <strong>{{member.firstName + ' ' + member.lastName}}</strong></h4>
-        <form *ngIf="form" id="form" [formGroup]="form" >
+        <form *ngIf="form" id="form" [formGroup]="form" (ngSubmit)="save()">
             <ng-container
                 *ngFor="let groupControl of groupsFieldAsFormArray.controls; let i = index;"
                 class="mb-3 mt-3 form-control-wrapper" formArrayName='groups'>
@@ -23,7 +23,7 @@
 
         <div class="buttons-wrapper">
             <button class="button-secondary" (click)="closeModal()">Anuluj</button>
-            <button class="button-primary" (click)="save()">Zapisz</button>
+            <button class="button-primary" type="submit" form="form" (click)="save()">Zapisz</button>
           </div>
     </div>
 </app-modal-wrapper>

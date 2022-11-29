@@ -15,6 +15,7 @@
     @include phone {
         width: 85%;
         padding: 12px;
+        max-height: 80vh;
     }
 
     // &.wide-modal {
