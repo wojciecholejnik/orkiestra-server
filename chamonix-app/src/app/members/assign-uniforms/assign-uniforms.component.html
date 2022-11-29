@@ -12,7 +12,7 @@
                         formArrayName='parts'>
                         <div class="control-wrapper part" [formGroupName]="j">
                             <p for="uniformsGroupName">{{partControl.value.name}}</p>
-                            <input type="checkbox" formControlName="assigned">
+                            <input type="checkbox" formControlName="assigned" (change)="onCheckBoxValueChange(partControl)">
                         </div>
                     </ng-container>
                 </div>

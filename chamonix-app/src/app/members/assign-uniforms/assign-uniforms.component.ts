@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder } from '@angular/forms';
 import { Member, UniformGroupAndPart, UniformPart } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
 
@@ -69,6 +69,10 @@ export class AssignUniformsComponent implements OnInit, OnChanges {
 
     closeModal() {
         this.onCloseModal.emit(true);
+    }
+
+    onCheckBoxValueChange(control: AbstractControl) {
+        control.markAsTouched();
     }
 
     save(){
