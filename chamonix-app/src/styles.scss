@@ -1,7 +1,11 @@
 /* Importing Bootstrap SCSS file. */
+@import "./global-styling/colors.scss";
+$primary: $origin-blue;
 @import '~bootstrap/scss/bootstrap';
+@import "../node_modules/bootstrap/scss/buttons";
+@import 'bootstrap-icons';
 @import './global-styling/action-modal.scss';
-@import './global-styling/buttons.scss';
+// @import './global-styling/buttons.scss';
 
 * {
     margin: 0;

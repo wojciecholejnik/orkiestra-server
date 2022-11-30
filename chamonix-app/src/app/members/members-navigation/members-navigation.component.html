@@ -28,11 +28,19 @@
     </select>
     
     <div class="actions">
-        <button class="button-primary" (click)="openAddMember()">Dodaj członka</button>
+        <button class="btn btn-primary btn-sm" (click)="openAddMember()">
+            <i class="bi bi-plus"></i>
+            Dodaj członka
+        </button>
     </div>
 </ng-container>
 
-<button *ngIf="memberDetailsAreOpen" (click)="closeDetails()">Powrót</button>
+<ng-container *ngIf="memberDetailsAreOpen">
+    <button (click)="closeDetails()" class="btn btn-primary btn-sm">
+        <i class="bi bi-arrow-return-left"></i>
+        Powrót
+    </button>
+</ng-container>
 
 
 <app-modal-wrapper *ngIf="addMemberIsOpen">
