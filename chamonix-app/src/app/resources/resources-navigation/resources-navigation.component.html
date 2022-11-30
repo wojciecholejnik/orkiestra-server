@@ -1,6 +1,6 @@
 
-<ng-container *ngIf="true">
-    <div class="bookmarks">
+<ng-container>
+    <div  *ngIf="deviceType === 'laptop'" class="bookmarks">
         <div class="bookmark-item" [class.active]="activeTab.uniforms" (click)="toggleActiveTab('uniforms')">
             Umundurowanie
         </div>
@@ -17,9 +17,26 @@
             Pozostałe
         </div>
     </div>
+
+    <select 
+    *ngIf="deviceType === 'phone' || deviceType === 'tablet'"
+    name="Group to show"
+    id="group-to-show"
+    (change)="toggleActiveTab($event)"
+    class="form-control">
+        <option value="uniforms">Umundurowanie</option>
+        <option value="instruments">Instrumenty</option>
+        <option value="sections">Sekcje</option>
+        <option value="instructors">Instruktorzy</option>
+        <option value="others">Pozostałe</option>
+    </select>
     
     <div class="actions">        
-        <button *ngIf="activeTab.instruments" class="button-primary" (click)="toggleAddResourceInstrument(true)">Dodaj instrument</button>
-        <button *ngIf="activeTab.uniforms" class="button-primary" (click)="toggleAddResourceUniforms(true)">Dodaj umundurowanie</button>
+        <button *ngIf="activeTab.instruments" class="btn btn-primary btn-sm" (click)="toggleAddResourceInstrument(true)">
+            <i class="bi bi-plus"></i>
+            Instrument</button>
+        <button *ngIf="activeTab.uniforms" class="btn btn-primary btn-sm" (click)="toggleAddResourceUniforms(true)">
+            <i class="bi bi-plus"></i>
+            Umundurowanie</button>
     </div>
 </ng-container>

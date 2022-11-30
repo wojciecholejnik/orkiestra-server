@@ -12,7 +12,7 @@ export class ConfirmationComponent implements OnInit {
     @Output() onConfirm = new EventEmitter<boolean>();
     @Output() onAbort = new EventEmitter<boolean>();
 
-    confirmationText = '';
+    confirmationText = 'Czy na pewnoe chcesz to zrobić ??!';
 
     constructor() { }
 
@@ -32,6 +32,10 @@ export class ConfirmationComponent implements OnInit {
         if (this.type === 'removeUniformGroup') {
             this.confirmationText = 'Czy na pewno usunąć grupę umundurowania ' + this.data.name + ' ?'
         }
+
+        if (this.type === 'removeUniformPart') {
+            this.confirmationText = 'Czy na pewno usunąć część umundurowania ' + this.data.name + ' ?'
+        } 
     }
 
     confirm(){

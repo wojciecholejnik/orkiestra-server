@@ -20,9 +20,9 @@ export class NavigationService {
   setScreenWidth() {
     const width = window.innerWidth;
     let type = '';
-    if (width <= 420) {
+    if (width <= 801) {
       type = 'phone';
-    } else if (width > 420 && width <= 1200) {
+    } else if (width > 801 && width <= 1200) {
       type = 'tablet'
     } else {
       type = 'laptop'

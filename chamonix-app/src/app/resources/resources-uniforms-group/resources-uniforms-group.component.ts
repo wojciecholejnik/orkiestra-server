@@ -19,6 +19,7 @@ export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy, OnCha
   addPartsIsOpen = false;
   editPartIsOpen = false;
   selectedPart?: Part;
+  removePartIsOpen = false;
 
   constructor(private resourcesService: ResourcesService) { 
   }
@@ -86,13 +87,21 @@ ngOnChanges(changes: SimpleChanges): void {
     this.getParts();
   }
 
-  removePart(id: string) {
-    this.resourcesService.removePart(id, this.uniformsGroup._id).subscribe({
-      next: () => {
-        this.getParts();
-      },
-      error: () => this.resourcesService.shuldGetResourcesUniforms.next(true)
-    })
+  removePart(part: Part) {
+    this.removePartIsOpen = true;
+    this.selectedPart = part;
+  }
+
+  confirmPartRemove(){
+    if (this.selectedPart) {
+      this.resourcesService.removePart(this.selectedPart._id, this.uniformsGroup._id).subscribe({
+        next: () => {
+          this.getParts();
+          this.removePartIsOpen = false;
+        },
+        error: () => this.resourcesService.shuldGetResourcesUniforms.next(true)
+      })
+    }
   }
 
   selectEditingPart(part: Part) {

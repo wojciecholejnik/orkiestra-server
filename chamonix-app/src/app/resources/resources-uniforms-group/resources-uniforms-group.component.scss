@@ -1,8 +1,10 @@
 @import '../../../global-styling/colors.scss';
+@import '../../../global-styling/mixins.scss';
 
 .section-header {
     padding: 8px 20px;
     width: 100%;
+    max-width: 1400px;
     border: 1px solid $origin-blue;
     border-radius: $radius;
     margin-bottom: 24px;
@@ -15,7 +17,11 @@
         display: flex;
 
         .info {
-            width: 90%;
+            width: 75%;
+
+            @include tablet {
+                width: 70%
+            }
         }
     }
 
@@ -29,10 +35,12 @@
             margin: 0;
         }
 
+        @include phone {
+            flex-direction: column;
+        }
+
         button {
-            min-width: 110px;
-            font-size: 13px;
-            height: 25px;
+            width: 100%;
         }
     }
 
@@ -41,17 +49,36 @@
 table.table {
     width: 50%;
     margin-top: 24px;
+    margin-left: 5%;
+
+    @include phone {
+        width: 100%;
+        margin-left: 0;
+    }
 
     .state {
-        width: 100px;
+        width: 115px;
+        font-size: 13px;
+
+        .state-label {
+            width: 50px;
+        }
+
+        .state-value {
+            font-weight: 600;
+        }
     }
 
-    .actions {
-        width: 100px;
-    }
+    // .actions {
+    //     width: 100px;
+    // }
 }
 
 .actions-wrapper {
     display: flex;
     gap: 3px;
+
+    @include phone {
+        flex-direction: column;
+    }
 }

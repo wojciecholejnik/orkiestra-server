@@ -11,6 +11,7 @@ import { ResourcesUniformsWrapperComponent } from './resources-uniforms-wrapper/
 import { ResourcesUniformsGroupComponent } from './resources-uniforms-group/resources-uniforms-group.component';
 import { AddResourceUniformComponent } from './add-resource-uniform/add-resource-uniform.component';
 import { AddResourceUniformPartComponent } from './add-resource-uniform-part/add-resource-uniform-part.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -30,7 +31,8 @@ import { AddResourceUniformPartComponent } from './add-resource-uniform-part/add
         CommonModule,
         SharedModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgbModule
     ],
     exports: [
         ResourcesWrapperComponent

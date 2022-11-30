@@ -136,4 +136,4 @@ export enum Roles {
 }
 
 export type Sorting = 'asc' | 'desc' | '';
-export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | '';
+export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | 'removeUniformPart' | '';
