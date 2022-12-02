@@ -1,17 +1,9 @@
 @import '../../../global-styling/colors.scss';
 
 :host {
-    position: absolute;
-    width: 100%;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
+    background-color: $background-gray;
     z-index: 10;
     padding: 12px;
-    background-color: $background-gray;
-    border-left: 1px solid #dee2e6;
-    border-right: 1px solid #dee2e6;
-    border-bottom: 1px solid #dee2e6;
 }
 
 .info {

@@ -17,6 +17,18 @@
     </div>
     <div class="tablewrapper" *ngIf="sectionIsOpen[groupName] && filteredGroup">
         <table class="table mt-4">
+            <colgroup>
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+                <col width="5%"><col width="5%">
+            </colgroup>
             <thead>
                 <th>typ</th>
                 <th>firma</th>
@@ -47,12 +59,16 @@
                                 </button>
                             </div>
                         </td>
-                        <app-resources-instrument-details
-                        *ngIf="viewOnPhone() && instrument.isOpen"
-                        [instrument]="instrument"
-                        (onEdit)="selectAndEdit($event)"
-                        (onRemove)="selectInstrumentToRemoce($event)"
-                    ></app-resources-instrument-details>
+                        
+                    </tr>
+                    <tr *ngIf="viewOnPhone() && instrument.isOpen">
+                        <td colspan=100 class="additinal-row">
+                            <app-resources-instrument-details
+                            [instrument]="instrument"
+                            (onEdit)="selectAndEdit($event)"
+                            (onRemove)="selectInstrumentToRemoce($event)"
+                            ></app-resources-instrument-details>
+                        </td>
                     </tr>
                 </ng-container>
             </tbody>
