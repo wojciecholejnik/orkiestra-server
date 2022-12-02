@@ -46,13 +46,10 @@
             }
 
             button {
-                // min-width: unset;
                 font-size: 12px;
-                // height: 25px;
 
                 &.active {
-                    // background-color: $background-gray;
-                    // border: 3px solid green;
+
                     box-shadow: 0px 0px 8px green;
                 }
             }
@@ -72,6 +69,14 @@ table {
 
     tbody {
         font-size: .75rem;
+
+        tr {
+            position: relative;
+
+            &.open {
+                background-color: $background-gray;
+            }
+        }
 
         .serialNumber {
             max-width: 175px;

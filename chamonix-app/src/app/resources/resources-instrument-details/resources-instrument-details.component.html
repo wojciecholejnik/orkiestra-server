@@ -1,0 +1,28 @@
+<div class="info model d-flex">
+    <p><strong>model:</strong></p>
+    <p>{{instrument.model}}</p>
+</div>
+
+<div class="info model d-flex">
+    <p><strong>nr seryjny:</strong></p>
+    <p>{{instrument.serialNumber}}</p>
+</div>
+
+<div class="info state d-flex">
+    <p><strong>stan:</strong></p>
+    <p>{{instrument.condition}}</p>
+</div>
+
+<div class="info description d-flex">
+    <p><strong>opis:</strong></p>
+    <p>{{instrument.description}}</p>
+</div>
+
+<div class="actions-wrapper">
+    <button class="btn btn-primary btn-sm" (click)="editInstrument()">
+        <i class="bi bi-pencil"></i>
+    </button>
+    <button class="btn btn-danger btn-sm" (click)="removeInstrument()">
+        <i class="bi bi-x-lg"></i>
+    </button>
+</div>

@@ -1,6 +1,8 @@
+import { style } from '@angular/animations';
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { InstrumentsSectionView } from 'src/app/shared/models';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
+import { Instrument, InstrumentsSectionView } from 'src/app/shared/models';
 import { InstrumentsService } from '../resources-instruments-wrapper/instruments.service';
 import { ResourcesService } from '../resources.service';
 
@@ -21,6 +23,8 @@ export class ResourcesInstrumentsGroupComponent implements OnInit, OnDestroy, On
     selectedInstrument: any = {};
 
     _sectionIsOpen!: Subscription;
+    _deviceType?: Subscription;
+    deviceType = '';
     sectionIsOpen!: InstrumentsSectionView;
     SectionNameTranslations: {[key: string]: string} = {
         brass: 'blacha',
@@ -30,20 +34,27 @@ export class ResourcesInstrumentsGroupComponent implements OnInit, OnDestroy, On
     }
     
 
-    constructor(private instrumentsService: InstrumentsService, private resourcesService: ResourcesService) { }
+    constructor(
+        private instrumentsService: InstrumentsService,
+        private resourcesService: ResourcesService,
+        private navigationService: NavigationService
+    ) { }
 
     ngOnInit(): void {
         this._sectionIsOpen = this.instrumentsService.sectionIsOpen.subscribe(state => this.sectionIsOpen = state);
+        this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
+        this.group = this.group.map(insturment => ({...insturment, isOpen: false}));
         this.filtering();
     }
 
     ngOnDestroy(): void {
         this._sectionIsOpen.unsubscribe();
+        this._deviceType?.unsubscribe();
     }
 
     ngOnChanges(changes: SimpleChanges) {
+        this.group = this.group.map(insturment => ({...insturment, isOpen: false}));
         this.filtering();
-        
     }
 
     openCard(name: string){
@@ -117,5 +128,18 @@ export class ResourcesInstrumentsGroupComponent implements OnInit, OnDestroy, On
         this.selectedInstrument = {};
     }
 
+    viewOnPhone(): boolean {
+        return this.deviceType === 'phone'
+    }
 
+    toggleOpenDetails(instrument: DetailsToView) {
+        if (this.viewOnPhone()) {
+            instrument.isOpen = !instrument.isOpen;
+        }
+    }
+
+}
+
+interface DetailsToView extends Instrument {
+    isOpen: boolean
 }

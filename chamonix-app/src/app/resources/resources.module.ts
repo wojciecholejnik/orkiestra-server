@@ -12,6 +12,7 @@ import { ResourcesUniformsGroupComponent } from './resources-uniforms-group/reso
 import { AddResourceUniformComponent } from './add-resource-uniform/add-resource-uniform.component';
 import { AddResourceUniformPartComponent } from './add-resource-uniform-part/add-resource-uniform-part.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResourcesInstrumentDetailsComponent } from './resources-instrument-details/resources-instrument-details.component';
 
 
 
@@ -26,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ResourcesUniformsGroupComponent,
         AddResourceUniformComponent,
         AddResourceUniformPartComponent,
+        ResourcesInstrumentDetailsComponent,
     ],
     imports: [
         CommonModule,

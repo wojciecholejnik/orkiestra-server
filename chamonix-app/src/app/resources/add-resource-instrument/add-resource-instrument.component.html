@@ -1,92 +1,96 @@
 <app-modal-wrapper>
     <div class="action-modal">
-        <h2 *ngIf="!editingItem">Dodaj instrumnet</h2>
-        <h2 *ngIf="editingItem">Edytuj instrument</h2>
-
-        <div class="mb-3 mt-4">
-            <label for="birthDate">Sekcja</label>
-            <app-loading *ngIf="sectionsLoading" [small]="true"></app-loading>
-            <select *ngIf="sections && !sectionsLoading" [(ngModel)]="activeSection" (change)="getInstrumentsBbySection()">
-                <option *ngFor="let section of sections" [value]="section._id">{{section.name}}</option>
-            </select>
+        <div>
+            <h2 *ngIf="!editingItem">Dodaj instrument</h2>
+            <h2 *ngIf="editingItem">Edytuj instrument</h2>
         </div>
 
-        <div *ngIf="activeSection" class="mb-3">
-            <label for="instrumentsBySection">Instrument</label>
-            <app-loading *ngIf="!instrumentsReady" [small]="true"></app-loading>
-            <select *ngIf="instrumentsBySection.length" [(ngModel)]="activeInstrument">
-                <option *ngFor="let instrument of instrumentsBySection" [value]="instrument._id">{{instrument.name}}</option>
-            </select>
-        </div>
-
-        <form id="instrumentForm" *ngIf="activeInstrument" [formGroup]="instrumentForm" (ngSubmit)="editingItem ? updateInstrument() : addInstrument()">
-            <div class="mb-2 form-control-wrapper">
-                <label for="brand">Marka</label>
-                <input
-                    id="brand"
-                    type="text"
-                    class="form-control"
-                    placeholder="marka"
-                    formControlName="brand"
-                >
-            </div>
-            <div class="mb-2 form-control-wrapper">
-                <label for="model">Model</label>
-                <input
-                    id="model"
-                    type="text"
-                    class="form-control"
-                    placeholder="model"
-                    formControlName="model"
-                >
-            </div>
-            <div class="mb-2 form-control-wrapper">
-                <label for="model">Nr seryjny</label>
-                <input
-                    id="serialNumber"
-                    type="text"
-                    class="form-control"
-                    placeholder="nr seryjny"
-                    formControlName="serialNumber"
-                >
-            </div>
-            <div class="mb-2 form-control-wrapper">
-                <label for="model">Stan</label>
-                <input
-                    id="condition"
-                    type="text"
-                    class="form-control"
-                    placeholder="np. do remontu lub sprawny"
-                    formControlName="condition"
-                >
-            </div>
-
-            <div class="mb-2 form-control-wrapper">
-                <label for="model">Informacje dodatkowe</label>
-                <input
-                    id="description"
-                    type="text"
-                    class="form-control"
-                    placeholder="Krótki opis, dodatkow informacje"
-                    formControlName="description"
-                >
-            </div>
-
-            <div class="mb-2 form-control-wrapper">
-                <label for="model">Osoba przypisana</label>
-                <app-loading *ngIf="!activeMembers" [small]="true"></app-loading>
-                <select *ngIf="activeMembers" formControlName="user">
-                    <option value="">nikt</option>
-                    <option *ngFor="let member of activeMembers" [value]="member._id">{{member.lastName + ' ' + member.firstName}}</option>
+        <div class="scrollable">
+            <div class="mb-3 mt-4 selector">
+                <label for="birthDate">Sekcja</label>
+                <app-loading *ngIf="sectionsLoading" [small]="true"></app-loading>
+                <select *ngIf="sections && !sectionsLoading" [(ngModel)]="activeSection" (change)="getInstrumentsBbySection()">
+                    <option *ngFor="let section of sections" [value]="section._id">{{section.name}}</option>
                 </select>
             </div>
-        </form>
-
-
-        <div class="buttons-wrapper">
-            <button class="button-secondary" (click)="closeModal()">Anuluj</button>
-            <button *ngIf="!editingItem" class="button-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Dodaj</button>
-            <button *ngIf="editingItem" class="button-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Zapisz</button>
+    
+            <div *ngIf="activeSection" class="mb-3 selector">
+                <label for="instrumentsBySection">Instrument</label>
+                <app-loading *ngIf="!instrumentsReady" [small]="true"></app-loading>
+                <select *ngIf="instrumentsBySection.length" [(ngModel)]="activeInstrument">
+                    <option *ngFor="let instrument of instrumentsBySection" [value]="instrument._id">{{instrument.name}}</option>
+                </select>
+            </div>
+    
+            <form id="instrumentForm" *ngIf="activeInstrument" [formGroup]="instrumentForm" (ngSubmit)="editingItem ? updateInstrument() : addInstrument()">
+                <div class="mb-2 form-control-wrapper">
+                    <label for="brand">Marka</label>
+                    <input
+                        id="brand"
+                        type="text"
+                        class="form-control"
+                        placeholder="marka"
+                        formControlName="brand"
+                    >
+                </div>
+                <div class="mb-2 form-control-wrapper">
+                    <label for="model">Model</label>
+                    <input
+                        id="model"
+                        type="text"
+                        class="form-control"
+                        placeholder="model"
+                        formControlName="model"
+                    >
+                </div>
+                <div class="mb-2 form-control-wrapper">
+                    <label for="model">Nr seryjny</label>
+                    <input
+                        id="serialNumber"
+                        type="text"
+                        class="form-control"
+                        placeholder="nr seryjny"
+                        formControlName="serialNumber"
+                    >
+                </div>
+                <div class="mb-2 form-control-wrapper">
+                    <label for="model">Stan</label>
+                    <input
+                        id="condition"
+                        type="text"
+                        class="form-control"
+                        placeholder="np. do remontu lub sprawny"
+                        formControlName="condition"
+                    >
+                </div>
+    
+                <div class="mb-2 form-control-wrapper">
+                    <label for="model">Informacje dodatkowe</label>
+                    <input
+                        id="description"
+                        type="text"
+                        class="form-control"
+                        placeholder="Krótki opis, dodatkow informacje"
+                        formControlName="description"
+                    >
+                </div>
+    
+                <div class="mb-2 form-control-wrapper">
+                    <label for="model">Osoba przypisana</label>
+                    <app-loading *ngIf="!activeMembers" [small]="true"></app-loading>
+                    <select *ngIf="activeMembers" formControlName="user">
+                        <option value="">nikt</option>
+                        <option *ngFor="let member of activeMembers" [value]="member._id">{{member.lastName + ' ' + member.firstName}}</option>
+                    </select>
+                </div>
+            </form>
+    
+    
+            <div class="buttons-wrapper">
+                <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+                <button *ngIf="!editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Dodaj</button>
+                <button *ngIf="editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Zapisz</button>
+            </div>
         </div>
     </div>
     

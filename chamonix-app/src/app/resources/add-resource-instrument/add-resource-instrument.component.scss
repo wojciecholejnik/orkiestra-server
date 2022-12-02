@@ -1,5 +1,27 @@
+@import '../../../global-styling/mixins.scss';
+
+:host {
+    @include phone {
+        label,select,input {
+            font-size:13px;
+        }
+    }
+}
+
+.selector {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrollable {
+    overflow-y: auto;
+    width: 90%;
+}
+
 label {
-    width: 120px;
+    width: 100px;
 }
 
 select {
@@ -7,6 +29,18 @@ select {
 }
 
 form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include phone {
+        align-items: stretch;
+
+        select {
+            width: 90% !important;
+        }
+    }
+
     label {
         width: 200px;
         margin-bottom: 0;
