@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainWrapperModule } from './main-wrapper/main-wrapper.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         MainWrapperModule,
         BrowserAnimationsModule
     ],
-    providers: [DatePipe],
+    providers: [DatePipe, CookieService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

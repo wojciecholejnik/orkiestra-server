@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Roles, User } from 'src/app/shared/models';
 import { NavigationService } from '../navigation-service.service';
 
@@ -12,14 +11,19 @@ export class HeaderComponent implements OnInit {
 
     menuIsOpen = false;
     editUserIsOpen = false;
-    _loggedUser?: Subscription;
     loggedUser?: User
+    
     constructor(private navigationService: NavigationService) {}
+    @ViewChild('menuContainer') menuContainer: any
+    @HostListener('document:click', ['$event'])
+        DocumentClick(event: Event) {
+        if (this.menuIsOpen && !this.menuContainer.nativeElement.contains(event.target)) {
+            this.menuIsOpen = false
+        }
+  }
 
     ngOnInit(): void {
-        this._loggedUser = this.navigationService.isUserLogged.subscribe(user => {
-            this.loggedUser = user
-        })
+        this.loggedUser = this.navigationService.getUser();
     }
 
     toggleMenuIsOpen(): void {
@@ -31,7 +35,7 @@ export class HeaderComponent implements OnInit {
     }
     
     logout(){
-        this.navigationService.isUserLogged.next(false);
+        this.navigationService.isUserLogged.next(null);
         this.menuIsOpen = false;
     }
     

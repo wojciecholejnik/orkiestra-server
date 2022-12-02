@@ -12,23 +12,30 @@ import { NavigationService } from '../../navigation-service.service';
 })
 export class EditUserComponent implements OnInit, OnDestroy {
 
-    _isUserLogged?: Subscription;
-    isUserLogged?: User;
+    loggedUser?: User;
     form?: FormGroup;
     _editUser?: Subscription;
     error = false;
 
-    constructor(private navigationService: NavigationService, private fb: FormBuilder, private membersService: MembersService) { }
+    constructor(
+        private navigationService: NavigationService,
+        private fb: FormBuilder,
+        private membersService: MembersService
+    ) { }
 
     @Output() onModalClose: EventEmitter<any> = new EventEmitter();
 
     ngOnInit(): void {
-        this._isUserLogged = this.navigationService.isUserLogged.subscribe(user => {
-            this.isUserLogged = user;
+        // this._isUserLogged = this.navigationService.isUserLogged.subscribe(user => {
+            
+        // })
+
+        this.loggedUser = this.navigationService.getUser();
+        if (this.loggedUser) {
             this.form = this.fb.group({
                 password: this.fb.control('', Validators.required),
-                name: this.fb.control(user.name, Validators.required),
-                login: this.fb.control(user.login, Validators.required),
+                name: this.fb.control(this.loggedUser.name, Validators.required),
+                login: this.fb.control(this.loggedUser.login, Validators.required),
                 newPassword1: this.fb.control(''),
                 newPassword2: this.fb.control('')
             },
@@ -36,12 +43,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
                 validators: [this.newPasswordsTheSame(), this.passwordIsFilled()],
                 updateOn: 'change',
             })
-        })
+        }
     }
 
     ngOnDestroy(): void {
         this._editUser?.unsubscribe();
-        this._isUserLogged?.unsubscribe();
     }
 
     closeModal(): void {
@@ -93,9 +99,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
     save(){
         const formValue = this.form?.value;
-        if (this.isUserLogged) {
+        if (this.loggedUser) {
             const DTO: UserDTO = {
-                id: this.isUserLogged?._id,
+                id: this.loggedUser?._id,
                 password: formValue.password,
                 name: formValue.name,
                 login: formValue.login,
