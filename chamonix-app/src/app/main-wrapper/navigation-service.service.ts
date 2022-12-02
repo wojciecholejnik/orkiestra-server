@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { User } from '../shared/models';
 
 @Injectable({
      providedIn: 'root'
 })
-export class NavigationService {
+export class NavigationService  {
 
     activeModule: BehaviorSubject<any> = new BehaviorSubject([
         {name: 'Członkowie', isActive: true},
@@ -13,7 +15,8 @@ export class NavigationService {
         {name: 'Zasoby', isActive: false},
     ]);
     deviceType: BehaviorSubject<string> = new BehaviorSubject('');
-    isUserLogged: BehaviorSubject<any> = new BehaviorSubject(false);
+    isUserLogged: Subject<any> = new Subject();
+    private user?: User;
 
   constructor() { }
 
@@ -29,6 +32,14 @@ export class NavigationService {
     }
 
     this.deviceType.next(type);
+  }
+
+  setUser(user: User) {
+    this.user = user;
+  }
+  
+  getUser():User | undefined {
+    return this.user
   }
 
 }
