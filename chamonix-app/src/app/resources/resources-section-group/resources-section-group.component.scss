@@ -22,19 +22,27 @@
         cursor: pointer;
 
         .info {
-            display: flex;
-            flex: 8;
-            grid-gap: 10px;
-            gap: 10px;
+            flex: 5;
+
             align-items: center;
 
             h4 {
                 margin-bottom: 0;
             }
  
-            span {
+            span, strong {
                 line-height: 25px;
-             }
+
+                @include phone {
+                    font-size: 14px;
+                }
+                
+            }
+
+            strong {
+                font-style: italic;
+            }
+
         }
 
         .filters {
@@ -42,58 +50,18 @@
             align-items: center;
             flex:2;
             gap: 10px;
-
+    
             p {
                 margin: 0;
             }
-
+    
+            @include phone {
+                flex-direction: column;
+            }
+    
             button {
-                font-size: 12px;
-
-                &.active {
-
-                    box-shadow: 0px 0px 8px green;
-                }
+                width: 100%;
             }
-        }
-    }
-}
-
-.additinal-row {
-    background-color: $background-gray;
-}
-
-.actions-wrapper {
-    display: flex;
-    gap: 3px;
-}
-
-table {
-    thead {
-        font-size: .85rem;
-    }
-
-    tbody {
-        font-size: .75rem;
-
-        tr {
-            position: relative;
-
-            &.open {
-                background-color: $background-gray;
-            }
-        }
-
-        .serialNumber {
-            max-width: 175px;
-        }
-
-        .description {
-            width: 200px;
-        }
-
-        .actions {
-            width: 120px;
         }
     }
 }

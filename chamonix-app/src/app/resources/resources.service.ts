@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Instrument, Member, newResourceDTO, ResourcesTabs, Section } from '../shared/models';
+import { Instrument, Member, newResourceDTO, newSectionDTO, ResourcesTabs, Section } from '../shared/models';
 
 @Injectable({
     providedIn: 'root'
@@ -15,17 +15,19 @@ export class ResourcesService {
     private apiHost: string;
 
     public activeTab: BehaviorSubject<ResourcesTabs> = new BehaviorSubject({
-        uniforms: true,
+        uniforms: false,
         instruments: false,
-        sections: false,
+        sections: true,
         instructors: false,
         others: false
     } as ResourcesTabs);
 
     public addResourceInstrumentIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
     public addResourceUniformsIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
+    public addResourceSectionIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
     public shouldGetResourcesInstruments: Subject<any> = new Subject();
     public shuldGetResourcesUniforms: Subject<any> = new Subject();
+    public shuldGetResourcesSections: Subject<any> = new Subject();
 
     constructor(private http: HttpClient) { 
         this.apiHost = environment.baseApiUrl;
@@ -93,5 +95,17 @@ export class ResourcesService {
 
     editPart(id: string, DTO: {name: string, state: number}) {
         return this.http.post<any>(`${this.apiHost}/resources/uniforms/edit-part/${id}`, DTO);
+    }
+
+    getInstructors() {
+        return this.http.get<any>(`${this.apiHost}/musicians/instructors`);
+    }
+
+    addSection(DTO: newSectionDTO) {
+        return this.http.post<any>(`${this.apiHost}/sections`, DTO);
+    }
+
+    removeSection(id: string) {
+        return this.http.post<any>(`${this.apiHost}/section/delete/${id}`, null)
     }
 }

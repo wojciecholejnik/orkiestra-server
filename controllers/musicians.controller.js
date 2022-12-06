@@ -350,3 +350,20 @@ exports.editUser = async (req, res) => {
     res.status(500).json({ message: err });
   }
 }
+
+exports.readInstructors = async (req, res) => {
+  try {
+    const musicians = await Musician.find({isInstructor: true})
+    .select('-phone -email -address1 -address2 -instrument -isChild -parentName -parentPhone -isActive -joiningDate -birthDate -isStudent -isInstructor')
+    .sort({lastName: 1});
+  
+    if (!musicians.length) {
+      res.status(404).json({ message: 'not found !!'});
+    } else {
+      res.json(musicians);
+    }
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}

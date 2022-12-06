@@ -45,4 +45,8 @@ export class ResourcesNavigationComponent implements OnInit, OnDestroy {
     toggleAddResourceUniforms(state: boolean): void {
         this.resourcesService.addResourceUniformsIsOpen.next(state);
     }
+
+    toggleAddResourceSections(state: boolean): void {
+        this.resourcesService.addResourceSectionIsOpen.next(state);
+    }
 }

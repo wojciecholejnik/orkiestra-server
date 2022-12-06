@@ -36,6 +36,10 @@ export class ConfirmationComponent implements OnInit {
         if (this.type === 'removeUniformPart') {
             this.confirmationText = 'Czy na pewno usunąć część umundurowania ' + this.data.name + ' ?'
         } 
+
+        if (this.type === 'removeSection') {
+            this.confirmationText = 'Czy na pewno usunąć sekcję ' + this.data.name + ' i podległe jej instrumenty ?'
+        } 
     }
 
     confirm(){

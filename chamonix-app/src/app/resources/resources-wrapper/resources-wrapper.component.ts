@@ -16,6 +16,8 @@ export class ResourcesWrapperComponent implements OnInit, OnDestroy {
     addResourceInstrumentIsOpen: any;
     _addResourceUniformIsOpen?: Subscription;
     addResourceUniformIsOpen: any;
+    _addResourceSectionIsOpen?: Subscription;
+    addResourceSectionIsOpen: any;
 
     constructor(private resourcesService: ResourcesService) { }
 
@@ -23,6 +25,7 @@ export class ResourcesWrapperComponent implements OnInit, OnDestroy {
         this._activeTab = this.resourcesService.activeTab.subscribe(tabs => this.activeTab = tabs);
         this._addResourceInstrumentIsOpen = this.resourcesService.addResourceInstrumentIsOpen.subscribe(state => this.addResourceInstrumentIsOpen = state);
         this._addResourceUniformIsOpen = this.resourcesService.addResourceUniformsIsOpen.subscribe(state => this.addResourceUniformIsOpen = state);
+        this._addResourceSectionIsOpen = this.resourcesService.addResourceSectionIsOpen.subscribe(state => this.addResourceSectionIsOpen = state);
     }
 
     ngOnDestroy(): void {

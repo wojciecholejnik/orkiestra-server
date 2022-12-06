@@ -14,7 +14,8 @@ const musicianSchema = new mongoose.Schema({
   isActive: {type: Boolean, required: true},
   joiningDate: {type: String, required: true },
   birthDate: {type: String, required: true},
-  isStudent: {type: Boolean}
+  isStudent: {type: Boolean},
+  isInstructor: {type: Boolean}
 });
 
 

@@ -54,10 +54,20 @@ export interface Instrument {
     section: Section
 }
 
+export interface newSectionDTO {
+    name: string,
+    instructor: string,
+}
+
 export interface Section {
     _id: string,
     name: string,
-    instructor: string
+    instructor: {
+        firstName: string,
+        lastName: string,
+        _id: string
+    },
+    instruments: Instrument[]
 }
 
 
@@ -136,4 +146,5 @@ export enum Roles {
 }
 
 export type Sorting = 'asc' | 'desc' | '';
-export type ConfirmationModalType = 'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | 'removeUniformPart' | '';
+export type ConfirmationModalType = 
+'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | 'removeUniformPart' | 'removeSection' | '';

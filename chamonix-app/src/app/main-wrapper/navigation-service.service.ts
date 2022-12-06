@@ -9,10 +9,10 @@ import { User } from '../shared/models';
 export class NavigationService  {
 
     activeModule: BehaviorSubject<any> = new BehaviorSubject([
-        {name: 'Członkowie', isActive: true},
+        {name: 'Członkowie', isActive: false},
         {name: 'Dziennik', isActive: false},
         {name: 'Kalendarz', isActive: false},
-        {name: 'Zasoby', isActive: false},
+        {name: 'Zasoby', isActive: true},
     ]);
     deviceType: BehaviorSubject<string> = new BehaviorSubject('');
     isUserLogged: Subject<any> = new Subject();

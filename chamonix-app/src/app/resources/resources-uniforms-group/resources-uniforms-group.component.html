@@ -1,6 +1,8 @@
 <div *ngIf="!loading" class="section-header box-shadow">
 
     <div class="section-header-wrapper">
+        <i *ngIf="!isOpen" class="bi bi-chevron-double-down"></i>
+        <i *ngIf="isOpen" class="bi bi-chevron-double-up"></i>
         <div class="info" (click)="toggleCard()">
             <h4>{{uniformsGroup.name}}</h4>
             <p>liczba elementów: <ng-container>{{parts ? parts.length : '0'}}</ng-container></p>

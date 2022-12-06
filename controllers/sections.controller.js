@@ -1,4 +1,6 @@
 const Section = require('../models/section.model');
+const Instrument = require('../models/instrument.model');
+const Musician = require('../models/musician.model');
 
 exports.createSection = async (req, res) => {
   const newSection = {...req.body};
@@ -15,7 +17,17 @@ exports.createSection = async (req, res) => {
 
 exports.readSections = async (req, res) => {
   try {
-    const sections = await Section.find();
+    const sections = await Section.find().populate([
+      {
+        path: 'instruments', 
+        model: Instrument,
+      },
+      {
+        path: 'instructor',
+        model: Musician,
+        select: '-phone -email -address1 -address2 -instrument -isChild -parentName -parentPhone -isActive -joiningDate -birthDate -isStudent -isInstructor'
+      }
+    ]).sort({name: 1});;
   
     if (!sections.length) {
       res.status(404).json({ message: 'not found !!'});
@@ -65,6 +77,7 @@ exports.updateSection= async (req, res) => {
 }
 
 exports.deleteSection = async (req, res) => {
+  console.log(req.params);
   try {
     const sectionToDelete = await Section.findOne({ _id: req.params.id });
     if (sectionToDelete) {

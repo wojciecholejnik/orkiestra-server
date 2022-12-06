@@ -2,9 +2,11 @@
 
 <app-add-resource-instrument *ngIf="addResourceInstrumentIsOpen" (onModalClose)="closeAddResourceInstrumentModal()"></app-add-resource-instrument>
 <app-add-resource-uniform *ngIf="addResourceUniformIsOpen"></app-add-resource-uniform>
+<app-add-resource-section *ngIf="addResourceSectionIsOpen"></app-add-resource-section>
 
 
 <div class="modules-container">
     <app-resources-instruments-wrapper *ngIf="activeTab && activeTab.instruments"></app-resources-instruments-wrapper>
     <app-resources-uniforms-wrapper *ngIf="activeTab && activeTab.uniforms"></app-resources-uniforms-wrapper>
+    <app-resources-sections-wrapper *ngIf="activeTab && activeTab.sections"></app-resources-sections-wrapper>
 </div>

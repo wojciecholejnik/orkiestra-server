@@ -1,0 +1,42 @@
+<app-modal-wrapper>
+    <div class="action-modal">
+        <div>
+            <h2 *ngIf="!editingItem">Dodaj sekcję</h2>
+            <h2 *ngIf="editingItem">Edytuj sekcję</h2>
+        </div>
+        <form
+            id="sectionForm"
+            [formGroup]="sectionForm"
+            (ngSubmit)="editingItem ? updateSection() : addSection()">
+
+            <div class="mb-3 mt-4 selector">
+                <label for="birthDate">Nazwa</label>
+                <input
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    placeholder="nazwa"
+                    formControlName="name"
+                >
+            </div>
+            
+            <div class="mb-3 mt-4 selector form-floating">
+                <label for="birthDate">Instruktor</label>
+                <app-loading *ngIf="instructorsLoading" [small]="true"></app-loading>
+                <select class="form-select form-control" *ngIf="instructors && !instructorsLoading" formControlName="instructor">
+                    <option value="">brak</option>
+                    <option *ngFor="let instructor of instructors" [value]="instructor._id">
+                        {{instructor.firstName + ' ' + instructor.lastName}}
+                    </option>
+                </select>
+            </div>
+
+        </form>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button *ngIf="!editingItem" class="btn btn-primary" type="submit" form="sectionForm" [disabled]="sectionForm.status === 'INVALID'">Dodaj</button>
+            <button *ngIf="editingItem" class="btn btn-primary" type="submit" form="sectionForm" [disabled]="sectionForm.status === 'INVALID'">Zapisz</button>
+        </div>
+    </div> 
+</app-modal-wrapper>

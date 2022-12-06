@@ -15,12 +15,14 @@
 
     .section-header-wrapper {
         display: flex;
+        gap: 6px;
+        cursor: pointer;
 
         .info {
             width: 75%;
 
             @include tablet {
-                width: 70%
+                width: 65%;
             }
         }
     }

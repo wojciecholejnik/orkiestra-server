@@ -1,6 +1,8 @@
 
 <div *ngIf="!loading" class="section-header box-shadow">
     <div class="section-header-wrapper">
+        <i *ngIf="!sectionIsOpen[groupName]" class="bi bi-chevron-double-down"></i>
+        <i *ngIf="sectionIsOpen[groupName]" class="bi bi-chevron-double-up"></i>
         <div class="info" (click)="openCard(groupName)">
             <h4>{{SectionNameTranslations[groupName]}}</h4>
             <span>{{filteredGroup && filteredGroup.length ? filteredGroup.length : 0}}</span>

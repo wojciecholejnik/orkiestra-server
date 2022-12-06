@@ -3,9 +3,9 @@
 $primary: $origin-blue;
 @import '~bootstrap/scss/bootstrap';
 @import "../node_modules/bootstrap/scss/buttons";
+@import "../node_modules/bootstrap/scss/input-group";
 @import 'bootstrap-icons';
 @import './global-styling/action-modal.scss';
-// @import './global-styling/buttons.scss';
 
 * {
     margin: 0;

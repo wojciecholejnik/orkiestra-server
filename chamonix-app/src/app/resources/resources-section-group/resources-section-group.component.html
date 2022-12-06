@@ -1,0 +1,34 @@
+<div class="section-header box-shadow">
+    <div class="section-header-wrapper" (click)="toggleIsOpen()">
+        <i *ngIf="!isOpen" class="bi bi-chevron-double-down"></i>
+        <i *ngIf="isOpen" class="bi bi-chevron-double-up"></i>
+        <div class="info">
+            <h4>{{section.name}}</h4>
+            <span>instruktor: </span>
+            <span><strong>{{section.instructor ? renderInstructorName(section.instructor) : 'brak'}}</strong></span>
+        </div>
+        <div class="filters">
+            <button class="btn btn-primary btn-sm">
+                <i class="bi bi-pencil"></i>
+                edytuj
+            </button>
+            <button class="btn btn-primary btn-sm">
+                <i class="bi bi-plus-lg"></i>
+                dodaj
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="openRemoveSection()">
+                <i class="bi bi-x-lg"></i>
+                usuń
+            </button>
+        </div>
+    </div>
+</div>
+
+<app-confirmation
+    *ngIf="removeSectionIsOpen"
+    [type]="'removeSection'"
+    [data]="section"
+    (onAbort)="onAbortRemoveSection()"
+    (onConfirm)="onRemoveSection()"
+    >
+</app-confirmation>

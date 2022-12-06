@@ -13,6 +13,9 @@ import { AddResourceUniformComponent } from './add-resource-uniform/add-resource
 import { AddResourceUniformPartComponent } from './add-resource-uniform-part/add-resource-uniform-part.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResourcesInstrumentDetailsComponent } from './resources-instrument-details/resources-instrument-details.component';
+import { ResourcesSectionsWrapperComponent } from './resources-sections-wrapper/resources-sections-wrapper.component';
+import { ResourcesSectionGroupComponent } from './resources-section-group/resources-section-group.component';
+import { AddResourceSectionComponent } from './add-resource-section/add-resource-section.component';
 
 
 
@@ -28,6 +31,9 @@ import { ResourcesInstrumentDetailsComponent } from './resources-instrument-deta
         AddResourceUniformComponent,
         AddResourceUniformPartComponent,
         ResourcesInstrumentDetailsComponent,
+        ResourcesSectionsWrapperComponent,
+        ResourcesSectionGroupComponent,
+        AddResourceSectionComponent,
     ],
     imports: [
         CommonModule,

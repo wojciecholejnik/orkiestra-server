@@ -12,7 +12,7 @@ import { ResourcesService } from '../resources.service';
 export class AddResourceInstrumentComponent implements OnInit, OnDestroy {
 
     @Input() editingItem?: any;
-    @Output() onModalClose: EventEmitter<any> = new EventEmitter()
+    @Output() onModalClose: EventEmitter<any> = new EventEmitter();
 
     _getSections?: Subscription;
     _getInstrumentsBySectioin?: Subscription;
