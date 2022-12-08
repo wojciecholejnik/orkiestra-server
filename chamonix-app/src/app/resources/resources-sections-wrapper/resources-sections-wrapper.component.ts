@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Section } from 'src/app/shared/models';
 import { ResourcesService } from '../resources.service';
 
 @Component({
@@ -30,5 +31,9 @@ export class ResourcesSectionsWrapperComponent implements OnInit, OnDestroy {
         this._sections?.unsubscribe();
         this._sectionsShouldGet?.unsubscribe();
     }
+
+    trackByFn(index: number, data: Section) {
+        return data._id;
+      }
 
 }

@@ -63,6 +63,7 @@ exports.readMusicianById = async (req, res) => {
         populate: {
           path: 'section', 
           model: Section,
+          select: '-instruments -instructor'
         }
       },
       

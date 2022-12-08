@@ -16,6 +16,7 @@ import { ResourcesInstrumentDetailsComponent } from './resources-instrument-deta
 import { ResourcesSectionsWrapperComponent } from './resources-sections-wrapper/resources-sections-wrapper.component';
 import { ResourcesSectionGroupComponent } from './resources-section-group/resources-section-group.component';
 import { AddResourceSectionComponent } from './add-resource-section/add-resource-section.component';
+import { AddResourceSectionInstrumentComponent } from './add-resource-section-instrument/add-resource-section-instrument.component';
 
 
 
@@ -34,6 +35,7 @@ import { AddResourceSectionComponent } from './add-resource-section/add-resource
         ResourcesSectionsWrapperComponent,
         ResourcesSectionGroupComponent,
         AddResourceSectionComponent,
+        AddResourceSectionInstrumentComponent,
     ],
     imports: [
         CommonModule,

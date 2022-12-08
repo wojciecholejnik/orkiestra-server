@@ -1,10 +1,10 @@
 
 <div *ngIf="!loading" class="section-header box-shadow">
     <div class="section-header-wrapper">
-        <i *ngIf="!sectionIsOpen[groupName]" class="bi bi-chevron-double-down"></i>
-        <i *ngIf="sectionIsOpen[groupName]" class="bi bi-chevron-double-up"></i>
-        <div class="info" (click)="openCard(groupName)">
-            <h4>{{SectionNameTranslations[groupName]}}</h4>
+        <i *ngIf="!isOpen" class="bi bi-chevron-double-down"></i>
+        <i *ngIf="isOpen" class="bi bi-chevron-double-up"></i>
+        <div class="info" (click)="toggleIsGroupOpen()">
+            <h4>{{groupName}}</h4>
             <span>{{filteredGroup && filteredGroup.length ? filteredGroup.length : 0}}</span>
         </div>
         <div class="filters">
@@ -17,9 +17,9 @@
             </button>
         </div>
     </div>
-    <div class="tablewrapper" *ngIf="sectionIsOpen[groupName] && filteredGroup">
+    <div class="tablewrapper" *ngIf="isOpen && filteredGroup">
         <table class="table mt-4">
-            <colgroup>
+            <colgroup *ngIf="viewOnPhone()">
                 <col width="5%"><col width="5%">
                 <col width="5%"><col width="5%">
                 <col width="5%"><col width="5%">
@@ -32,7 +32,7 @@
                 <col width="5%"><col width="5%">
             </colgroup>
             <thead>
-                <th>typ</th>
+                <th >typ</th>
                 <th>firma</th>
                 <th *ngIf="!viewOnPhone()">model</th>
                 <th *ngIf="!viewOnPhone()">nr seryjny</th>

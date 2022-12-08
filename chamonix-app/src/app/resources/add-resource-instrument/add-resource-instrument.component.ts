@@ -72,7 +72,12 @@ export class AddResourceInstrumentComponent implements OnInit, OnDestroy {
 
     getInstrumentsBbySection(){
         this._getInstrumentsBySectioin = this.resourcesService.getInstrumentsBySection(this.activeSection).subscribe(instruments => {
-            this.instrumentsBySection = instruments;
+            this.instrumentsBySection = instruments ? instruments : [];
+            if (!this.editingItem) {
+                this.activeInstrument = instruments ? instruments[0]._id : ''
+            } else {
+                this.activeInstrument = this.editingItem.type._id;
+            }
             this.instrumentsReady = true;
         })
         this.getActiveMembers();

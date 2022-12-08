@@ -1,12 +1,21 @@
 const Instrument = require('../models/instrument.model');
+const Section = require('../models/section.model');
 
 exports.createInstrument = async (req, res) => {
   const newInstrument = {...req.body};
-
   try {
-    const instrument = new Instrument(newInstrument);
-    await instrument.save();
-    res.json({ message: 'OK' });
+    if (newInstrument && newInstrument.name && newInstrument.section) {
+      const instrument = new Instrument(newInstrument);
+      const section = await Section.findById(newInstrument.section);
+      await instrument.save().then(async (res) => {
+
+        await Section.updateOne({_id: section._id}, {instruments: [...section.instruments, res._id]})
+      }) ;
+
+      res.json({ message: 'OK' });
+    } else {
+      res.status(500).json({message: 'not all informations !!!'})
+    }
 
   } catch(err) {
     res.status(500).json({ message: err });
@@ -35,7 +44,7 @@ exports.readInstrumentsBySection = async (req, res) => {
     const instruments = await Instrument.find({section: sectionId});
   
     if (!instruments.length) {
-      res.status(404).json({ message: 'not found !!'});
+      res.json([]);
     } else {
       const sortedInstruments = instruments.sort((a, b) => a.name.localeCompare(b.name));
       res.json(sortedInstruments);

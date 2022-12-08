@@ -14,9 +14,7 @@ export interface MembersTabs {
 export interface ResourcesTabs {
     instruments: boolean,
     uniforms: boolean,
-    instructors: boolean,
     sections: boolean,
-    others: boolean,
     [key: string]: boolean
 }
 
@@ -147,4 +145,11 @@ export enum Roles {
 
 export type Sorting = 'asc' | 'desc' | '';
 export type ConfirmationModalType = 
-'restoreMember' | 'removeMember' | 'removeInstrument' | 'removeUniformGroup' | 'removeUniformPart' | 'removeSection' | '';
+'restoreMember' 
+| 'removeMember' 
+| 'removeInstrument' 
+| 'removeUniformGroup' 
+| 'removeUniformPart' 
+| 'removeSection' 
+| 'removeInstrumentFromSection'
+| '';

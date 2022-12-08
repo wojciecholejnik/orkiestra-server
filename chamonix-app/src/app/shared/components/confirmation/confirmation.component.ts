@@ -40,6 +40,10 @@ export class ConfirmationComponent implements OnInit {
         if (this.type === 'removeSection') {
             this.confirmationText = 'Czy na pewno usunąć sekcję ' + this.data.name + ' i podległe jej instrumenty ?'
         } 
+
+        if (this.type === 'removeInstrumentFromSection') {
+            this.confirmationText = 'Czy na pewno usunąć instrument ' + this.data.name + ' ?'
+        } 
     }
 
     confirm(){

@@ -17,9 +17,7 @@ export class ResourcesService {
     public activeTab: BehaviorSubject<ResourcesTabs> = new BehaviorSubject({
         uniforms: false,
         instruments: false,
-        sections: true,
-        instructors: false,
-        others: false
+        sections: true
     } as ResourcesTabs);
 
     public addResourceInstrumentIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);
@@ -105,7 +103,23 @@ export class ResourcesService {
         return this.http.post<any>(`${this.apiHost}/sections`, DTO);
     }
 
+    updateSection(sectionId: string, DTO: newSectionDTO) {
+        return this.http.put<any>(`${this.apiHost}/section/${sectionId}`, DTO);
+    }
+
     removeSection(id: string) {
         return this.http.post<any>(`${this.apiHost}/section/delete/${id}`, null)
+    }
+
+    addInstrumentToSection(instrument: {name: string, section: string}) {
+        return this.http.post<any>(`${this.apiHost}/instruments`, instrument)
+    }
+
+    updateInstrumentInSection(DTO: {_id: string, name: string, section?: string}) {
+        return this.http.put<any>(`${this.apiHost}/instrument/${DTO._id}`, DTO)
+    }
+
+    removeInstrumentFromSection(id: string) {
+        return this.http.delete<any>(`${this.apiHost}/instrument/delete/${id}`)
     }
 }

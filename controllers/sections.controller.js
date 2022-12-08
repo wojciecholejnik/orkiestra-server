@@ -1,6 +1,7 @@
 const Section = require('../models/section.model');
 const Instrument = require('../models/instrument.model');
 const Musician = require('../models/musician.model');
+const ResourceInstrument = require('../models/resourceInstrument.model');
 
 exports.createSection = async (req, res) => {
   const newSection = {...req.body};
@@ -16,18 +17,20 @@ exports.createSection = async (req, res) => {
 }
 
 exports.readSections = async (req, res) => {
+  const options = { sort: {name: 1} };
   try {
     const sections = await Section.find().populate([
       {
         path: 'instruments', 
         model: Instrument,
+        options,
       },
       {
         path: 'instructor',
         model: Musician,
-        select: '-phone -email -address1 -address2 -instrument -isChild -parentName -parentPhone -isActive -joiningDate -birthDate -isStudent -isInstructor'
+        select: '-phone -email -address1 -address2 -instrument -isChild -parentName -parentPhone -isActive -joiningDate -birthDate -isStudent -isInstructor',
       }
-    ]).sort({name: 1});;
+    ]).sort({name: 1});
   
     if (!sections.length) {
       res.status(404).json({ message: 'not found !!'});
@@ -77,10 +80,17 @@ exports.updateSection= async (req, res) => {
 }
 
 exports.deleteSection = async (req, res) => {
-  console.log(req.params);
+  const otherInstrumentTypeId = '63637ff47a19c6ae2179c5cb';
   try {
     const sectionToDelete = await Section.findOne({ _id: req.params.id });
+    const instrumentToDelete = await Instrument.find({section: req.params.id});
     if (sectionToDelete) {
+      if (instrumentToDelete.length) {
+        await Instrument.deleteMany({section: req.params.id})
+        instrumentToDelete.forEach(async instrumentToDelet => {
+          await ResourceInstrument.updateMany({type : instrumentToDelet.section}, {type: otherInstrumentTypeId});
+        })
+      }
       await Section.deleteOne({ _id: req.params.id });
       res.json({ message: 'OK' });
     } else {

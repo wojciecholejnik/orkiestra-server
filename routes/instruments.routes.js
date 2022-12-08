@@ -6,7 +6,7 @@ router.get('/instruments', instrumentsColntroller.readInstruments);
 router.get('/instrument/:id', instrumentsColntroller.readInstrumentById);
 router.get('/instrumentsBySection/:id', instrumentsColntroller.readInstrumentsBySection);
 router.post('/instruments', instrumentsColntroller.createInstrument);
-router.post('/instrument/:id', instrumentsColntroller.updateInstrument);
-router.post('/instrument/delete/:id', instrumentsColntroller.deleteInstrument);
+router.put('/instrument/:id', instrumentsColntroller.updateInstrument);
+router.delete('/instrument/delete/:id', instrumentsColntroller.deleteInstrument);
 
 module.exports = router;

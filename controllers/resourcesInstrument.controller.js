@@ -26,6 +26,7 @@ exports.readResourceInstruments = async (req, res) => {
     }
   }
   try {
+    let mappedResourcesInstruments;
     const resourceInstruments = await ResourceInstrument.find()
     .populate([
       {
@@ -43,21 +44,49 @@ exports.readResourceInstruments = async (req, res) => {
         'match': { 'user': {'$ne': ''} }
       }
       
-    ]);
+    ]).then(items => {
+      mappedResourcesInstruments = items.map(instrument => {
+        if (instrument.type && instrument.type.section) {
+          return instrument
+        } else {
+          const mockedInstrument = {
+            ...instrument._doc,
+            type: {
+              _id: '636b4f23d34006f259541a74',
+              name: 'pozostałe',
+              section: {
+                name: 'pozostałe',
+                _id: '63637ff47a19c6ae2179c5cb'
+              }
+            }}
+          return mockedInstrument
+        }
+      })
+    });
   
-    if (!resourceInstruments.length) {
+    if (!mappedResourcesInstruments.length) {
       res.status(404).json({ message: 'not found !!'});
     } else {
-      const brass = resourceInstruments.filter(resourceInstrument => resourceInstrument.type.section.name === 'blacha');
-      const woodwinds = resourceInstruments.filter(resourceInstrument => resourceInstrument.type.section.name === 'drewno');
-      const percussions = resourceInstruments.filter(resourceInstrument => resourceInstrument.type.section.name === 'perkusja');
-      const others = resourceInstruments.filter(resourceInstrument => resourceInstrument.type.section.name === 'pozostałe');
-      brass.sort((a,b) => sotrGroup(a,b));
-      woodwinds.sort((a,b) => sotrGroup(a,b));
-      percussions.sort((a,b) => sotrGroup(a,b));
-      others.sort((a,b) => sotrGroup(a,b));
-      const DTO = {brass, woodwinds, percussions, others};
-      res.json(DTO);
+      const sectionsNames = [];
+      mappedResourcesInstruments.forEach(instrument => {
+        if (instrument.type && sectionsNames.indexOf(instrument.type.section.name) < 0) {
+          sectionsNames.push(instrument.type.section.name)
+        } else if (!instrument.type && sectionsNames.indexOf('pozostałe') < 0) {
+          sectionsNames.push('pozostałe')
+        }
+      });
+      sectionsNames.sort();
+      
+      const sections = sectionsNames.map(sectionName => {
+        
+        const sectionToSend = {
+          name: sectionName,
+          instruments: mappedResourcesInstruments.filter(resourceInstrument => resourceInstrument.type.section.name === sectionName)
+        }
+        sectionToSend.instruments.sort((a,b) => sotrGroup(a,b));
+        return sectionToSend
+      })
+      res.json(sections)
     }
 
   } catch(err) {

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { InstrumentsSectionView } from 'src/app/shared/models';
 import { ResourcesService } from '../resources.service';
 import { InstrumentsService } from './instruments.service';
 
@@ -11,18 +10,11 @@ import { InstrumentsService } from './instruments.service';
 })
 export class ResourcesInstrumentsWrapperComponent implements OnInit, OnDestroy {
 
-    _sectionIsOpen?: Subscription;
-    sectionIsOpen!: InstrumentsSectionView;
-    woodwindsAreOpen!: boolean;
-    percussionsAreOpen!: boolean;
-    othersAreOpen!: boolean;
-
     loading = true;
-    resources: any;
+    resources: any[] = [];
     _getResourcesInstruments?: Subscription;
 
     constructor(private instrumentsService: InstrumentsService, private resourcesService: ResourcesService) { 
-        this._sectionIsOpen = this.instrumentsService.sectionIsOpen.subscribe(state => this.sectionIsOpen = state);
         this.resourcesService.shouldGetResourcesInstruments.subscribe(() => this.getResourcesInstruments());
     }
 
@@ -42,9 +34,13 @@ export class ResourcesInstrumentsWrapperComponent implements OnInit, OnDestroy {
             },
             error: () => {
                 this.loading = false;
-                this.resources = null;
+                this.resources = [];
             }
         })
     }
+
+    trackByFn(index: number, data: any) {
+        return data.name;
+      }
 
 }

@@ -13,6 +13,7 @@ import { ResourcesService } from '../resources.service';
 export class AddResourceSectionComponent implements OnInit, OnDestroy {
 
     @Output() onModalClose: EventEmitter<any> = new EventEmitter();
+    @Output() onEditSave: EventEmitter<any> = new EventEmitter();
     @Input() editingItem?: Section;
     instructorsLoading = true;
     instructors: any[] = [];
@@ -21,7 +22,7 @@ export class AddResourceSectionComponent implements OnInit, OnDestroy {
     constructor(private resourcesService: ResourcesService, private fb: FormBuilder) { }
         sectionForm = this.fb.group({
             name: ['', Validators.required], 
-            instructor: [''],
+            instructor: ['', Validators.required],
         })
    
 
@@ -32,7 +33,7 @@ export class AddResourceSectionComponent implements OnInit, OnDestroy {
         })
         if (this.editingItem) {
             this.sectionForm.controls.name.setValue(this.editingItem.name),
-            this.sectionForm.controls.instructor.setValue(this.editingItem.instructor)
+            this.sectionForm.controls.instructor.setValue(this.editingItem.instructor._id)
         }
     }
 
@@ -41,7 +42,6 @@ export class AddResourceSectionComponent implements OnInit, OnDestroy {
     }
 
     addSection(){
-        console.log(this.sectionForm.value)
         if (this.sectionForm.status === 'VALID') {
             this.resourcesService.addSection(this.sectionForm.value).subscribe(() => {
                 this.resourcesService.shuldGetResourcesSections.next();
@@ -51,7 +51,11 @@ export class AddResourceSectionComponent implements OnInit, OnDestroy {
     }
 
     updateSection(){
-        console.log(this.sectionForm.value);  
+        if (this.editingItem) {
+            this.resourcesService.updateSection(this.editingItem._id, this.sectionForm.value).subscribe(() => {
+                this.onEditSave.next(true);
+            }) 
+        }
     }
 
     closeModal(){

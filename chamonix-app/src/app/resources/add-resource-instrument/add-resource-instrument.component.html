@@ -15,7 +15,10 @@
             </div>
     
             <div *ngIf="activeSection" class="mb-3 selector">
-                <label for="instrumentsBySection">Instrument</label>
+                <p *ngIf="!instrumentsBySection.length">
+                    Ta sekcja nie ma przypisanych żadnych instrumentów. Wróć do zakładki 'Sekcje' i dodaj instrument.
+                </p>
+                <label *ngIf="instrumentsBySection.length" for="instrumentsBySection">Instrument</label>
                 <app-loading *ngIf="!instrumentsReady" [small]="true"></app-loading>
                 <select *ngIf="instrumentsBySection.length" [(ngModel)]="activeInstrument">
                     <option *ngFor="let instrument of instrumentsBySection" [value]="instrument._id">{{instrument.name}}</option>
@@ -88,8 +91,8 @@
     
             <div class="buttons-wrapper">
                 <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
-                <button *ngIf="!editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Dodaj</button>
-                <button *ngIf="editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Zapisz</button>
+                <button *ngIf="!editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID' || !instrumentsBySection.length">Dodaj</button>
+                <button *ngIf="editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID' || !instrumentsBySection.length" >Zapisz</button>
             </div>
         </div>
     </div>

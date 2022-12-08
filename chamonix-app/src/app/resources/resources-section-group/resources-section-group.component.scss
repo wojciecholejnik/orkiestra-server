@@ -65,3 +65,40 @@
         }
     }
 }
+
+table.table {
+    width: 50%;
+    margin-top: 24px;
+    margin-left: 5%;
+
+    @include phone {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .state {
+        width: 115px;
+        font-size: 13px;
+
+        .state-label {
+            width: 50px;
+        }
+
+        .state-value {
+            font-weight: 600;
+        }
+    }
+
+    // .actions {
+    //     width: 100px;
+    // }
+}
+
+.actions-wrapper {
+    display: flex;
+    gap: 3px;
+
+    @include phone {
+        flex-direction: column;
+    }
+}

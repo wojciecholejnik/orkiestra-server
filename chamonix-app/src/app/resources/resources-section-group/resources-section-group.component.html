@@ -1,18 +1,18 @@
 <div class="section-header box-shadow">
-    <div class="section-header-wrapper" (click)="toggleIsOpen()">
-        <i *ngIf="!isOpen" class="bi bi-chevron-double-down"></i>
-        <i *ngIf="isOpen" class="bi bi-chevron-double-up"></i>
-        <div class="info">
+    <div class="section-header-wrapper">
+        <i *ngIf="!isOpen" class="bi bi-chevron-double-down" (click)="toggleIsOpen()"></i>
+        <i *ngIf="isOpen" class="bi bi-chevron-double-up" (click)="toggleIsOpen()"></i>
+        <div class="info" (click)="toggleIsOpen()">
             <h4>{{section.name}}</h4>
             <span>instruktor: </span>
             <span><strong>{{section.instructor ? renderInstructorName(section.instructor) : 'brak'}}</strong></span>
         </div>
         <div class="filters">
-            <button class="btn btn-primary btn-sm">
+            <button class="btn btn-primary btn-sm" (click)="openEditGroup(section)">
                 <i class="bi bi-pencil"></i>
                 edytuj
             </button>
-            <button class="btn btn-primary btn-sm">
+            <button class="btn btn-primary btn-sm" (click)="openAddInstrument()">
                 <i class="bi bi-plus-lg"></i>
                 dodaj
             </button>
@@ -22,6 +22,31 @@
             </button>
         </div>
     </div>
+
+    <div *ngIf="isOpen" class="collabsable">
+
+        <table class="table">
+            <thead>
+                
+            </thead>
+            <tbody>
+                <tr *ngFor="let instrument of section.instruments">
+                    <td>{{instrument.name}}</td>
+                    
+                    <td class="actions">
+                        <div class="actions-wrapper">
+                            <button class="btn btn-primary btn-sm" (click)="openEditInstrument(instrument)">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" (click)="toggleRemoveIsOpen(instrument)">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </div>
 
 <app-confirmation
@@ -32,3 +57,33 @@
     (onConfirm)="onRemoveSection()"
     >
 </app-confirmation>
+
+<app-add-resource-section-instrument
+    *ngIf="addInstrumentIsOpen && !selectedInstrument"
+    [section]="section"
+    (onAddInstrument)="onAddInstrument()"
+    (onAbort)="onAbortAddInstrument()"
+></app-add-resource-section-instrument>
+
+<app-add-resource-section-instrument
+    *ngIf="addInstrumentIsOpen && selectedInstrument"
+    [section]="section"
+    [editingItem]="selectedInstrument"
+    (onAddInstrument)="onAddInstrument()"
+    (onAbort)="onAbortAddInstrument()"
+></app-add-resource-section-instrument>
+
+<app-confirmation
+    *ngIf="removeInstrumentConfirmationIsOpen"
+    [type]="'removeInstrumentFromSection'"
+    [data]="selectedInstrument"
+    (onConfirm)="onConfirmRemove()"
+    (onAbort)="onAbortRemove()"
+></app-confirmation>
+
+<app-add-resource-section
+    *ngIf="editSectionIsOpen && selectedSection"
+    [editingItem]="selectedSection"
+    (onModalClose)="onEditGroupAbort()"
+    (onEditSave)="onEditSave()"
+></app-add-resource-section>

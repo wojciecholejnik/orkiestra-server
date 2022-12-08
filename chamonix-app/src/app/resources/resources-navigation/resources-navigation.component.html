@@ -10,12 +10,6 @@
         <div class="bookmark-item" [class.active]="activeTab.sections" (click)="toggleActiveTab('sections')">
             Sekcje
         </div>
-        <div class="bookmark-item" [class.active]="activeTab.instructors" (click)="toggleActiveTab('instructors')">
-            Instruktorzy
-        </div>
-        <div class="bookmark-item" [class.active]="activeTab.others" (click)="toggleActiveTab('others')">
-            Pozostałe
-        </div>
     </div>
 
     <select 
@@ -27,8 +21,6 @@
         <option value="uniforms">Umundurowanie</option>
         <option value="instruments">Instrumenty</option>
         <option value="sections">Sekcje</option>
-        <option value="instructors">Instruktorzy</option>
-        <option value="others">Pozostałe</option>
     </select>
     
     <div class="actions">        

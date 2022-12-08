@@ -1,0 +1,33 @@
+<app-modal-wrapper>
+    <div class="action-modal">
+        <div>
+            <h2 *ngIf="!editingItem">Dodaj instrument</h2>
+            <h2 *ngIf="editingItem">Edytuj instrument</h2>
+            <p>dla sekcji <strong>{{section.name}}</strong></p>
+        </div>
+
+        <form
+        id="instrumentForm"
+        [formGroup]="instrumentForm"
+        (ngSubmit)="onSubmitForm()">
+
+            <div class="mb-3 mt-4 selector">
+                <label for="birthDate">Nazwa</label>
+                <input
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    placeholder="nazwa"
+                    formControlName="name"
+                >
+            </div>
+        </form>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button *ngIf="!editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Dodaj</button>
+            <button *ngIf="editingItem" class="btn btn-primary" type="submit" form="instrumentForm" [disabled]="instrumentForm.status === 'INVALID'">Zapisz</button>
+        </div>
+
+    </div>
+</app-modal-wrapper>
