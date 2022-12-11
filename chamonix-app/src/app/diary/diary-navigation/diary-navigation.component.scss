@@ -1,0 +1,30 @@
+@import'../../../global-styling/colors.scss';
+
+:host {
+    display: flex;
+    padding: 5px 15px;
+    justify-content: space-between;
+    height: 55px;
+    border: 1px solid #EBEBEB;
+    align-items: center;
+    background-color: #fafafa;
+}
+
+.bookmarks {
+    display: flex;
+    gap: 20px;
+
+    .bookmark-item {
+        &.active {
+            border-bottom: 3px solid $origin-blue
+        }
+        &:hover {
+            cursor: pointer;
+            color: $origin-red;
+        }
+    }
+}
+
+select {
+    width: 200px;
+}

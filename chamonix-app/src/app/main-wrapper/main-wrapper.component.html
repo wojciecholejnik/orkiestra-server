@@ -3,6 +3,7 @@
     <app-navigation></app-navigation>
     <div class="modules-container">
         <app-members-wrapper *ngIf="navOptions[0].isActive"></app-members-wrapper>
+        <app-diary-wrapper *ngIf="navOptions[1].isActive"></app-diary-wrapper>
         <app-resources-wrapper *ngIf="navOptions[3].isActive"></app-resources-wrapper>
     </div>
 </ng-container>

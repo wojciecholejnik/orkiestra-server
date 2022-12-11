@@ -136,12 +136,19 @@ export interface User {
     role: string
 }
 
+export interface DiaryTabs {
+    performances: boolean,
+    orchestraLessons: boolean,
+    [key: string]: boolean
+}
+
 export enum Roles {
     bandDirecotr = '0',
     instructor = '1',
     inspector = '2',
     member = '3'
 }
+
 
 export type Sorting = 'asc' | 'desc' | '';
 export type ConfirmationModalType = 

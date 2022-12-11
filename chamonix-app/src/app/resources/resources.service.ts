@@ -15,9 +15,9 @@ export class ResourcesService {
     private apiHost: string;
 
     public activeTab: BehaviorSubject<ResourcesTabs> = new BehaviorSubject({
-        uniforms: false,
+        uniforms: true,
         instruments: false,
-        sections: true
+        sections: false
     } as ResourcesTabs);
 
     public addResourceInstrumentIsOpen: BehaviorSubject<any> = new BehaviorSubject(false);

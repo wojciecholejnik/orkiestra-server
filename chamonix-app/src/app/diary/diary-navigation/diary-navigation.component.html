@@ -1,0 +1,18 @@
+<div *ngIf="deviceType === 'laptop'" class="bookmarks">
+    <div class="bookmark-item" [class.active]="activeTabs.orchestraLessons" (click)="toggleActiveTab('orchestraLessons')">
+        Próby
+    </div>
+    <div class="bookmark-item" [class.active]="activeTabs.performances" (click)="toggleActiveTab('performances')">
+        Występy
+    </div>
+</div>
+
+<select 
+    *ngIf="deviceType === 'phone' || deviceType === 'tablet'"
+    name="Group to show"
+    id="group-to-show"
+    (change)="toggleActiveTab($event)"
+    class="form-control">
+        <option value="orchestraLessons">Próby</option>
+        <option value="performances">Występy</option>
+</select>

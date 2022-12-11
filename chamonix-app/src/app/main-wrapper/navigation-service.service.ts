@@ -10,9 +10,9 @@ export class NavigationService  {
 
     activeModule: BehaviorSubject<any> = new BehaviorSubject([
         {name: 'Członkowie', isActive: false},
-        {name: 'Dziennik', isActive: false},
+        {name: 'Dziennik', isActive: true},
         {name: 'Kalendarz', isActive: false},
-        {name: 'Zasoby', isActive: true},
+        {name: 'Zasoby', isActive: false},
     ]);
     deviceType: BehaviorSubject<string> = new BehaviorSubject('');
     isUserLogged: Subject<any> = new Subject();
