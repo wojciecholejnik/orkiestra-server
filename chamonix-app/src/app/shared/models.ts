@@ -142,10 +142,14 @@ export interface DiaryTabs {
     [key: string]: boolean
 }
 
-export interface Lesson {
+export interface LessonDTO {
     date: Date | string,
     type: 'normal-lesson' | 'other',
     members: {_id: string, status: 'present' | 'absent' | 'late' | ''}[]
+}
+
+export interface Lesson extends LessonDTO {
+    _id: string
 }
 
 export enum Roles {

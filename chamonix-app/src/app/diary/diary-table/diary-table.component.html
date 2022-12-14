@@ -9,8 +9,8 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <td *ngIf="!addingNewLessonMode" class="stats"><i class="bi bi-graph-up"></i></td>
-        <td class="name">Imię i nazwisko</td>
+        <td *ngIf="!addingNewLessonMode" class="stats"></td>
+        <td class="name"></td>
         <td *ngIf="addingNewLessonMode" class="new-lesson" [class.addNew]="addingNewLessonMode">
           <div class="input-group">
             <input
@@ -22,7 +22,29 @@
           </div>
         </td>
         <ng-container *ngIf="!addingNewLessonMode">
-          <td class="date" *ngFor="let date of dataToShow">{{date.date | date:'dd.MM'}}</td>
+          <td class="date lesson-info" *ngFor="let lesson of dataToShow">
+            <div class="lesson-info">
+              <div><strong>{{lesson.date | date:'dd.MM'}}</strong></div>
+              <div>{{countPresentMembers(lesson)}}</div>
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+      <tr>
+        <td *ngIf="!addingNewLessonMode" class="stats"><i class="bi bi-graph-up"></i></td>
+        <td class="name">Imię i nazwisko</td>
+        <td *ngIf="addingNewLessonMode" class="new-lesson" [class.addNew]="addingNewLessonMode"></td>
+        <ng-container *ngIf="!addingNewLessonMode">
+          <td class="date" *ngFor="let lesson of dataToShow">
+            <div class="buttons-container">
+              <button class="btn btn-sm btn-primary" (click)="startEditLesson(lesson)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="deleteLesson(lesson)">
+                <i class="bi bi-trash3"></i>
+              </button>
+            </div>
+          </td>
         </ng-container>
       </tr>
     </thead>
@@ -31,11 +53,11 @@
         <td *ngIf="!addingNewLessonMode" class="stats">{{countMonthStats(member)}}</td>
         <td class="name">{{member.firstName + ' ' + member.lastName}}</td>
         <ng-container *ngIf="!addingNewLessonMode">
-          <ng-container *ngFor="let date of dataToShow">
-            <td class="date"  *ngIf="wasPresent(member, date) == 'present'"><i class="bi bi-check-lg"></i></td>
-            <td class="date"  *ngIf="wasPresent(member, date) == 'absent'"><i class="bi bi-x-lg"></i></td>
-            <td class="date"  *ngIf="wasPresent(member, date) == 'late'"><i class="bi bi-hourglass-split"></i></td>
-            <td class="date"  *ngIf="wasPresent(member, date) == ''"></td>
+          <ng-container *ngFor="let lesson of dataToShow">
+            <td class="date"  *ngIf="wasPresent(member, lesson) == 'present'"><i class="bi bi-check-lg"></i></td>
+            <td class="date"  *ngIf="wasPresent(member, lesson) == 'absent'"><i class="bi bi-x-lg"></i></td>
+            <td class="date"  *ngIf="wasPresent(member, lesson) == 'late'"><i class="bi bi-hourglass-split"></i></td>
+            <td class="date"  *ngIf="wasPresent(member, lesson) == ''"></td>
           </ng-container>
         </ng-container>
   

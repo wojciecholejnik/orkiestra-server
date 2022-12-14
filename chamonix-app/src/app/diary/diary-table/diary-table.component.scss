@@ -51,13 +51,17 @@ td.date {
 td.addNew {
   background-color: aliceblue;
   padding: 8px;
+}
 
-  .buttons-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+td.lesson-info {
+  padding: 4px;
 }
 
 

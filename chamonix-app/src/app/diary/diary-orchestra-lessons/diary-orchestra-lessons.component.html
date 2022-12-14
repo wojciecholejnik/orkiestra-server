@@ -8,6 +8,7 @@
 <app-diary-table
   [allMusicians]="musicians"
   [dataToShow]="filteredLessons"
+  (onLessonSave)="getPresences()"
 ></app-diary-table>
 
 

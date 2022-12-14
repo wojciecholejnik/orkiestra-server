@@ -1,22 +1,33 @@
 import { DatePipe } from '@angular/common';
-import {Component, Input, OnInit} from '@angular/core';
-import {Lesson, Member} from "../../shared/models";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import { Subscription } from 'rxjs';
+import {Lesson, LessonDTO, Member} from "../../shared/models";
+import { DiaryService } from '../diary.service';
 
 @Component({
   selector: 'app-diary-table',
   templateUrl: './diary-table.component.html',
   styleUrls: ['./diary-table.component.scss']
 })
-export class DiaryTableComponent implements OnInit {
+export class DiaryTableComponent implements OnInit, OnDestroy {
   @Input() allMusicians: Member[] = [];
   @Input() dataToShow: Lesson[] = [];
+  @Output() onLessonSave: EventEmitter<any> = new EventEmitter();
   addingNewLessonMode = false;
+  editingLessonMode = false;
   newLesson: Lesson = {} as Lesson;
+  _createPresence?: Subscription;
+  _deletePresence?: Subscription;
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe, private diaryService: DiaryService) {}
 
   ngOnInit(): void {
-    this.dataToShow = this.dataToShow.sort((a,b) => a.date > b.date ? 1 : -1)
+    this.dataToShow = this.dataToShow.sort((a,b) => a.date > b.date ? 1 : -1);
+  }
+
+  ngOnDestroy(): void {
+    this._createPresence?.unsubscribe();
+    this._deletePresence?.unsubscribe();
   }
 
   wasPresent(member: Member, date: Lesson): string {
@@ -52,7 +63,7 @@ export class DiaryTableComponent implements OnInit {
           status: ''
         }
       ))
-    }
+    } as Lesson;
     this.addingNewLessonMode = true
   }
 
@@ -71,18 +82,52 @@ export class DiaryTableComponent implements OnInit {
   }
 
   saveNewLesson(){
-    if (true || this.areAllUserMatched()) {
+    if (this.areAllUserMatched()) {
       const DTO = {
         date: new Date(this.newLesson.date),
         type: this.newLesson.type,
         members: this.newLesson.members
       };
-      this.newLesson = {} as Lesson;
-  
-      this.dataToShow.push(DTO);
-      this.dataToShow.sort((a, b) => a.date > b.date ? 1 : -1);
-      this.addingNewLessonMode = false;
+      
+      if (this.addingNewLessonMode && !this.editingLessonMode) {
+        this._createPresence = this.diaryService.createPresence(DTO).subscribe(() => {
+          this.onLessonSave.emit(true);
+          this.addingNewLessonMode = false;
+          this.newLesson = {} as Lesson;
+        })
+      }
+      if (this.editingLessonMode) {
+        this._createPresence = this.diaryService.updatePresence(this.newLesson._id, DTO).subscribe(() => {
+          this.onLessonSave.emit(true);
+          this.addingNewLessonMode = false;
+          this.editingLessonMode = false;
+          this.newLesson = {} as Lesson;
+        })
+      }
     }
+  }
+
+  deleteLesson(lesson: Lesson) {
+    this._deletePresence = this.diaryService.deletePresence(lesson._id).subscribe(() => {
+      this.onLessonSave.emit(true);
+    })
+  }
+
+  startEditLesson(lesson: Lesson) {
+    this.newLesson = {...lesson, date: this.datePipe.transform(new Date(lesson.date), 'YYYY-MM-dd') || new Date()} as Lesson;
+    this.editingLessonMode = true;
+    this.addingNewLessonMode = true;
+  }
+
+  countPresentMembers(lesson: Lesson): string {
+    const allMembers = lesson.members.length;
+    let presentMembers = 0;
+    lesson.members.forEach(member => {
+      if (member.status === 'present' || member.status === 'late') {
+        presentMembers ++
+      }
+    })
+    return presentMembers + '/' + allMembers
   }
 
 }

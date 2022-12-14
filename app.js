@@ -7,7 +7,7 @@ const musiciansRoutes = require('./routes/musicians.routes');
 const sectionsRoutes = require('./routes/sections.routes');
 const instrumentsRoutes = require('./routes/instruments.routes');
 const resourcesInstrumentRoutes = require('./routes/resourcesInstruments.routes');
-
+const presenceRoutes = require('./routes/presence.routes');
 
 const app = express();
 app.use(cors());
@@ -31,6 +31,7 @@ app.use('/api', musiciansRoutes);
 app.use('/api', sectionsRoutes);
 app.use('/api', instrumentsRoutes);
 app.use('/api', resourcesInstrumentRoutes);
+app.use('/api', presenceRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/client/index.html'));
 });
