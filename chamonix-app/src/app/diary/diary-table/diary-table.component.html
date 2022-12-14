@@ -1,19 +1,75 @@
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <td class="name">Imię i nazwisko</td>
-      <td class="date" *ngFor="let date of dataToShow">{{date.date | date:'dd.MM'}}</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let member of allMusicians">
-      <td class="name">{{member.firstName + ' ' + member.lastName}}</td>
-      <ng-container *ngFor="let date of dataToShow">
-        <td class="date"  *ngIf="wasPresent(member, date)"><i class="bi bi-check-lg"></i></td>
-        <td class="date"  *ngIf="!wasPresent(member, date)"><i class="bi bi-dash-lg"></i></td>
-      </ng-container>
+<div class="action-buttons">
+  <button [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">Zapisz</button>
+  <button [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
+  <button *ngIf="!addingNewLessonMode" class="btn btn-primary" (click)="addNewLesson()">Nowa próba</button>
+</div>
 
-    </tr>
-  </tbody>
-</table>
+<div class="table-wrapper">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <td *ngIf="!addingNewLessonMode" class="stats"><i class="bi bi-graph-up"></i></td>
+        <td class="name">Imię i nazwisko</td>
+        <td *ngIf="addingNewLessonMode" class="new-lesson" [class.addNew]="addingNewLessonMode">
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              type="date"
+              [(ngModel)]="newLesson.date"
+            />
+          </div>
+        </td>
+        <ng-container *ngIf="!addingNewLessonMode">
+          <td class="date" *ngFor="let date of dataToShow">{{date.date | date:'dd.MM'}}</td>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let member of allMusicians; let i = index">
+        <td *ngIf="!addingNewLessonMode" class="stats">{{countMonthStats(member)}}</td>
+        <td class="name">{{member.firstName + ' ' + member.lastName}}</td>
+        <ng-container *ngIf="!addingNewLessonMode">
+          <ng-container *ngFor="let date of dataToShow">
+            <td class="date"  *ngIf="wasPresent(member, date) == 'present'"><i class="bi bi-check-lg"></i></td>
+            <td class="date"  *ngIf="wasPresent(member, date) == 'absent'"><i class="bi bi-x-lg"></i></td>
+            <td class="date"  *ngIf="wasPresent(member, date) == 'late'"><i class="bi bi-hourglass-split"></i></td>
+            <td class="date"  *ngIf="wasPresent(member, date) == ''"></td>
+          </ng-container>
+        </ng-container>
+  
+  
+        <td *ngIf="addingNewLessonMode" class="new-lesson addNew">
+          <div class="buttons-container">
+            <button 
+              class="btn btn-sm"
+              [class.btn-secondary]="newLesson.members[i] && newLesson.members[i].status !== 'present'"
+              [class.btn-success]="newLesson.members[i] && newLesson.members[i].status == 'present'"
+              (click)="setNewStatus(i, 'present')"
+            >
+              <i class="bi bi-check-lg"></i>
+            </button>
+            <button
+              class="btn btn-sm"
+              [class.btn-secondary]="newLesson.members[i] && newLesson.members[i].status !== 'late'"
+              [class.btn-primary]="newLesson.members[i] && newLesson.members[i].status == 'late'"
+              (click)="setNewStatus(i, 'late')"
+            >
+              <i class="bi bi-hourglass-split"></i>
+            </button>
+            <button 
+              class="btn btn-sm"
+              [class.btn-secondary]="newLesson.members[i] && newLesson.members[i].status !== 'absent'"
+              [class.btn-danger]="newLesson.members[i] && newLesson.members[i].status == 'absent'"
+              (click)="setNewStatus(i, 'absent')"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>

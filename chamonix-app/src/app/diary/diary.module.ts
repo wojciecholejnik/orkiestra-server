@@ -5,21 +5,22 @@ import { DiaryWrapperComponent } from './diary-wrapper/diary-wrapper.component';
 import { DiaryNavigationComponent } from './diary-navigation/diary-navigation.component';
 import { DiaryOrchestraLessonsComponent } from './diary-orchestra-lessons/diary-orchestra-lessons.component';
 import { DiaryTableComponent } from './diary-table/diary-table.component';
-
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-    declarations: [
+  declarations: [
     DiaryWrapperComponent,
     DiaryNavigationComponent,
     DiaryOrchestraLessonsComponent,
-    DiaryTableComponent
+    DiaryTableComponent,
   ],
-    imports: [
+  imports: [
       CommonModule,
       SharedModule,
+      FormsModule
   ],
-    exports: [
+  exports: [
       DiaryWrapperComponent
   ],
   providers: [DatePipe]

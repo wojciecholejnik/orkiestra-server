@@ -142,6 +142,12 @@ export interface DiaryTabs {
     [key: string]: boolean
 }
 
+export interface Lesson {
+    date: Date | string,
+    type: 'normal-lesson' | 'other',
+    members: {_id: string, status: 'present' | 'absent' | 'late' | ''}[]
+}
+
 export enum Roles {
     bandDirecotr = '0',
     instructor = '1',
