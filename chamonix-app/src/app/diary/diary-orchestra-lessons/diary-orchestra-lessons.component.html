@@ -1,1 +1,14 @@
-<p>diary-orchestra-lessons works!</p>
+
+<div class="month-selector">
+  <button class="btn btn-primary" (click)="monthEarlier()"><i class="bi bi-chevron-left"></i></button>
+    <span>{{(showingMonth) + ' ' + (showingDate | date:'YYYY')}}</span>
+  <button class="btn btn-primary" (click)="monthLater()"><i class="bi bi-chevron-right"></i></button>
+</div>
+
+<app-diary-table
+  [allMusicians]="musicians"
+  [dataToShow]="mockedData"
+></app-diary-table>
+
+
+

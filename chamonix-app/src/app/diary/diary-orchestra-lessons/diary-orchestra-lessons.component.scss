@@ -1,0 +1,11 @@
+.month-selector {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    width: 125px;
+    text-align: center;
+  }
+}

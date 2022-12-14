@@ -1,0 +1,19 @@
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <td class="name">Imię i nazwisko</td>
+      <td class="date" *ngFor="let date of dataToShow">{{date.date | date:'dd.MM'}}</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let member of allMusicians">
+      <td class="name">{{member.firstName + ' ' + member.lastName}}</td>
+      <ng-container *ngFor="let date of dataToShow">
+        <td class="date"  *ngIf="wasPresent(member, date)"><i class="bi bi-check-lg"></i></td>
+        <td class="date"  *ngIf="!wasPresent(member, date)"><i class="bi bi-dash-lg"></i></td>
+      </ng-container>
+
+    </tr>
+  </tbody>
+</table>
