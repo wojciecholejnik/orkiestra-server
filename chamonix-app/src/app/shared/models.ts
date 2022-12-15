@@ -136,6 +136,21 @@ export interface User {
     role: string
 }
 
+export interface Privileges {
+    addNewRoleStaff: boolean,
+    editPresence: boolean,
+    addNewMember: boolean,
+    editResourcesInstrument: boolean,
+    editResourcesUniforms: boolean,
+}
+
+export enum Roles {
+    bandDirector = '0',
+    instructor = '1',
+    inspector = '2',
+    member = '3'
+}
+
 export interface DiaryTabs {
     performances: boolean,
     orchestraLessons: boolean,
@@ -150,13 +165,6 @@ export interface LessonDTO {
 
 export interface Lesson extends LessonDTO {
     _id: string
-}
-
-export enum Roles {
-    bandDirecotr = '0',
-    instructor = '1',
-    inspector = '2',
-    member = '3'
 }
 
 

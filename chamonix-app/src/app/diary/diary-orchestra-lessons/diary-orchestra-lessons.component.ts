@@ -21,6 +21,11 @@ export class DiaryOrchestraLessonsComponent implements OnInit, OnDestroy {
     showingDate = new Date(new Date(new Date().setHours(0,0,0,0)).setDate(1));
     showingMonth = '';
     filteredLessons: Lesson[] = [];
+    musiciansLoading = true;
+    presencesLoading = true;
+    dateFrom: Date = new Date();
+    dateTo: Date = new Date();
+    buttonDisabled = false;
 
     constructor(private membersService: MembersService, private diaryService: DiaryService) { }
 
@@ -33,6 +38,7 @@ export class DiaryOrchestraLessonsComponent implements OnInit, OnDestroy {
     getMusicians(): void {
         this._musicians = this.membersService.getMainStaffMembers().subscribe(musicians => {
             this.musicians = musicians;
+            this.musiciansLoading = false;
         });
     }
 
@@ -40,6 +46,7 @@ export class DiaryOrchestraLessonsComponent implements OnInit, OnDestroy {
         this._presences = this.diaryService.readPresences().subscribe(presences => {
             this.presences = presences.map((lesson: Lesson) => ({...lesson, date: new Date(lesson.date)}));
             this.filterLessons();
+            this.presencesLoading = false;
         })
     }
 
@@ -105,11 +112,15 @@ export class DiaryOrchestraLessonsComponent implements OnInit, OnDestroy {
         this._musicians?.unsubscribe();
     }
 
-    filterLessons() {
-        const dateFrom = this.showingDate;
-        const dateTo = new Date(new Date(this.showingDate).setMonth(this.showingDate.getMonth() + 1));
+    filterLessons(): void {
+        this.dateFrom = this.showingDate;
+        this.dateTo = new Date(new Date(this.showingDate).setMonth(this.showingDate.getMonth() + 1));
 
-        this.filteredLessons = this.presences.filter(lesson => lesson.date >= dateFrom && lesson.date < dateTo)
+        this.filteredLessons = this.presences.filter(lesson => lesson.date >= this.dateFrom && lesson.date < this.dateTo)
+    }
+
+    toggleDisableButtons(event: any): void {
+      this.buttonDisabled = event;
     }
 
 }

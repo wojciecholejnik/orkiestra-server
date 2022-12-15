@@ -2,10 +2,10 @@
 <div class="action-buttons">
   <button [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">Zapisz</button>
   <button [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
-  <button *ngIf="!addingNewLessonMode" class="btn btn-primary" (click)="addNewLesson()">Nowa próba</button>
+  <button *ngIf="!addingNewLessonMode" class="btn btn-primary" (click)="addNewLesson()"><i class="bi bi-plus"></i>Dodaj</button>
 </div>
 
-<div class="table-wrapper">
+<div class="table-wrapper" *ngIf="!loading && (dataToShow.length || addingNewLessonMode)">
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -16,10 +16,16 @@
             <button class="btn btn-secondary btn-sm" (click)="checkAll('late')"><i class="bi bi-hourglass-split"></i></button>
             <button class="btn btn-danger btn-sm" (click)="checkAll('absent')"><i class="bi bi-x-lg"></i></button>
           </div>
+          <div class="lesson-info stats-info" *ngIf="!addingNewLessonMode">
+              <div><strong>data:</strong></div>
+              <div>statystyka:</div>
+          </div>
         </td>
         <td *ngIf="addingNewLessonMode" class="new-lesson" [class.addNew]="addingNewLessonMode">
           <div class="input-group">
             <input
+              [min]="setMin()"
+              [max]="setMax()"
               class="form-control"
               placeholder="yyyy-mm-dd"
               type="date"
@@ -100,6 +106,21 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<div class="action-buttons">
+  <button [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">Zapisz</button>
+  <button [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
+</div>
+
+<div *ngIf="!loading && !dataToShow.length" class="card no-events-info">
+  <div class="card-body">
+    Brak wpisów w wybranym przedziale czasowym.
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading-wrapper">
+  <app-loading></app-loading>
 </div>
 
 <app-confirmation

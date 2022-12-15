@@ -1,5 +1,6 @@
 {
   "compileOnSave": false,
+  "no-switch-case-fall-through": true,
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",

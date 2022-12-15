@@ -60,10 +60,14 @@ td.addNew {
   gap: 4px;
 }
 
-td.lesson-info {
-  padding: 4px;
+.stats-info {
+  text-align: end;
 }
 
+
+.no-events-info, .loading-wrapper {
+  margin-top: 24px;
+}
 
 @include phone {
   table {

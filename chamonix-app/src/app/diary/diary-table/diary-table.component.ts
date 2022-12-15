@@ -12,7 +12,11 @@ import { DiaryService } from '../diary.service';
 export class DiaryTableComponent implements OnInit, OnDestroy {
   @Input() allMusicians: Member[] = [];
   @Input() dataToShow: Lesson[] = [];
+  @Input() loading?: boolean;
+  @Input() dateFrom: Date = new Date();
+  @Input() dateTo: Date = new Date();
   @Output() onLessonSave: EventEmitter<any> = new EventEmitter();
+  @Output() disableButtons: EventEmitter<boolean> = new EventEmitter();
   addingNewLessonMode = false;
   editingLessonMode = false;
   confirmDeleteIsOpen = false;
@@ -52,12 +56,21 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
   abortAddNewLesson(): void {
     this.addingNewLessonMode = false;
     this.newLesson = {} as Lesson;
+    this.disableButtons.emit(false);
   }
 
   addNewLesson(): void {
-    const date = this.datePipe.transform(new Date(), 'YYYY-MM-dd') || new Date();
+    this.disableButtons.emit(true);
+    const dateToAdd = (): Date => {
+      if (new Date() > this.dateFrom && new Date() < this.dateTo) {
+        return new Date()
+      } else {
+        return this.dateFrom
+      }
+    }
+    const dateTransformed = this.datePipe.transform(dateToAdd(), 'YYYY-MM-dd') || new Date();
     this.newLesson = {
-      date: date,
+      date: dateTransformed,
       type: 'normal-lesson',
       members: this.allMusicians.map(member => (
         {
@@ -96,6 +109,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
           this.onLessonSave.emit(true);
           this.addingNewLessonMode = false;
           this.newLesson = {} as Lesson;
+          this.disableButtons.emit(false);
         })
       }
       if (this.editingLessonMode) {
@@ -104,6 +118,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
           this.addingNewLessonMode = false;
           this.editingLessonMode = false;
           this.newLesson = {} as Lesson;
+          this.disableButtons.emit(false);
         })
       }
     }
@@ -124,7 +139,9 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
   }
 
   startEditLesson(lesson: Lesson): void {
+    this.disableButtons.emit(true);
     this.newLesson = {
+      _id: lesson._id,
       type: lesson.type, 
       date: this.datePipe.transform(new Date(lesson.date), 'YYYY-MM-dd') || new Date(),
       members: this.allMusicians.map(member => {
@@ -153,7 +170,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
         presentMembers ++
       }
     })
-    return presentMembers + '/' + allMembers
+    return presentMembers + ' / ' + allMembers
   }
 
   openDeleteConfirmation(lesson: Lesson): void {
@@ -164,6 +181,26 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
   abortDeleteLesson() {
     this.lessonToDelete = undefined;
     this.confirmDeleteIsOpen = false;
+  }
+
+  setMin(): string {
+    const newMin = new Date(this.dateFrom).setDate(this.dateFrom.getDate())
+    const min = this.datePipe.transform(newMin, 'YYYY-MM-dd');
+    if (min) {
+      return min
+    } else {
+      return ''
+    }
+  }
+
+  setMax(): string {
+    const newMax = new Date(this.dateTo).setDate(this.dateTo.getDate()-1)
+    const max = this.datePipe.transform(newMax, 'YYYY-MM-dd');
+    if (max) {
+      return max
+    } else {
+      return ''
+    }
   }
 
 }

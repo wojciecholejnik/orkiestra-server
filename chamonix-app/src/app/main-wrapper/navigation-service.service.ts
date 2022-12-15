@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { User } from '../shared/models';
+import { Privileges, User, Roles } from '../shared/models';
 
 @Injectable({
      providedIn: 'root'
@@ -17,6 +16,7 @@ export class NavigationService  {
     deviceType: BehaviorSubject<string> = new BehaviorSubject('');
     isUserLogged: Subject<any> = new Subject();
     private user?: User;
+    private privileges: Privileges = {} as Privileges;
 
   constructor() { }
 
@@ -36,10 +36,65 @@ export class NavigationService  {
 
   setUser(user: User) {
     this.user = user;
+    this.setPrivileges(user);
   }
   
   getUser():User | undefined {
     return this.user
+  }
+
+  private setPrivileges(user: User): void {
+    switch (user.role) {
+      case Roles.bandDirector: {
+        this.privileges = {
+          addNewMember: true,
+          addNewRoleStaff: true,
+          editPresence: true,
+          editResourcesInstrument: true,
+          editResourcesUniforms: true
+        };
+        break
+      }
+      case Roles.instructor: {
+        this.privileges = {
+          addNewMember: true,
+          addNewRoleStaff: false,
+          editPresence: true,
+          editResourcesInstrument: true,
+          editResourcesUniforms: false
+        };
+        break
+      }
+      case Roles.inspector: {
+        this.privileges = {
+          addNewMember: false,
+          addNewRoleStaff: false,
+          editPresence: false,
+          editResourcesInstrument: false,
+          editResourcesUniforms: true
+        };
+        break
+      }
+      case Roles.member: {
+        this.privileges = {
+          addNewMember: false,
+          addNewRoleStaff: false,
+          editPresence: false,
+          editResourcesInstrument: false,
+          editResourcesUniforms: false
+        };
+        break
+      }
+      default: {
+        this.privileges = {
+          addNewMember: false,
+          addNewRoleStaff: false,
+          editPresence: false,
+          editResourcesInstrument: false,
+          editResourcesUniforms: false
+        }
+      }
+    }
   }
 
 }

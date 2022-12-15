@@ -53,6 +53,6 @@ export class HeaderComponent implements OnInit {
     }
 
     isBandDirector() {
-        return this.loggedUser?.role === Roles.bandDirecotr
+        return this.loggedUser?.role === Roles.bandDirector
     }
 }
