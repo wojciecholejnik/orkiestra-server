@@ -113,8 +113,28 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
     })
   }
 
+  checkAll(status: '' | 'present' | 'absent' | 'late') {
+    this.newLesson.members = this.newLesson.members.map(member => ({...member, status: status}))
+  }
+
   startEditLesson(lesson: Lesson) {
-    this.newLesson = {...lesson, date: this.datePipe.transform(new Date(lesson.date), 'YYYY-MM-dd') || new Date()} as Lesson;
+    this.newLesson = {
+      type: lesson.type, 
+      date: this.datePipe.transform(new Date(lesson.date), 'YYYY-MM-dd') || new Date(),
+      members: this.allMusicians.map(member => {
+        const findStatus = (): string => {
+          const finded = lesson.members.find(item => item._id === member._id);
+          if (finded) {
+            return finded.status
+          } else {
+            return ''
+          }
+        }
+        return { _id: member._id,
+        status: findStatus()
+        }
+      })
+    } as Lesson;
     this.editingLessonMode = true;
     this.addingNewLessonMode = true;
   }

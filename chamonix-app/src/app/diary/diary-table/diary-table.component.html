@@ -10,7 +10,13 @@
     <thead>
       <tr>
         <td *ngIf="!addingNewLessonMode" class="stats"></td>
-        <td class="name"></td>
+        <td class="name">
+          <div class="buttons-container" *ngIf="addingNewLessonMode">
+            <button class="btn btn-success btn-sm" (click)="checkAll('present')"><i class="bi bi-check-lg"></i></button>
+            <button class="btn btn-secondary btn-sm" (click)="checkAll('late')"><i class="bi bi-hourglass-split"></i></button>
+            <button class="btn btn-danger btn-sm" (click)="checkAll('absent')"><i class="bi bi-x-lg"></i></button>
+          </div>
+        </td>
         <td *ngIf="addingNewLessonMode" class="new-lesson" [class.addNew]="addingNewLessonMode">
           <div class="input-group">
             <input
