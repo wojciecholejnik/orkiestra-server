@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ConfirmationModalType, Member } from '../../models';
 
@@ -14,7 +15,7 @@ export class ConfirmationComponent implements OnInit {
 
     confirmationText = 'Czy na pewnoe chcesz to zrobić ??!';
 
-    constructor() { }
+    constructor(private datePipe: DatePipe) { }
 
     ngOnInit(): void {
         if (this.type === 'removeMember') {
@@ -43,7 +44,11 @@ export class ConfirmationComponent implements OnInit {
 
         if (this.type === 'removeInstrumentFromSection') {
             this.confirmationText = 'Czy na pewno usunąć instrument ' + this.data.name + ' ?'
-        } 
+        }
+
+        if (this.type === 'deletePresence') {
+            this.confirmationText = 'Czy na pewno usunąć litę obecności z dnia ' + this.datePipe.transform(this.data.date, 'dd.MM.YYYY') + ' ?'
+        }
     }
 
     confirm(){

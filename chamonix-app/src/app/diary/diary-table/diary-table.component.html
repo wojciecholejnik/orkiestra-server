@@ -46,7 +46,7 @@
               <button class="btn btn-sm btn-primary" (click)="startEditLesson(lesson)">
                 <i class="bi bi-pencil"></i>
               </button>
-              <button class="btn btn-sm btn-danger" (click)="deleteLesson(lesson)">
+              <button class="btn btn-sm btn-danger" (click)="openDeleteConfirmation(lesson)">
                 <i class="bi bi-trash3"></i>
               </button>
             </div>
@@ -101,3 +101,11 @@
     </tbody>
   </table>
 </div>
+
+<app-confirmation
+    *ngIf="confirmDeleteIsOpen"
+    [type]="'deletePresence'"
+    [data]="lessonToDelete"
+    (onConfirm)="deleteLesson()"
+    (onAbort)="abortDeleteLesson()"
+></app-confirmation>

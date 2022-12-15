@@ -15,6 +15,8 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
   @Output() onLessonSave: EventEmitter<any> = new EventEmitter();
   addingNewLessonMode = false;
   editingLessonMode = false;
+  confirmDeleteIsOpen = false;
+  lessonToDelete?: Lesson;
   newLesson: Lesson = {} as Lesson;
   _createPresence?: Subscription;
   _deletePresence?: Subscription;
@@ -35,7 +37,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
     return memberStateToShow ? memberStateToShow.status : ''
   }
 
-  countMonthStats(member: Member) {
+  countMonthStats(member: Member): string {
     const amountOfLessonsInMonth = this.dataToShow.length;
     let presentsAmount = 0;
     this.dataToShow.forEach(lesson => {
@@ -47,12 +49,12 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
     return amountOfLessonsInMonth ? (presentsAmount / amountOfLessonsInMonth * 100).toFixed() + '%' : '--'
   }
 
-  abortAddNewLesson() {
+  abortAddNewLesson(): void {
     this.addingNewLessonMode = false;
     this.newLesson = {} as Lesson;
   }
 
-  addNewLesson(){
+  addNewLesson(): void {
     const date = this.datePipe.transform(new Date(), 'YYYY-MM-dd') || new Date();
     this.newLesson = {
       date: date,
@@ -67,11 +69,11 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
     this.addingNewLessonMode = true
   }
 
-  setNewStatus(index: number, type: "" | "present" | "absent" | "late") {
+  setNewStatus(index: number, type: "" | "present" | "absent" | "late"): void {
     this.newLesson.members[index].status = type
   }
 
-  areAllUserMatched() {
+  areAllUserMatched(): boolean  {
     let areAllUserMatched = true;
     this.newLesson.members.forEach((member: any) => {
       if (!member.status) {
@@ -81,7 +83,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
     return areAllUserMatched
   }
 
-  saveNewLesson(){
+  saveNewLesson(): void {
     if (this.areAllUserMatched()) {
       const DTO = {
         date: new Date(this.newLesson.date),
@@ -107,17 +109,21 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteLesson(lesson: Lesson) {
-    this._deletePresence = this.diaryService.deletePresence(lesson._id).subscribe(() => {
-      this.onLessonSave.emit(true);
-    })
+  deleteLesson(): void {
+    if (this.lessonToDelete) {
+      this._deletePresence = this.diaryService.deletePresence(this.lessonToDelete._id).subscribe(() => {
+        this.onLessonSave.emit(true);
+        this.lessonToDelete = undefined;
+        this.confirmDeleteIsOpen = false;
+      })
+    }
   }
 
-  checkAll(status: '' | 'present' | 'absent' | 'late') {
+  checkAll(status: '' | 'present' | 'absent' | 'late'): void {
     this.newLesson.members = this.newLesson.members.map(member => ({...member, status: status}))
   }
 
-  startEditLesson(lesson: Lesson) {
+  startEditLesson(lesson: Lesson): void {
     this.newLesson = {
       type: lesson.type, 
       date: this.datePipe.transform(new Date(lesson.date), 'YYYY-MM-dd') || new Date(),
@@ -148,6 +154,16 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
       }
     })
     return presentMembers + '/' + allMembers
+  }
+
+  openDeleteConfirmation(lesson: Lesson): void {
+    this.lessonToDelete = lesson;
+    this.confirmDeleteIsOpen = true;
+  }
+
+  abortDeleteLesson() {
+    this.lessonToDelete = undefined;
+    this.confirmDeleteIsOpen = false;
   }
 
 }

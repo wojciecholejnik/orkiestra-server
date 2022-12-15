@@ -169,4 +169,5 @@ export type ConfirmationModalType =
 | 'removeUniformPart' 
 | 'removeSection' 
 | 'removeInstrumentFromSection'
+| 'deletePresence'
 | '';
