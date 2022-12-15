@@ -16,7 +16,7 @@ exports.createPresence = async (req, res) => {
 exports.readPresences = async (req, res) => {
 
   try {
-    const presences = await Presence.find().sort({date: 1});
+    const presences = await Presence.find({type: 'normal-lesson'}).sort({date: 1});
   
     if (!presences.length) {
       res.status(404).json({ message: 'not found !!'});
