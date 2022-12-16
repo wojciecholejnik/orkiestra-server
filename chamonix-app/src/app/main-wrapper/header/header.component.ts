@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
     menuIsOpen = false;
     editUserIsOpen = false;
     loggedUser?: User;
-    manageModalIsActive = true;
+    manageModalIsActive = false;
     
     constructor(private navigationService: NavigationService) {}
     @ViewChild('menuContainer') menuContainer: any
