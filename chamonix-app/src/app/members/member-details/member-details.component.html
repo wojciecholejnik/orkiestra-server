@@ -81,11 +81,11 @@
                             </a>
                         </th>
                     </tr>
-                    <tr>
+                    <tr *ngIf="canEdit()">
                         <td>ulica i nr domu</td>
                         <th>{{memberData.address1 ? memberData.address1 : '---'}}</th>
                     </tr>
-                    <tr>
+                    <tr *ngIf="canEdit()">
                         <td>kod pocztowy</td>
                         <th>{{memberData.address2 ? memberData.address2 : '---'}}</th>
                     </tr>

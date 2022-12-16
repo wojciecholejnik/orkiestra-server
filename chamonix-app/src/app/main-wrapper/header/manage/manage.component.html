@@ -4,27 +4,29 @@
 
 
         <div class="table-wrapper">
-            <div class="filters-button">
+            <div [hidden]="loading" class="filters-button">
                 <button class="btn btn-small btn-primary" (click)="toggleFiltersVisible()">
                     <i *ngIf="filtersAreVisible" class="bi bi-chevron-up"></i>
                     <i *ngIf="!filtersAreVisible" class="bi bi-chevron-down"></i>
                     Filtry
                 </button>
-                <div *ngIf="filters.userStatus" class="filter-stats-info">
-                    <span>Status:</span>
-                    <span class="value">{{filters.userStatus === 'isActive' ? ' Aktywni członkowie' : ' Byli członkowie'}}</span>
-                </div>
-                <div *ngIf="filters.userRole" class="filter-stats-info">
-                    <span>Rola:</span>
-                    <span class="value">{{translateRole()}}</span>
-                </div>
-                <div *ngIf="filters.userName" class="filter-stats-info">
-                    <span>Nazwa:</span>
-                    <span class="value">"{{filters.userName}}"</span>
+                <div class="filter-info-container">
+                    <div *ngIf="filters.userStatus" class="filter-stats-info">
+                        <span>Status:</span>
+                        <span class="value">{{filters.userStatus === 'isActive' ? ' Aktywni członkowie' : ' Byli członkowie'}}</span>
+                    </div>
+                    <div *ngIf="filters.userRole" class="filter-stats-info">
+                        <span>Rola:</span>
+                        <span class="value">{{translateRole()}}</span>
+                    </div>
+                    <div *ngIf="filters.userName" class="filter-stats-info">
+                        <span>Nazwa:</span>
+                        <span class="value">"{{filters.userName}}"</span>
+                    </div>
                 </div>
                 <button (click)="clearFilters()" [hidden]="!isAnyFilterActive()" class="btn btn-secondary btn-sm"><i class="bi bi-backspace"></i></button>
             </div>
-            <div *ngIf="filtersAreVisible" class="filters" >
+            <div [hidden]="loading" *ngIf="filtersAreVisible" class="filters" >
                 <div class="card">
                     <div class="card-header">
                         Status użytkownika
@@ -83,7 +85,7 @@
 
 
 
-            <table class="table table-hover" [class.table-hover]="!editingOne">
+            <table  [hidden]="loading" class="table table-hover" [class.table-hover]="!editingOne">
                 <thead>
                     <tr>
                         <td class="index">#</td>
@@ -123,6 +125,10 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div class="loading-wrapper">
+                <app-loading *ngIf="loading"></app-loading>
+            </div>
         </div>
 
         <div class="buttons-wrapper">

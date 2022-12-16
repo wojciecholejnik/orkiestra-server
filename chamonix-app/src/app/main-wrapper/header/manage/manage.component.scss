@@ -5,10 +5,21 @@
     max-width: 870px;
 }
 
+.loading-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+
 .filters {
     padding: 24px;
     display: flex;
     gap: 4px;
+
+    @include phone {
+        flex-direction: column;
+    }
 
     .card {
         flex: 1;
@@ -24,6 +35,9 @@
         justify-content: center;
         height: 100%;
         gap: 4px;
+        @include phone {
+            padding: 6px 0;
+        }
 
         input {
             border: 1px solid lightgrey;
@@ -35,6 +49,15 @@
     label {
         margin-bottom: 2px;
         margin-left: 4px;
+    }
+
+    .filter-info-container {
+        display: flex;
+        gap: 4px;
+
+        @include phone {
+            flex-direction: column;
+        }
     }
 }
 
@@ -121,6 +144,13 @@ table {
     align-items: center;
 
     .filter-stats-info {
+
+        span {
+            @include phone {
+                font-size: 11px;
+            }
+        }
+        
         span.value {
             font-weight: normal;
             font-style: italic;

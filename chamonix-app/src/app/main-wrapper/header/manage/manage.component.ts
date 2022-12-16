@@ -64,6 +64,7 @@ export class ManageComponent implements OnInit, OnDestroy {
     }
 
     updateUser(userId: string, newRole: any, newLogin: any, newPassword: any): void {
+        this.loading = true;
         this.newEditingUserDTO = {
             _id: userId,
             role: newRole.value,
