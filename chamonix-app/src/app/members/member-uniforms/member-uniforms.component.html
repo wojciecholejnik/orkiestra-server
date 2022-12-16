@@ -1,7 +1,7 @@
 <div class="host-container">
     <div class="header">
         <h4 (click)="tableIsOpen()">Umundurowanie</h4>
-        <button class="btn btn-primary btn-sm" (click)="assignUniformsIsOpen=true">
+        <button *ngIf="canEditUniforms()" class="btn btn-primary btn-sm" (click)="assignUniformsIsOpen=true">
             <i class="bi bi-pencil"></i>
         </button>
     </div>

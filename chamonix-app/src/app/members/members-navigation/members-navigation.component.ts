@@ -59,4 +59,8 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
         this.memberDetailsViewSubscription?.unsubscribe();
         this.deviceTypeSubscription?.unsubscribe();
     }
+
+    canAddMember(): boolean {
+        return this.navigationService.checkPrivilege('addNewMember')
+    }
 }

@@ -58,9 +58,10 @@ export class LoginComponent implements OnInit {
             _id: this.local.getItem('_id'),
             login: this.local.getItem('login'),
             role: this.local.getItem('role'),
-            name: this.local.getItem('name')
+            firstName: this.local.getItem('firstName'),
+            lastName: this.local.getItem('lastName')
         } as User;
-        if (user._id && user.login && user.role && user.name) {
+        if (user._id && user.login && user.role && user.firstName && user.lastName) {
             this.navigationService.isUserLogged.next(user);
         }
     }

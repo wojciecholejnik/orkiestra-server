@@ -18,7 +18,7 @@
     <p>{{instrument.description}}</p>
 </div>
 
-<div class="actions-wrapper">
+<div *ngIf="canEdit" class="actions-wrapper">
     <button class="btn btn-primary btn-sm" (click)="editInstrument()">
         <i class="bi bi-pencil"></i>
     </button>

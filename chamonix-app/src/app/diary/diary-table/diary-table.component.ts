@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import {Lesson, LessonDTO, Member} from "../../shared/models";
 import { DiaryService } from '../diary.service';
 
@@ -25,7 +26,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
   _createPresence?: Subscription;
   _deletePresence?: Subscription;
 
-  constructor(private datePipe: DatePipe, private diaryService: DiaryService) {}
+  constructor(private datePipe: DatePipe, private diaryService: DiaryService, private navigationService: NavigationService) {}
 
   ngOnInit(): void {
     this.dataToShow = this.dataToShow.sort((a,b) => a.date > b.date ? 1 : -1);
@@ -97,7 +98,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
   }
 
   saveNewLesson(): void {
-    if (this.areAllUserMatched()) {
+    if (this.areAllUserMatched() && this.canEditPresence()) {
       const DTO = {
         date: new Date(this.newLesson.date),
         type: this.newLesson.type,
@@ -201,6 +202,10 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
     } else {
       return ''
     }
+  }
+
+  canEditPresence(): boolean {
+    return this.navigationService.checkPrivilege('editPresence')
   }
 
 }

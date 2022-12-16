@@ -1,0 +1,133 @@
+<app-modal-wrapper>
+    <div class="action-modal">
+        <h2>Zarządzaj</h2>
+
+
+        <div class="table-wrapper">
+            <div class="filters-button">
+                <button class="btn btn-small btn-primary" (click)="toggleFiltersVisible()">
+                    <i *ngIf="filtersAreVisible" class="bi bi-chevron-up"></i>
+                    <i *ngIf="!filtersAreVisible" class="bi bi-chevron-down"></i>
+                    Filtry
+                </button>
+                <div *ngIf="filters.userStatus" class="filter-stats-info">
+                    <span>Status:</span>
+                    <span class="value">{{filters.userStatus === 'isActive' ? ' Aktywni członkowie' : ' Byli członkowie'}}</span>
+                </div>
+                <div *ngIf="filters.userRole" class="filter-stats-info">
+                    <span>Rola:</span>
+                    <span class="value">{{translateRole()}}</span>
+                </div>
+                <div *ngIf="filters.userName" class="filter-stats-info">
+                    <span>Nazwa:</span>
+                    <span class="value">"{{filters.userName}}"</span>
+                </div>
+                <button (click)="clearFilters()" [hidden]="!isAnyFilterActive()" class="btn btn-secondary btn-sm"><i class="bi bi-backspace"></i></button>
+            </div>
+            <div *ngIf="filtersAreVisible" class="filters" >
+                <div class="card">
+                    <div class="card-header">
+                        Status użytkownika
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-name" id="all-statuses" value="" [(ngModel)]="filters.userStatus">
+                            <label for="all-statuses">Wszyscy</label>
+                        </div>
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-name" id="status-active" value="isActive" [(ngModel)]="filters.userStatus">
+                            <label for="status-active">Aktywni</label>
+                        </div>
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-name" id="status-ex" value="exMember" [(ngModel)]="filters.userStatus">
+                            <label for="status-ex">Byli</label>
+                        </div>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Rola użytkownika
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-role" id="all-roles" value="" [(ngModel)]="filters.userRole">
+                            <label for="all-roles">Wszyscy</label> 
+                        </div>
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-role" id="instructor-role" value="1" [(ngModel)]="filters.userRole">
+                            <label for="instructor-role">Instruktor</label> 
+                        </div>
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-role" id="inspector-role" value="2" [(ngModel)]="filters.userRole">
+                            <label for="inspector-role">Inspektor</label>
+                        </div>
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-role" id="member-role" value="3" [(ngModel)]="filters.userRole">
+                            <label for="member-role">Członek</label> 
+                        </div>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Imię i nazwisko
+                    </div>
+                    <div class="card-input">
+                        <input (keyup)="setFilters()" type="text" [(ngModel)]="filters.userName">
+                    </div>
+                    
+                </div>
+                  
+            </div>
+
+
+
+            <table class="table table-hover" [class.table-hover]="!editingOne">
+                <thead>
+                    <tr>
+                        <td class="index">#</td>
+                        <td class="name">Nazwisko i imię</td>
+                        <td>Rola</td>
+                        <td>Login</td>
+                        <td>Hasło</td>
+                        <td class="actions"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr [class.table-success]="editingOne && !shouldInputBeBlocked(user)" *ngFor="let user of filteredUsers; let i=index;">
+                        <td class="index">{{i+1}}</td>
+                        <td class="name">{{user.lastName + ' ' + user.firstName}}</td>
+                        <td>
+                            <select [disabled]="shouldInputBeBlocked(user)" #newRoleInput class="form-select" [value]="user.role">
+                                <option value="1">instruktor</option>
+                                <option value="2">inspektor</option>
+                                <option value="3">członek</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input [disabled]="shouldInputBeBlocked(user)" #newLoginInput type="text" [value]="user.login || ''">
+                        </td>
+                        <td><input [disabled]="shouldInputBeBlocked(user)" #newPasswordInput type="text"></td>
+                        <td class="actions">
+                            <div class="actions-buttons-wrapper">
+                                <button *ngIf="!editingOne" class="btn btn-primary btn-sm" (click)="startUpdatingUser(user._id, newRoleInput, newLoginInput, newPasswordInput, i)"><i class="bi bi-pencil"></i></button>
+                                <button *ngIf="editingOne && !shouldInputBeBlocked(user)" class="btn btn-primary btn-sm" (click)="updateUser(user._id, newRoleInput, newLoginInput, newPasswordInput)">
+                                    <i class="bi bi-check-lg"></i>
+                                </button>
+                                <button *ngIf="editingOne && !shouldInputBeBlocked(user)" class="btn btn-secondary btn-sm" (click)="abortUpdateOne()">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button [disabled]="editingOne" class="btn btn-primary" (click)="closeModal()">Zakończ</button>
+        </div>
+    </div>
+</app-modal-wrapper>

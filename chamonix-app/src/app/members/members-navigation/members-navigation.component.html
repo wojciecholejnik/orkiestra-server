@@ -27,7 +27,7 @@
         <option value="exMembers">Byli członkowie</option>
     </select>
     
-    <div class="actions">
+    <div *ngIf="canAddMember()" class="actions">
         <button class="btn btn-primary btn-sm" (click)="openAddMember()">
             <i class="bi bi-plus"></i>
             Dodaj członka

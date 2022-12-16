@@ -27,7 +27,7 @@ export interface InstrumentsSectionView {
     [key: string]: boolean
 }
 
-export interface Member {
+export interface Member extends User {
     _id: string,
     firstName: string,
     lastName: string,
@@ -129,10 +129,28 @@ export interface UserDTO {
     role?: string
 }
 
+export interface UserToManage {
+    _id: string,
+    firstName: string,
+    lastName: string,
+    login: string,
+    role: string,
+    editing?: boolean,
+    isActive?: boolean,
+}
+
+export interface UserToManageDTO {
+    _id: string,
+    login?: string,
+    role?: string,
+    password?: string,
+}
+
 export interface User {
     _id: string
     login: string,
-    name: string,
+    firstName: string,
+    lastName: string,
     role: string
 }
 
@@ -142,7 +160,10 @@ export interface Privileges {
     addNewMember: boolean,
     editResourcesInstrument: boolean,
     editResourcesUniforms: boolean,
+    [key: string]: boolean
 }
+
+export type PrivilegesTypes = "addNewRoleStaff" | "editPresence" | "addNewMember" | "editResourcesInstrument" | "editResourcesUniforms";
 
 export enum Roles {
     bandDirector = '0',

@@ -19,5 +19,7 @@ router.get('/member/details/uniforms/:id', musicianController.readMemberUniforms
 router.post('/user/login', musicianController.loginUser);
 router.post('/user/add', musicianController.addUser);
 router.post('/user/edit', musicianController.editUser);
+router.get('/usersToManage', musicianController.readUsersToManage);
+router.post('/manageUser', musicianController.manageUser);
 
 module.exports = router;

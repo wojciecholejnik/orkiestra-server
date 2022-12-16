@@ -11,13 +11,6 @@
                 <input id="old-password" type="password" autocomplete="off" formControlName="password">
             </div>
             <div class="control-wrapper">
-                <label for="name">
-                    <span>imię i nazwisko</span>
-                    <span class="error" *ngIf="form && form.errors && form.errors.noName">* to pole jest wymagane</span>
-                </label>
-                <input id="name" type="text" autocomplete="off" formControlName="name">
-            </div>
-            <div class="control-wrapper">
                 <label for="login">
                     <span>Login</span>
                     <span class="error" *ngIf="form && form.errors && form.errors.noLogin">* to pole jest wymagane</span>

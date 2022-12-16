@@ -8,6 +8,7 @@ import { InstrumentDetails } from 'src/app/shared/models';
 })
 export class ResourcesInstrumentDetailsComponent implements OnInit {
     @Input() instrument!: InstrumentDetails;
+    @Input() canEdit!: boolean;
     @Output() onEdit:EventEmitter<InstrumentDetails> = new EventEmitter();
     @Output() onRemove:EventEmitter<InstrumentDetails> = new EventEmitter();
 

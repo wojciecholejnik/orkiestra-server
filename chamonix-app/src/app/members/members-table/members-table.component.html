@@ -44,7 +44,7 @@
                 >
                 </th>
                 <th scope="col">
-                Akcje
+                {{canDoActionOnMember() ? 'Akcje' : ''}}
                 </th>
             </tr>
             <tr class="search-row" [class.open]="searchingRowIsOpen">
@@ -74,34 +74,38 @@
 
                 <!-- ACTION ON TABLET / LAPTOP -->
                 <td *ngIf="!viewOnPhone()" class="action">
-                    <button class="btn btn-primary btn-sm" (click)="editMemberisOpen=true; selectedMemberAction=member">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-danger btn-sm" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">
-                        <i class="bi bi-person-x-fill"></i>
-                    </button>
-                    <button *ngIf="activeTab && activeTab.exMembers" class="btn btn-primary btn-sm"
-                        (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member">
-                        <i class="bi bi-skip-backward-fill"></i>
-                    </button>
+                    <ng-container *ngIf="canDoActionOnMember()">
+                        <button class="btn btn-primary btn-sm" (click)="editMemberisOpen=true; selectedMemberAction=member">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">
+                            <i class="bi bi-person-x-fill"></i>
+                        </button>
+                        <button *ngIf="activeTab && activeTab.exMembers" class="btn btn-primary btn-sm"
+                            (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member">
+                            <i class="bi bi-skip-backward-fill"></i>
+                        </button>
+                    </ng-container>
                 </td>
 
                 <!-- ACTION ON PHONE -->
                 <td *ngIf="viewOnPhone()" class="action" ngbDropdown>
-                    <div #actionsToggle class="trigger" ngbDropdownToggle></div>
-                    <div class="buttons" ngbDropdownMenu >
-                        <button ngbDropdownItem class="btn btn-primary  btn-sm" (click)="editMemberisOpen=true; selectedMemberAction=member">
-                            edytuj
-                        </button>
-                        <button ngbDropdownItem class="btn btn-danger  btn-sm" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">
-                            usuń
-                        </button>
-                        <button ngbDropdownItem *ngIf="activeTab && activeTab.exMembers" class="btn btn-primary btn-sm"
-                            (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member">
-                            przywróć
-                        </button>
-                        <button class="btn btn-secondary btn-sm" (click)="actionsToggle.click()">anuluj</button>
-                    </div>
+                    <ng-container *ngIf="canDoActionOnMember()">
+                        <div #actionsToggle class="trigger" ngbDropdownToggle></div>
+                        <div class="buttons" ngbDropdownMenu >
+                            <button ngbDropdownItem class="btn btn-primary  btn-sm" (click)="editMemberisOpen=true; selectedMemberAction=member">
+                                edytuj
+                            </button>
+                            <button ngbDropdownItem class="btn btn-danger  btn-sm" (click)="confirmationRemoveIsOpen=true; selectedMemberAction=member">
+                                usuń
+                            </button>
+                            <button ngbDropdownItem *ngIf="activeTab && activeTab.exMembers" class="btn btn-primary btn-sm"
+                                (click)="confirmationRestoreIsOpen=true; selectedMemberAction=member">
+                                przywróć
+                            </button>
+                            <button class="btn btn-secondary btn-sm" (click)="actionsToggle.click()">anuluj</button>
+                        </div>
+                    </ng-container>
                 </td>
             </tr>
         </tbody>

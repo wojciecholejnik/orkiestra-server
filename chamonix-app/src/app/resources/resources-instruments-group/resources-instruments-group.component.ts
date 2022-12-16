@@ -119,6 +119,10 @@ export class ResourcesInstrumentsGroupComponent implements OnInit, OnDestroy, On
         }
     }
 
+    canEditInstruments(): boolean {
+        return this.navigationService.checkPrivilege('editResourcesInstrument')
+    }
+
 }
 
 interface DetailsToView extends Instrument {
