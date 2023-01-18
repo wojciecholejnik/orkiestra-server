@@ -9,9 +9,9 @@ import { LoginModule } from '../login/login.module';
 import { EditUserComponent } from './header/edit-user/edit-user.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MenageUsersComponent } from './header/menage-users/menage-users.component';
 import { DiaryModule } from '../diary/diary.module';
 import { ContributionsModule } from '../contributions/contributions.module';
+import { ManageComponent } from './header/manage/manage.component';
 
 
 
@@ -21,7 +21,7 @@ import { ContributionsModule } from '../contributions/contributions.module';
         HeaderComponent,
         NavigationComponent,
         EditUserComponent,
-        MenageUsersComponent
+        ManageComponent
     ],
     imports: [
         CommonModule,

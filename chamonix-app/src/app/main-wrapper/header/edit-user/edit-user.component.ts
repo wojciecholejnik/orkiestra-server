@@ -26,15 +26,11 @@ export class EditUserComponent implements OnInit, OnDestroy {
     @Output() onModalClose: EventEmitter<any> = new EventEmitter();
 
     ngOnInit(): void {
-        // this._isUserLogged = this.navigationService.isUserLogged.subscribe(user => {
-            
-        // })
 
         this.loggedUser = this.navigationService.getUser();
         if (this.loggedUser) {
             this.form = this.fb.group({
                 password: this.fb.control('', Validators.required),
-                name: this.fb.control(this.loggedUser.name, Validators.required),
                 login: this.fb.control(this.loggedUser.login, Validators.required),
                 newPassword1: this.fb.control(''),
                 newPassword2: this.fb.control('')
@@ -42,7 +38,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
             {
                 validators: [this.newPasswordsTheSame(), this.passwordIsFilled()],
                 updateOn: 'change',
-            })
+            }
+            )
         }
     }
 
@@ -74,13 +71,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
     passwordIsFilled(): ValidatorFn {
         return () => {
             const password = this.form?.get('password')?.value;
-            const name = this.form?.get('name')?.value;
             const login = this.form?.get('login')?.value;
 ;           if (!password) {
                 return {noPassword: true}
-            }
-            if (!name) {
-                return {noName: true}
             }
             if (!login) {
                 return {noLogin: true}
@@ -93,7 +86,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     }
 
     disableSaveButton(){
-        const areControlsTouched = () => !this.form?.controls.name.touched && !this.form?.controls.login.touched && !this.form?.controls.newPassword1.touched;
+        const areControlsTouched = () => !this.form?.controls.login.touched;
         return !this.form?.valid || areControlsTouched()
     }
 

@@ -24,13 +24,13 @@
     </select>
     
     <div class="actions">        
-        <button *ngIf="activeTab.instruments" class="btn btn-primary btn-sm" (click)="toggleAddResourceInstrument(true)">
+        <button *ngIf="activeTab.instruments  && canEditInstruments()" class="btn btn-primary btn-sm" (click)="toggleAddResourceInstrument(true)">
             <i class="bi bi-plus"></i>
             Instrument</button>
-        <button *ngIf="activeTab.uniforms" class="btn btn-primary btn-sm" (click)="toggleAddResourceUniforms(true)">
+        <button *ngIf="activeTab.uniforms && canEditUniforms()" class="btn btn-primary btn-sm" (click)="toggleAddResourceUniforms(true)">
             <i class="bi bi-plus"></i>
             Umundurowanie</button>
-        <button *ngIf="activeTab.sections" class="btn btn-primary btn-sm" (click)="toggleAddResourceSections(true)">
+        <button *ngIf="activeTab.sections  && canEditInstruments()" class="btn btn-primary btn-sm" (click)="toggleAddResourceSections(true)">
             <i class="bi bi-plus"></i>
             Sekcja</button>
     </div>

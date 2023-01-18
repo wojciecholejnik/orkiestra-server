@@ -1,5 +1,5 @@
 
-<div class="action-buttons">
+<div *ngIf="canEditPresence()" class="action-buttons">
   <button [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">Zapisz</button>
   <button [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
   <button *ngIf="!addingNewLessonMode" class="btn btn-primary" (click)="addNewLesson()"><i class="bi bi-plus"></i>Dodaj</button>
@@ -42,7 +42,7 @@
           </td>
         </ng-container>
       </tr>
-      <tr>
+      <tr *ngIf="canEditPresence()">
         <td *ngIf="!addingNewLessonMode" class="stats"><i class="bi bi-graph-up"></i></td>
         <td class="name">Imię i nazwisko</td>
         <td *ngIf="addingNewLessonMode" class="new-lesson" [class.addNew]="addingNewLessonMode"></td>

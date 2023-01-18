@@ -11,7 +11,8 @@ export class HeaderComponent implements OnInit {
 
     menuIsOpen = false;
     editUserIsOpen = false;
-    loggedUser?: User
+    loggedUser?: User;
+    manageModalIsActive = false;
     
     constructor(private navigationService: NavigationService) {}
     @ViewChild('menuContainer') menuContainer: any
@@ -49,10 +50,33 @@ export class HeaderComponent implements OnInit {
     }
 
     showUserName() {
-        return this.loggedUser?.name
+        return this.loggedUser?.firstName + ' ' + this.loggedUser?.lastName 
+    }
+
+    showUserRole(): string {
+        if (this.loggedUser && this.loggedUser.role === Roles.bandDirector) {
+            return 'kapelmistrz'
+        } else if (this.loggedUser && this.loggedUser.role === Roles.instructor) {
+            return 'instruktor'
+        } else if (this.loggedUser && this.loggedUser.role === Roles.inspector) {
+            return 'inspektor'
+        } else if (this.loggedUser && this.loggedUser.role === Roles.member) {
+            return 'członek orkiestry'
+        }
+        else {
+            return ''
+        }
     }
 
     isBandDirector() {
         return this.loggedUser?.role === Roles.bandDirector
+    }
+
+    openManageModal(): void {
+        this.manageModalIsActive = true;
+    }
+
+    closeManageModal() {
+        this.manageModalIsActive = false;
     }
 }

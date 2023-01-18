@@ -7,7 +7,7 @@
             <span>instruktor: </span>
             <span><strong>{{section.instructor ? renderInstructorName(section.instructor) : 'brak'}}</strong></span>
         </div>
-        <div class="filters">
+        <div *ngIf="canEditInstruments()" class="filters">
             <button class="btn btn-primary btn-sm" (click)="openEditGroup(section)">
                 <i class="bi bi-pencil"></i>
                 edytuj
@@ -34,7 +34,7 @@
                     <td>{{instrument.name}}</td>
                     
                     <td class="actions">
-                        <div class="actions-wrapper">
+                        <div *ngIf="canEditInstruments()" class="actions-wrapper">
                             <button class="btn btn-primary btn-sm" (click)="openEditInstrument(instrument)">
                                 <i class="bi bi-pencil"></i>
                             </button>

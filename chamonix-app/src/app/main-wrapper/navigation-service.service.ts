@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { Privileges, User, Roles } from '../shared/models';
+import { Privileges, User, Roles, PrivilegesTypes } from '../shared/models';
 
 @Injectable({
      providedIn: 'root'
@@ -42,6 +42,10 @@ export class NavigationService  {
   
   getUser():User | undefined {
     return this.user
+  }
+
+  checkPrivilege(privilege: PrivilegesTypes): boolean {
+    return this.privileges[privilege]
   }
 
   private setPrivileges(user: User): void {

@@ -16,7 +16,7 @@ const sortByLastName = function(a, b) {
 }
 
 exports.createMusician = async (req, res) => {
-  const newMusician = {...req.body};
+  const newMusician = {...req.body, role: "3", login: '', password: ''};
 
   try {
     const musician = new Musician(newMusician);
@@ -30,7 +30,7 @@ exports.createMusician = async (req, res) => {
 
 exports.readMusicians = async (req, res) => {
   try {
-    const musicians = await Musician.find().populate([
+    const musicians = await Musician.find().select({ "login": 0, "password": 0, "role": 0}).populate([
       {
         path: 'instrument', 
         model: Instrument,
@@ -56,7 +56,7 @@ exports.readMusicians = async (req, res) => {
 
 exports.readMusicianById = async (req, res) => {
   try {
-    const musician = await Musician.findOne({_id: req.params.id}).populate([
+    const musician = await Musician.findOne({_id: req.params.id}).select({ "login": 0, "password": 0, "role": 0}).populate([
       {
         path: 'instrument', 
         model: Instrument,
@@ -96,7 +96,7 @@ exports.readMusicianById = async (req, res) => {
 
 exports.readActiveMusicians = async (req, res) => {
   try {
-    const musicians = await Musician.find({isActive: true}).populate([
+    const musicians = await Musician.find({isActive: true}).select({ "login": 0, "password": 0, "role": 0}).populate([
       {
         path: 'instrument', 
         model: Instrument,
@@ -138,7 +138,7 @@ exports.readActiveMusiciansNames = async (req, res) => {
 
 exports.readExMusicians = async (req, res) => {
   try {
-    const musicians = await Musician.find({isActive: false}).populate([
+    const musicians = await Musician.find({isActive: false}).select({ "login": 0, "password": 0, "role": 0}).populate([
       {
         path: 'instrument', 
         model: Instrument,
@@ -164,7 +164,7 @@ exports.readExMusicians = async (req, res) => {
 
 exports.readMainStaffMuscians = async (req, res) => {
   try {
-    const musicians = await Musician.find({isActive: true, isStudent: false}).populate([
+    const musicians = await Musician.find({isActive: true, isStudent: false}).select({ "login": 0, "password": 0, "role": 0}).populate([
       {
         path: 'instrument', 
         model: Instrument,
@@ -191,7 +191,7 @@ exports.readMainStaffMuscians = async (req, res) => {
 
 exports.readMainStudentsMusicians = async (req, res) => {
   try {
-    const musicians = await Musician.find({isActive: true, isStudent: true}).populate([
+    const musicians = await Musician.find({isActive: true, isStudent: true}).select({ "login": 0, "password": 0, "role": 0}).populate([
       {
         path: 'instrument', 
         model: Instrument,
@@ -235,9 +235,12 @@ exports.updateMusician = async (req, res) => {
         isActive: req.body.hasOwnProperty('isActive') ? req.body.isActive : musician.isActive,
         isStudent: req.body.hasOwnProperty('isStudent') ? req.body.isStudent : musician.isStudent,
         birthDate: req.body.hasOwnProperty('birthDate') ? req.body.birthDate : musician.birthDate,
+        login: req.body.hasOwnProperty('login') ? req.body.login : musician.login,
+        role: req.body.hasOwnProperty('role') ? req.body.role : musician.role,
+        password: req.body.hasOwnProperty('password') ? req.body.password : musician.password,
       }});
 
-      musician = await Musician.findOne({_id: req.params.id}).populate([
+      musician = await Musician.findOne({_id: req.params.id}).select({ "login": 0, "password": 0, "role": 0}).populate([
         {
           path: 'instrument', 
           model: Instrument,
@@ -295,7 +298,7 @@ exports.readMemberUniforms = async (req, res) => {
 
 exports.loginUser = async (req, res) => {
   try {
-    const user = await User.findOne({login: req.body.login, password: req.body.password}).select('name login role');
+    const user = await Musician.findOne({login: req.body.login, password: req.body.password}).select('firstName lastName login role');
   
     if (!user) {
       res.status(404).json({ message: 'invalid credentials'});
@@ -327,11 +330,11 @@ exports.addUser = async (req, res) => {
 
 exports.editUser = async (req, res) => {
   try {
-    const user = await User.findById(req.body.id)
+    const user = await Musician.findById(req.body.id)
     
     if (user) {
       if (user.password === req.body.password) {
-        await User.updateOne({_id: req.body.id}, {$set: {
+        await Musician.updateOne({_id: req.body.id}, {$set: {
           name: req.body.name ? req.body.name : user.name,
           password: req.body.password1 ? req.body.password1 : user.password,
           login: req.body.login ? req.body.login : user.login,
@@ -354,8 +357,8 @@ exports.editUser = async (req, res) => {
 
 exports.readInstructors = async (req, res) => {
   try {
-    const musicians = await Musician.find({isInstructor: true})
-    .select('-phone -email -address1 -address2 -instrument -isChild -parentName -parentPhone -isActive -joiningDate -birthDate -isStudent -isInstructor')
+    const musicians = await Musician.find({ $or:[ {'role':"1"}, {'role':"0"}]})
+    .select('-phone -email -address1 -address2 -instrument -isChild -parentName -parentPhone -isActive -joiningDate -birthDate -isStudent -isInstructor -login -password')
     .sort({lastName: 1});
   
     if (!musicians.length) {
@@ -364,6 +367,48 @@ exports.readInstructors = async (req, res) => {
       res.json(musicians);
     }
 
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.readUsersToManage = async (req, res) => {
+  try {
+    const musicians = await Musician.find().select('firstName lastName login role isActive')
+  
+    if (!musicians.length) {
+      res.status(404).json({ message: 'not found !!'});
+    } else {
+      const sortedMusicians = musicians.sort((a, b) => sortByLastName(a, b));
+      res.json(sortedMusicians);
+    }
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
+exports.manageUser = async (req, res) => {
+  try {
+    const user = await Musician.findById(req.body._id)
+    
+    if (user) {
+        await Musician.updateOne(
+          { _id: req.body._id}, 
+          {
+            $set: {
+              role: req.body.hasOwnProperty('role') ? req.body.role : user.role,
+              login: req.body.hasOwnProperty('login') ? req.body.login : user.login,
+              password: req.body.hasOwnProperty('password') ? req.body.password : user.password,
+            }
+          }
+        )
+        const musicians = await Musician.find().select('firstName lastName login role isActive').sort({"lastName": 1})
+        res.json(musicians)
+    } else {
+      res.status(404).json({ message: 'user not found'});
+    }
+    
   } catch(err) {
     res.status(500).json({ message: err });
   }

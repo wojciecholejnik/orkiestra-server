@@ -146,25 +146,29 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     }
 
     removeMember(id: string, isActiveMember: boolean) {
-        if (isActiveMember) {
-            this.membersService.moveMemberToExMembers(id).pipe(take(1)).subscribe(() => {
-            this.getMembers();
-        })
-        } else {
-            this.membersService.removeMember(id).pipe(take(1)).subscribe(() => {
-            this.getMembers();
-        });
+        if (this.canDoActionOnMember()) {
+            if (isActiveMember) {
+                this.membersService.moveMemberToExMembers(id).pipe(take(1)).subscribe(() => {
+                this.getMembers();
+            })
+            } else {
+                this.membersService.removeMember(id).pipe(take(1)).subscribe(() => {
+                this.getMembers();
+            });
+            }
+            this.confirmationRemoveIsOpen = false;
+            this.selectedMemberAction = {} as Member;
         }
-        this.confirmationRemoveIsOpen = false;
-        this.selectedMemberAction = {} as Member;
     }
 
     restoreMember(id: string) {
-        this.membersService.restoreMember(id).pipe(take(1)).subscribe(() => {
-            this.getMembers();
-        });
-        this.confirmationRestoreIsOpen = false;
-        this.selectedMemberAction = {} as Member;
+        if (this.canDoActionOnMember()) {
+            this.membersService.restoreMember(id).pipe(take(1)).subscribe(() => {
+                this.getMembers();
+            });
+            this.confirmationRestoreIsOpen = false;
+            this.selectedMemberAction = {} as Member;
+        }
     }
 
     closeEditMember(){
@@ -200,6 +204,10 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     goToDetails(id: string) {
         this.membersService.membersTableIsOpen.next(false);
         this.membersService.memberDetailsAreOpen.next(id);
+    }
+
+    canDoActionOnMember(): boolean {
+        return this.navigationService.checkPrivilege('addNewMember')
     }
 
 }

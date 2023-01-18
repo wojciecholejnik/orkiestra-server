@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { Member, UniformGroupAndPart } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
 
@@ -12,13 +13,14 @@ export class MemberUniformsComponent implements OnInit, OnDestroy {
 
     @Input() id!: string;
     @Input() member!: Member;
+    @Input() canEdit!: boolean;
     _uniformsGroupsAndParts?: Subscription;
     uniformsGroups: any = [];
     loading = true;
     assignUniformsIsOpen = false;
     isOpen = true;
 
-    constructor(private membersService: MembersService) { }
+    constructor(private membersService: MembersService, private navigationService: NavigationService) { }
 
     ngOnInit(): void {
         this.getData();
@@ -64,6 +66,10 @@ export class MemberUniformsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this._uniformsGroupsAndParts?.unsubscribe();
+    }
+
+    canEditUniforms(): boolean {
+        return this.navigationService.checkPrivilege('editResourcesUniforms')
     }
 
 }

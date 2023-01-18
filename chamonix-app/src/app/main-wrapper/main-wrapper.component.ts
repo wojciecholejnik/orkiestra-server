@@ -69,7 +69,8 @@ export class MainWrapperComponent implements OnInit, OnDestroy {
             this.local.setItem('_id', user._id);
             this.local.setItem('login', user.login);
             this.local.setItem('role', user.role);
-            this.local.setItem('name', user.name);
+            this.local.setItem('firstName', user.firstName);
+            this.local.setItem('lastName', user.lastName);
         }
     }
 

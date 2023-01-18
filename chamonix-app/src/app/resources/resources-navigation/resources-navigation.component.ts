@@ -49,4 +49,12 @@ export class ResourcesNavigationComponent implements OnInit, OnDestroy {
     toggleAddResourceSections(state: boolean): void {
         this.resourcesService.addResourceSectionIsOpen.next(state);
     }
+
+    canEditUniforms(): boolean {
+        return this.navigationService.checkPrivilege('editResourcesUniforms')
+    }
+
+    canEditInstruments(): boolean {
+        return this.navigationService.checkPrivilege('editResourcesInstrument')
+    }
 }

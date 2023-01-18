@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { Instrument, Section } from 'src/app/shared/models';
 import { ResourcesService } from '../resources.service';
 
@@ -20,7 +21,7 @@ export class ResourcesSectionGroupComponent implements OnInit, OnDestroy, OnChan
     editSectionIsOpen = false;
     selectedSection?: Section;
 
-    constructor(private resourcesService: ResourcesService) { }
+    constructor(private resourcesService: ResourcesService, private navigationService: NavigationService) { }
 
     ngOnInit(): void {
     }
@@ -106,6 +107,10 @@ export class ResourcesSectionGroupComponent implements OnInit, OnDestroy, OnChan
     onEditSave() {
         this.resourcesService.shuldGetResourcesSections.next(true);
         this.onEditGroupAbort();
+    }
+
+    canEditInstruments(): boolean {
+        return this.navigationService.checkPrivilege('editResourcesInstrument')
     }
 
 }

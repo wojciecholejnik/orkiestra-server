@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Member } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
 import {Clipboard} from '@angular/cdk/clipboard'
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 
 @Component({
     selector: 'app-member-details',
@@ -21,7 +22,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     contactInfoIsOpen = true;
   
 
-  constructor(private membersService: MembersService, private clipboard: Clipboard) { }
+  constructor(private membersService: MembersService, private clipboard: Clipboard, private navigationService: NavigationService) { }
 
     ngOnInit(): void {
         this.getData();
@@ -60,5 +61,9 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
 
     toggleContactInfoIsOpen() {
         this.contactInfoIsOpen = !this.contactInfoIsOpen;
+    }
+
+    canEdit(): boolean {
+        return this.navigationService.checkPrivilege('addNewMember')
     }
 }

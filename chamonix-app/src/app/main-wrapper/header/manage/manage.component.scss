@@ -1,0 +1,159 @@
+@import "../../../../global-styling/mixins.scss";
+
+.action-modal {
+    width: 95vw;
+    max-width: 870px;
+}
+
+.loading-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+
+.filters {
+    padding: 24px;
+    display: flex;
+    gap: 4px;
+
+    @include phone {
+        flex-direction: column;
+    }
+
+    .card {
+        flex: 1;
+    }
+
+    .list-group {
+        padding: 0 4px;
+    }
+
+    .card-input {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        gap: 4px;
+        @include phone {
+            padding: 6px 0;
+        }
+
+        input {
+            border: 1px solid lightgrey;
+            width: 95%;  
+            margin-bottom: 0;
+        }
+    }
+
+    label {
+        margin-bottom: 2px;
+        margin-left: 4px;
+    }
+
+    .filter-info-container {
+        display: flex;
+        gap: 4px;
+
+        @include phone {
+            flex-direction: column;
+        }
+    }
+}
+
+.table-wrapper {
+    width: 100%;
+    height: 70vh;
+    overflow-y: auto;
+
+    input {
+        width: 160px;
+        background-color: #FAFAFA;
+        font-size: 12px;
+        border-radius: 5px;
+        @include phone {
+            font-size: 10px;
+            padding: 7px 5px;
+            height: 100%;
+        }
+    }
+
+    input:disabled, select:disabled {
+        background-color: lightgrey;
+    }
+
+    .form-select {
+        height: 42px;
+        border-radius: 5px;
+        padding: 5px;
+        border: none;
+        background-color: #FAFAFA;
+        width: 85px;
+        @include phone {
+            width: 75px;
+            padding: 7px 5px;
+            height: 100%;
+        }
+    }
+
+    input[type=radio] {
+        width: unset;
+        margin-bottom: 6px;
+    }
+}
+
+table {
+    font-size: 12px;
+
+    @include phone {
+        font-size: 10px;
+    }
+
+    td {
+        vertical-align: middle;
+
+        &.name {
+            min-width: 120px;
+        }
+
+        &.index {
+            @include phone {
+                display: none;
+            }
+        }
+    }
+
+    .actions {
+        width: 100px;
+
+        .actions-buttons-wrapper {
+            display: flex;
+            gap: 4px;
+        }
+    }
+}
+
+.buttons-wrapper {
+    width: 75%;
+}
+
+.filters-button {
+    margin: 6px auto 6px 6px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    .filter-stats-info {
+
+        span {
+            @include phone {
+                font-size: 11px;
+            }
+        }
+        
+        span.value {
+            font-weight: normal;
+            font-style: italic;
+        }
+    }
+}

@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Instrument, Member, MembersTabs, newMemberDTO, UniformGroupAndPart, User, UserDTO } from '../shared/models';
+import { Instrument, Member, MembersTabs, newMemberDTO, UniformGroupAndPart, User, UserDTO, UserToManage, UserToManageDTO } from '../shared/models';
 
 @Injectable({
     providedIn: 'root'
@@ -93,6 +93,14 @@ export class MembersService {
 
     editUser(DTO: UserDTO) {
         return this.http.post<any>(`${this.apiHost}/user/edit`, DTO);  
+    }
+
+    getUserToManage() {
+        return this.http.get<UserToManage[]>(`${this.apiHost}/usersToManage`);
+    }
+
+    editMemberByDirector(DTO: UserToManageDTO) {
+        return this.http.post<any>(`${this.apiHost}/manageUser`, DTO);  
     }
 
 }
