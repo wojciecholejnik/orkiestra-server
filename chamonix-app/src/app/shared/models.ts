@@ -167,6 +167,28 @@ export interface Lesson extends LessonDTO {
     _id: string
 }
 
+export interface ContributionsList {
+    year: number,
+    isClosed: boolean,
+    members: [
+        {
+            member: {
+                firstName: string,
+                lastName: string,
+                _id: string
+            },
+            months: [
+                {
+                    monthNumber: number,
+                    paid: boolean
+                }
+            ]
+
+        }
+
+    ]
+}
+
 
 export type Sorting = 'asc' | 'desc' | '';
 export type ConfirmationModalType = 

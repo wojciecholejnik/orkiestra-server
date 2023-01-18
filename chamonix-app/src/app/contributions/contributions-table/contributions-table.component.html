@@ -1,0 +1,25 @@
+<table class="table table-bordered">
+    <thead>
+        <th>Imię i nazwisko</th>
+        <th class="month-cell">Styczeń</th>
+        <th class="month-cell">Luty</th>
+        <th class="month-cell">Marzec</th>
+        <th class="month-cell">Kwiecień</th>
+        <th class="month-cell">Maj</th>
+        <th class="month-cell">Czerwiec</th>
+        <th class="month-cell">Lipiec</th>
+        <th class="month-cell">Sierpień</th>
+        <th class="month-cell">Wrzesień</th>
+        <th class="month-cell">Październik</th>
+        <th class="month-cell">Listopad</th>
+        <th class="month-cell">Grudzień</th>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let member of list.members">
+            <tr>
+                <th>{{member.member.firstName + ' ' + member.member.lastName}}</th>
+                <td *ngFor="let month of member.months" class="month-cell">{{month.paid ? 'ok' : 'x'}}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenageUsersComponent } from './header/menage-users/menage-users.component';
 import { DiaryModule } from '../diary/diary.module';
+import { ContributionsModule } from '../contributions/contributions.module';
 
 
 
@@ -30,7 +31,8 @@ import { DiaryModule } from '../diary/diary.module';
         LoginModule,
         FormsModule,
         ReactiveFormsModule,
-        DiaryModule
+        DiaryModule,
+        ContributionsModule
     ],
     exports: [
         MainWrapperComponent

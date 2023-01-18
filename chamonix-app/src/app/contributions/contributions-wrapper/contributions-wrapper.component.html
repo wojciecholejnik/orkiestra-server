@@ -1,0 +1,11 @@
+<div class="module-container">
+    <div class="year-selector">
+        <button class="btn btn-primary" (click)="goPreviousYear()"><i class="bi bi-chevron-left"></i></button>
+        <span>{{ showingYear }}</span>
+        <button class="btn btn-primary" (click)="goNextYear()"><i class="bi bi-chevron-right"></i></button>
+    </div>
+
+    <app-contributions-table [list]="listToShow"></app-contributions-table>
+</div>
+
+

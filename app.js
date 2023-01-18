@@ -8,6 +8,7 @@ const sectionsRoutes = require('./routes/sections.routes');
 const instrumentsRoutes = require('./routes/instruments.routes');
 const resourcesInstrumentRoutes = require('./routes/resourcesInstruments.routes');
 const presenceRoutes = require('./routes/presence.routes');
+const contributionsController = require('./routes/contributions.routes ');
 
 const app = express();
 app.use(cors());
@@ -32,6 +33,7 @@ app.use('/api', sectionsRoutes);
 app.use('/api', instrumentsRoutes);
 app.use('/api', resourcesInstrumentRoutes);
 app.use('/api', presenceRoutes);
+app.use('/api', contributionsController);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/client/index.html'));
 });
