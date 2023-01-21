@@ -14,6 +14,8 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
   showingYear: number = new Date().getFullYear();
   list$: Subscription = new Subscription();
   listToShow: ContributionsList = {} as ContributionsList;
+  addMemberToListIsOpen = false;
+
 
   constructor(private contribubtionsService: ContributionsService) { }
 
@@ -25,11 +27,7 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
-  }
-
-  createNewList() {
-    this.contribubtionsService.createPresence(2023).subscribe();
+    this.list$?.unsubscribe();
   }
 
   goNextYear(){
@@ -42,4 +40,11 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
     this.contribubtionsService.getListForYear(this.showingYear);
   }
 
+  toggleaddMemberToListIsOpen() {
+    this.addMemberToListIsOpen = !this.addMemberToListIsOpen
+  }
+
+  removeList() {
+
+  }
 }

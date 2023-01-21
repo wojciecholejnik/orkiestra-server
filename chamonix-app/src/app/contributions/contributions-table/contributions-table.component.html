@@ -1,6 +1,6 @@
-<table class="table table-bordered">
+<table class="table table-bordered table-hover">
     <thead>
-        <th>Imię i nazwisko</th>
+        <th class="name-cell">Imię i nazwisko</th>
         <th class="month-cell">Styczeń</th>
         <th class="month-cell">Luty</th>
         <th class="month-cell">Marzec</th>
@@ -16,10 +16,26 @@
     </thead>
     <tbody>
         <ng-container *ngFor="let member of list.members">
-            <tr>
-                <th>{{member.member.firstName + ' ' + member.member.lastName}}</th>
-                <td *ngFor="let month of member.months" class="month-cell">{{month.paid ? 'ok' : 'x'}}</td>
+            <tr >
+                <th class="name">
+                    <span>{{member.member.firstName + ' ' + member.member.lastName}}</span>
+                    <span class="edit">
+                        <i class="bi bi-pencil" (click)="toggleModal(member)"></i>
+                    </span>
+                </th>
+                <td *ngFor="let month of member.months" class="month-cell">
+                    <ng-container *ngIf="month.paid"><i class="bi bi-check2"></i></ng-container>
+                    <!-- <ng-container *ngIf="!month.paid"><i class="bi bi-x-lg"></i></ng-container> -->
+                </td>
             </tr>
         </ng-container>
     </tbody>
 </table>
+
+
+<app-edit-modal 
+    *ngIf="modalIsOpen && memberToModal"
+    [member]="memberToModal"
+    [listId]="list._id"
+    (onCancel)="toggleModal()">
+</app-edit-modal>

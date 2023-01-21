@@ -1,0 +1,38 @@
+<app-modal-wrapper>
+
+    <div class="action-modal">
+
+        <h2>Edytuj użytkowników</h2>
+        <p class="confirmation">rok:<strong>{{' ' + year}}</strong></p>
+
+        <div class="actions">
+            <button class="btn btn-primary" (click)="checkAll('check')">Wszyscy</button>
+            <button class="btn btn-primary" (click)="checkAll('uncheck')">Nikt</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="table table-stripped">
+                <thead>
+                    <th></th>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let member of allMembers" [class.present]="member.onTheList" (click)="togglePresentOnTheList(member)">
+                        <td *ngIf="member.onTheList"><i class="bi bi-check2"></i></td>
+                        <td *ngIf="!member.onTheList"><i class="bi bi-x-lg"></i></td>
+                        <td>{{member.firstName}}</td>
+                        <td>{{member.lastName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button class="btn btn-primary" (click)="save()">Potwierdź</button>
+        </div>
+    </div>
+
+
+</app-modal-wrapper>

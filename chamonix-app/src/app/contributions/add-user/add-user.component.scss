@@ -1,0 +1,30 @@
+@import '../../../global-styling/mixins.scss';
+
+p.confirmation {
+    margin-top: 15px;
+}
+
+.table-wrapper {
+    max-height: 70vh;
+    overflow-y: auto;
+    width: 70%;
+    padding-right: 5px;
+
+    @include phone {
+        width: 100%;
+    }
+}
+
+tr {
+    cursor: pointer;
+
+    &.present {
+        background: #cce7c9
+    }
+}
+
+.actions {
+    margin: 8px 0;
+    display: flex;
+    gap: 8px;
+}

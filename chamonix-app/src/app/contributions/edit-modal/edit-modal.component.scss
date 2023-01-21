@@ -1,0 +1,57 @@
+@import '../../../global-styling/mixins.scss';
+
+.form {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    input {
+        width: 100px;
+        margin-bottom: 0;
+    }
+}
+
+.month-indicator {
+    display: flex;
+    flex-wrap: wrap;
+    width: 65%;
+    background: lightgrey;
+    justify-content: space-between;
+    margin-top: 12px;
+
+    @include phone {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .month-tile {
+        width: 24%;
+        height: 60px;
+        background: white;
+        margin: 2px 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid gray;
+        cursor: pointer;
+
+        &.paid {
+            background: #cce7c9
+        }
+
+        &.newPaid {
+            background: #39e75f;
+            border: 1px solid darkgreen;
+        }
+
+        &.toRemove {
+            background: #edef6e;
+        }
+
+        &.disabled {
+            cursor: not-allowed
+        }
+    }
+
+
+}

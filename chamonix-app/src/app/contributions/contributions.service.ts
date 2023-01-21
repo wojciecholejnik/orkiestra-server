@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ContributionsList } from '../shared/models';
+import { ContributionsList, EditContributionsList, MemberToSend } from '../shared/models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +21,8 @@ export class ContributionsService {
     this.apiHost = environment.baseApiUrl;
   }
 
-  createPresence(year: number): Observable<any> {
-    return this.http.post<{number: number}>(`${this.apiHost}/addContributionList`, {year: year}, this.httpOptions)
+  createNewList(year: number): Observable<ContributionsList> {
+    return this.http.post<ContributionsList>(`${this.apiHost}/addContributionList`, year, this.httpOptions)
   }
 
   getListForYear(year: number) {
@@ -32,8 +32,19 @@ export class ContributionsService {
       },
       error: (e) => {
         console.log(e)
+        this.listToShow.next({} as ContributionsList)
       }
     })
   }
 
+  editListForMember(DTO: EditContributionsList) {
+    return this.http.post<ContributionsList>(`${this.apiHost}/editContributeListForMember`, DTO, this.httpOptions)
+  }
+
+  editListMembers(members: MemberToSend[], listId: string) {
+    return this.http.post<ContributionsList>(`${this.apiHost}/editListMembers`, {members, listId}, this.httpOptions)
+  }
+  
 }
+
+type MemberOnTheList = {firstName: string, lastName: string, _id: string, onTheList: boolean}

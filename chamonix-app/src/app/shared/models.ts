@@ -188,26 +188,41 @@ export interface Lesson extends LessonDTO {
     _id: string
 }
 
+export interface ContributionListMember {
+    member: {
+        _id: string,
+        firstName: string,
+        lastName: string,
+        contributionsAccount: number
+    },
+    months: {
+            monthNumber: number,
+            paid: boolean
+        }[]
+
+}
+
 export interface ContributionsList {
+    _id: string,
     year: number,
     isClosed: boolean,
-    members: [
-        {
-            member: {
-                firstName: string,
-                lastName: string,
-                _id: string
-            },
-            months: [
-                {
-                    monthNumber: number,
-                    paid: boolean
-                }
-            ]
+    members: ContributionListMember[]
+}
 
-        }
+export interface EditContributionsList {
+    listId: string,
+    memberId: string,
+    memberContributionsAccount: number,
+    months: {monthNumber: number, paid: boolean}[]
+}
 
-    ]
+export type MemberOnTheList = {firstName: string, lastName: string, _id: string, onTheList: boolean}
+export type MemberToSend = {
+  member: string
+  months: {
+        monthNumber: number,
+        paid: boolean
+    }[]
 }
 
 

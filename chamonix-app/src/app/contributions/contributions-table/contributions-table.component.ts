@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ContributionsList } from 'src/app/shared/models';
+import { ContributionListMember, ContributionsList } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-contributions-table',
@@ -8,11 +8,16 @@ import { ContributionsList } from 'src/app/shared/models';
 })
 export class ContributionsTableComponent implements OnInit {
   @Input() list!: ContributionsList;
+  modalIsOpen = false;
+  memberToModal?: ContributionListMember;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  toggleModal(member?: ContributionListMember) {
+    this.modalIsOpen = !this.modalIsOpen;
+    this.memberToModal = this.memberToModal ? undefined : member;
   }
-  
 
 }

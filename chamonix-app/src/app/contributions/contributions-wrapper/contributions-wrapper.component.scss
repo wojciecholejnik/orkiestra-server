@@ -1,8 +1,11 @@
 .module-container {
-    padding: 10px;
-    margin-bottom: 15px;
-    height: calc(100vh - 140px);
-    overflow-y: auto;
+  padding: 10px;
+  margin-bottom: 15px;
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .year-selector {
@@ -10,9 +13,17 @@
     gap: 8px;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
   
-    span {
-      width: 125px;
-      text-align: center;
-    }
+  span {
+    width: 125px;
+    text-align: center;
   }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+

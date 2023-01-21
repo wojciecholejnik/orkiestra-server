@@ -1,0 +1,40 @@
+<app-modal-wrapper>
+
+    <div class="action-modal">
+        <h2>Edytuj składki</h2>
+
+        <p class="confirmation">
+            dla użytkownika <strong>{{member.member.firstName + ' ' + member.member.lastName}}</strong>
+            <br>
+            <span>{{'saldo: ' + member.member.contributionsAccount +' zł'}}</span>
+            <span *ngIf="valueToContributionsAccount !== 0">{{valueToContributionsAccount > 0 ? ' + ' : ' '}}{{valueToContributionsAccount + ' zł'}}</span>
+        </p>
+        
+        
+        <div class="form">
+            <input type="number" placeholder="wartość" [(ngModel)]="valueToProcess" [disabled]="processingDisabled">
+            <button class="btn btn-primary" (click)="processValue()" [disabled]="processingDisabled">Procesuj</button>
+            <button class="btn btn-secondary" (click)="restore()"><i class="bi bi-arrow-clockwise"></i></button>
+        </div>
+
+        <div class="month-indicator">
+            <div 
+                *ngFor="let month of monthsToShow" 
+                class="month-tile" 
+                [class.paid]="month.paid" 
+                [class.newPaid]="month.newPaid"
+                [class.toRemove]="month.toRemove"
+                [class.disabled]="valueToProcess"
+                (click)="togglePaidMonth(month)"
+                >{{month.name}}
+            </div>
+        </div>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button class="btn btn-primary" (click)="save()">Potwierdź</button>
+        </div>
+
+    </div>
+
+</app-modal-wrapper>
