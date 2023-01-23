@@ -34,6 +34,12 @@ export class ContributionsTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  isBehindOnPayment(monthNr: number): boolean {
+    const today = new Date();
+    const monthToCheck = new Date(new Date().setFullYear(this.list.year, monthNr, 1))
+    return today > monthToCheck
+  }
+
   setRomanianMonths(monthNr: number): string {
     switch (monthNr) {
       case 0 : {

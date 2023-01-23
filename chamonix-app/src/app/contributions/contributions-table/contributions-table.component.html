@@ -28,8 +28,13 @@
                     <br>
                     <span>{{member.member.lastName}}</span>
                 </th>
-                <td *ngFor="let month of member.months" class="month-cell" [class.paid]="month.paid">
-                    {{setRomanianMonths(month.monthNumber)}}
+                <td *ngFor="let month of member.months" class="month-cell" [class.paid]="month.paid" [class.behind]="isBehindOnPayment(month.monthNumber)">
+                    <ng-container *ngIf="deviceType === 'phone'">
+                        {{setRomanianMonths(month.monthNumber)}}
+                    </ng-container>
+                    <ng-container *ngIf="deviceType !== 'phone' && month.paid">
+                        <i class="bi bi-check2"></i>
+                    </ng-container>
                 </td>
             </tr>
         </ng-container>

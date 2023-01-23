@@ -1,4 +1,5 @@
 @import '../../../global-styling/mixins.scss';
+@import '../../../global-styling/colors.scss';
 
 .month-cell {
     min-width: 70px;
@@ -6,10 +7,16 @@
     padding: 12px 0;
     font-size: 12px;
 
+    &.behind {
+        -webkit-box-shadow: inset 0px 0px 0px 25px $light-red;
+        -moz-box-shadow: inset 0px 0px 0px 25px $light-red;
+        box-shadow: inset 0px 0px 0px 25px $light-red;
+    }
+
     &.paid {
-        -webkit-box-shadow: inset 0px 0px 0px 20px #a5ce9f5c;
-        -moz-box-shadow: inset 0px 0px 0px 20px #a5ce9f5c;
-        box-shadow: inset 0px 0px 0px 20px #a5ce9f5c;
+        -webkit-box-shadow: inset 0px 0px 0px 25px $light-green;
+        -moz-box-shadow: inset 0px 0px 0px 25px $light-green;
+        box-shadow: inset 0px 0px 0px 25px $light-green;
     }
 }
 

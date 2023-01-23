@@ -1,4 +1,5 @@
 @import '../../../global-styling/mixins.scss';
+@import '../../../global-styling/colors.scss';
 
 .form {
     display: flex;
@@ -36,11 +37,11 @@
         cursor: pointer;
 
         &.paid {
-            background: #cce7c9
+            background: $light-green
         }
 
         &.newPaid {
-            background: #39e75f;
+            background: $solid-green;
             border: 1px solid darkgreen;
         }
 
