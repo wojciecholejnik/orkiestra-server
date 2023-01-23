@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { Privileges, User, Roles, PrivilegesTypes } from '../shared/models';
+import { Privileges, User, Roles, PrivilegesTypes, DeviceType } from '../shared/models';
 
 @Injectable({
      providedIn: 'root'
@@ -14,7 +14,7 @@ export class NavigationService  {
         {name: 'Zasoby', isActive: false},
         {name: 'Składki', isActive: true},
     ]);
-    deviceType: BehaviorSubject<string> = new BehaviorSubject('');
+    deviceType: BehaviorSubject<any> = new BehaviorSubject('laptop');
     isUserLogged: Subject<any> = new Subject();
     private user?: User;
     private privileges: Privileges = {} as Privileges;

@@ -169,7 +169,8 @@ export enum Roles {
     bandDirector = '0',
     instructor = '1',
     inspector = '2',
-    member = '3'
+    member = '3',
+    paymaster = '4'
 }
 
 export interface DiaryTabs {
@@ -224,6 +225,8 @@ export type MemberToSend = {
         paid: boolean
     }[]
 }
+
+export type DeviceType = 'phone' | 'tablet' | 'laptop';
 
 
 export type Sorting = 'asc' | 'desc' | '';

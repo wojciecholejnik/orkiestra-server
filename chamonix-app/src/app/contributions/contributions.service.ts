@@ -31,7 +31,6 @@ export class ContributionsService {
         this.listToShow.next(list)
       },
       error: (e) => {
-        console.log(e)
         this.listToShow.next({} as ContributionsList)
       }
     })

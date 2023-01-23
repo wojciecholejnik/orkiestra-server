@@ -60,8 +60,8 @@ export class HeaderComponent implements OnInit {
             return 'instruktor'
         } else if (this.loggedUser && this.loggedUser.role === Roles.inspector) {
             return 'inspektor'
-        } else if (this.loggedUser && this.loggedUser.role === Roles.member) {
-            return 'członek orkiestry'
+        } else if (this.loggedUser && this.loggedUser.role === Roles.paymaster) {
+            return 'skarbnik'
         }
         else {
             return ''

@@ -1,5 +1,5 @@
 <table class="table table-bordered table-hover">
-    <thead>
+    <thead *ngIf="deviceType !== 'phone'">
         <th class="name-cell">Imię i nazwisko</th>
         <th class="month-cell">Styczeń</th>
         <th class="month-cell">Luty</th>
@@ -17,15 +17,19 @@
     <tbody>
         <ng-container *ngFor="let member of list.members">
             <tr >
-                <th class="name">
+                <th *ngIf="deviceType === 'laptop'" class="name">
                     <span>{{member.member.firstName + ' ' + member.member.lastName}}</span>
-                    <span class="edit">
+                    <span class="edit" *ngIf="deviceType === 'laptop' && canEdit">
                         <i class="bi bi-pencil" (click)="toggleModal(member)"></i>
                     </span>
                 </th>
-                <td *ngFor="let month of member.months" class="month-cell">
-                    <ng-container *ngIf="month.paid"><i class="bi bi-check2"></i></ng-container>
-                    <!-- <ng-container *ngIf="!month.paid"><i class="bi bi-x-lg"></i></ng-container> -->
+                <th *ngIf="deviceType !== 'laptop'" class="name" (click)="toggleModal(member)">
+                    <span>{{member.member.firstName}}</span>
+                    <br>
+                    <span>{{member.member.lastName}}</span>
+                </th>
+                <td *ngFor="let month of member.months" class="month-cell" [class.paid]="month.paid">
+                    {{setRomanianMonths(month.monthNumber)}}
                 </td>
             </tr>
         </ng-container>
@@ -34,7 +38,7 @@
 
 
 <app-edit-modal 
-    *ngIf="modalIsOpen && memberToModal"
+    *ngIf="modalIsOpen && memberToModal && canEdit"
     [member]="memberToModal"
     [listId]="list._id"
     (onCancel)="toggleModal()">

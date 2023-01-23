@@ -143,6 +143,8 @@ export class ManageComponent implements OnInit, OnDestroy {
             return 'Inspektorzy'
         } else if (this.filters.userRole === Roles.member) {
             return 'Członkowie'
+        } else if (this.filters.userRole === Roles.paymaster) {
+            return 'Skarbnicy'
         } else {
             return ''
         }

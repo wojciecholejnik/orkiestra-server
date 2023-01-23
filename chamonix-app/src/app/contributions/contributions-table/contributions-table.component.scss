@@ -5,6 +5,12 @@
     text-align: center;
     padding: 12px 0;
     font-size: 12px;
+
+    &.paid {
+        -webkit-box-shadow: inset 0px 0px 0px 20px #a5ce9f5c;
+        -moz-box-shadow: inset 0px 0px 0px 20px #a5ce9f5c;
+        box-shadow: inset 0px 0px 0px 20px #a5ce9f5c;
+    }
 }
 
 .name-cell {
@@ -14,7 +20,7 @@
 table {
     max-width: 1100px;
     font-size: 13px;
-
+    
     tbody tr th.name {
         position: relative;
 
@@ -23,12 +29,28 @@ table {
             right: 8px;
             visibility: hidden;
         }
-
+        
         &:hover {
             span.edit {
                 visibility: visible;
                 cursor: pointer;
             }
         }
+    }
+    
+    td {
+        vertical-align: middle;
+    }
+}
+
+@include phone {
+    table * {
+        padding: 1px;
+        font-size: 12px;
+    }
+
+    .month-cell {
+        min-width: 40px;
+
     }
 }

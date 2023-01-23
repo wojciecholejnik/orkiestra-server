@@ -4,13 +4,28 @@
         <span>{{ showingYear }}</span>
         <button class="btn btn-primary" (click)="goNextYear()"><i class="bi bi-chevron-right"></i></button>
     </div>
-    <div class="actions">
+    <div class="actions" *ngIf="deviceType === 'laptop' && canEdit">
         <button class="btn btn-primary" (click)="toggleNewListOpen()">Stwórz nową listę</button>
-        <button class="btn btn-danger" (click)="toggleRemoveListOpen()">Usuń listę</button>
-        <button class="btn btn-primary" (click)="toggleaddMemberToListIsOpen()">Edytuj użytkowników</button>
+        <button class="btn btn-danger" (click)="toggleRemoveListOpen()" [disabled]="!listToShow.year">Usuń listę</button>
+        <button class="btn btn-primary" (click)="toggleaddMemberToListIsOpen()" [disabled]="!listToShow.year">Edytuj użytkowników</button>
+    </div>
+    <div class="actions" *ngIf="deviceType === 'phone' && canEdit">
+        <button class="btn btn-primary" (click)="toggleNewListOpen()"><i class="bi bi-file-earmark-plus"></i></button>
+        <button class="btn btn-danger" (click)="toggleRemoveListOpen()" [disabled]="!listToShow.year"><i class="bi bi-file-earmark-x"></i></button>
+        <button class="btn btn-primary" (click)="toggleaddMemberToListIsOpen()" [disabled]="!listToShow.year"><i class="bi bi-person-lines-fill"></i></button>
     </div>
 
-    <app-contributions-table [list]="listToShow"></app-contributions-table>
+    <div *ngIf="loading" class="loading-wrapper">
+        <app-loading></app-loading>
+      </div>
+
+    <div class="no-list-info" *ngIf="!listToShow.year && !loading">
+        Dla wybranego roku nie ma jeszcze listy składek.
+    </div>
+
+    <div class="table-wrapper" *ngIf="listToShow.year  && !loading">
+        <app-contributions-table  [list]="listToShow"></app-contributions-table>
+    </div>
 </div>
 
 <app-add-user

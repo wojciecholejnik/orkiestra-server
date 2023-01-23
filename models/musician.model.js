@@ -18,7 +18,7 @@ const musicianSchema = new mongoose.Schema({
   isInstructor: {type: Boolean},
   login: {type: String},
   password: {type: String},
-  role: {type: String},
+  role: {type: String}, // 0: band-director, // 1: instructor, 2: inspector, 4: paymaster
   contributionsAccount: {type: Number, required: true}
 });
 

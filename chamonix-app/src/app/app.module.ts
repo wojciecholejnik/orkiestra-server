@@ -10,12 +10,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CookieService } from 'ngx-cookie-service';
 import { registerLocaleData } from '@angular/common';
 import localePl from '@angular/common/locales/pl';
+import { ToastContainerComponent } from './shared/toast-service/toast-container.component';
+import { ToastService } from './shared/toast-service/toast.service';
 
 registerLocaleData(localePl);
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        ToastContainerComponent
     ],
     imports: [
         BrowserModule,
@@ -26,7 +29,7 @@ registerLocaleData(localePl);
         MainWrapperModule,
         BrowserAnimationsModule
     ],
-    providers: [DatePipe, CookieService],
+    providers: [DatePipe, CookieService, ToastService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

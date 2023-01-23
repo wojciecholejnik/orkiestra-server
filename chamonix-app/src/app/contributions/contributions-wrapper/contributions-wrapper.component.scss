@@ -1,3 +1,5 @@
+@import '../../../global-styling/mixins.scss';
+
 .module-container {
   padding: 10px;
   margin-bottom: 15px;
@@ -6,6 +8,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @include phone {
+    display: block;
+  }
+}
+
+.table-wrapper {
+  
+  overflow: auto;
 }
 
 .year-selector {
@@ -23,7 +34,16 @@
 
 .actions {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 8px;
   margin-bottom: 12px;
+}
+
+.no-list-info, .loading-wrapper {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
