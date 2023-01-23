@@ -30,7 +30,9 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
     this.$deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
     this.$list = this.contribubtionsService.listToShow.subscribe(list => {
       this.listToShow = list;
-      this.loading = false;
+      if (list.year || list.error) {
+        this.loading = false;
+      }
       if (list.year) {
         this.showingYear = list.year
       }

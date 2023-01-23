@@ -13,8 +13,8 @@
         
         <div class="form">
             <input type="number" placeholder="wartość" [(ngModel)]="valueToProcess" [disabled]="processingDisabled">
-            <button class="btn btn-primary" (click)="processValue()" [disabled]="processingDisabled">Procesuj</button>
-            <button class="btn btn-secondary" (click)="restore()"><i class="bi bi-arrow-clockwise"></i></button>
+            <button class="btn btn-primary" (click)="processValue()" [disabled]="processingDisabled || saving">Procesuj</button>
+            <button class="btn btn-secondary" (click)="restore()" [disabled]="saving"><i class="bi bi-arrow-clockwise"></i></button>
         </div>
 
         <div class="month-indicator">
@@ -31,8 +31,11 @@
         </div>
 
         <div class="buttons-wrapper">
-            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
-            <button class="btn btn-primary" (click)="save()">Potwierdź</button>
+            <button [disabled]="saving" class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button  [disabled]="saving"class="btn btn-primary" (click)="save()">
+                <ng-container *ngIf="!saving">Potwierdź</ng-container>
+                <ng-container *ngIf="saving">Zapisywanie...</ng-container>
+            </button>
         </div>
 
     </div>

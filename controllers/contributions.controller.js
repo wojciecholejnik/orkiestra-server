@@ -23,8 +23,13 @@ exports.createContributionList = async (req, res) => {
         year: year,
         isClosed: false,
         members: b,
-      }).save().then((list) => {
-        res.json(list)
+      }).save().then(async (list) => {
+        const listToSend = await ContributionList.findById(list._id).populate([{
+          path: 'members.member', 
+          model: Musician,
+          select: ('firstName lastName contributionsAccount')
+        }]);
+        res.json(listToSend)
       })
     })
     

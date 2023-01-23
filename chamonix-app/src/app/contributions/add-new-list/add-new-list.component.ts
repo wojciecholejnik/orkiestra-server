@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToastService } from 'src/app/shared/toast-service/toast.service';
 import { ContributionsService } from '../contributions.service';
@@ -9,7 +9,7 @@ import { ContributionsService } from '../contributions.service';
   styleUrls: ['./add-new-list.component.scss']
 })
 export class AddNewListComponent implements OnInit, OnDestroy {
-
+  @Input() year!: number;
   @Output() onClose: EventEmitter<any> = new EventEmitter();
   $save?: Subscription;
   yearToSave = 0
@@ -17,7 +17,7 @@ export class AddNewListComponent implements OnInit, OnDestroy {
   constructor(private constributionsService: ContributionsService, private toastService: ToastService) { }
 
   ngOnInit(): void {
-    this.yearToSave = new Date().getFullYear();
+    this.yearToSave = this.year || new Date().getFullYear();
   }
 
   ngOnDestroy(): void {

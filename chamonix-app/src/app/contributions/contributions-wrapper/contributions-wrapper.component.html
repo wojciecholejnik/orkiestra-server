@@ -38,6 +38,7 @@
 <app-add-new-list
     *ngIf="newListOpen"
     (onClose)="toggleNewListOpen()"
+    [year]="showingYear"
 ></app-add-new-list>
 
 <app-confirmation

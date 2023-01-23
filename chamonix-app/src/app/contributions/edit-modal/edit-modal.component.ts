@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ContributionListMember, EditContributionsList } from 'src/app/shared/models';
+import { ToastService } from 'src/app/shared/toast-service/toast.service';
 import { ContributionsService } from '../contributions.service';
 
 @Component({
@@ -21,8 +22,9 @@ export class EditModalComponent implements OnInit, OnDestroy {
   pricePerMont = 10;
   processingDisabled = false;
   $save?: Subscription;
+  saving = false;
 
-  constructor(private contributionsService: ContributionsService) { }
+  constructor(private contributionsService: ContributionsService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.mapMonths();
@@ -145,6 +147,7 @@ export class EditModalComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    this.saving = true;
     const DTO: EditContributionsList = {
       listId: this.listId,
       memberId: this.member.member._id,
@@ -160,9 +163,11 @@ export class EditModalComponent implements OnInit, OnDestroy {
       next: (res) => {
         this.contributionsService.listToShow.next(res);
         this.closeModal();
+        this.toastService.show('Zapisano', { classname: 'bg-success text-light', delay: 5000 });
       },
       error: (e) => {
-        // TODO: error handler
+        this.toastService.show('Wystąpił błąd. Spróbuj ponownie.', { classname: 'bg-danger text-light', delay: 5000 });
+        this.saving = false;
       }
     })
   }

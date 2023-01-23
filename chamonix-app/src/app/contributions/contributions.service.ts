@@ -14,7 +14,7 @@ export class ContributionsService {
   };
   private apiHost: string;
 
-  listToShow: BehaviorSubject<ContributionsList> = new BehaviorSubject({} as ContributionsList)
+  listToShow: BehaviorSubject<any> = new BehaviorSubject({} as ContributionsList)
 
 
   constructor(private http: HttpClient) {
@@ -31,7 +31,7 @@ export class ContributionsService {
         this.listToShow.next(list)
       },
       error: (e) => {
-        this.listToShow.next({} as ContributionsList)
+        this.listToShow.next(e)
       }
     })
   }
