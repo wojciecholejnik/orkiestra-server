@@ -5,8 +5,8 @@
         <button class="btn btn-primary" (click)="goNextYear()"><i class="bi bi-chevron-right"></i></button>
     </div>
     <div class="actions">
-        <button class="btn btn-primary">Stwórz nową listę</button>
-        <button class="btn btn-danger">Usuń listę</button>
+        <button class="btn btn-primary" (click)="toggleNewListOpen()">Stwórz nową listę</button>
+        <button class="btn btn-danger" (click)="toggleRemoveListOpen()">Usuń listę</button>
         <button class="btn btn-primary" (click)="toggleaddMemberToListIsOpen()">Edytuj użytkowników</button>
     </div>
 
@@ -20,5 +20,17 @@
     [year]="listToShow.year"
     (onClose)="toggleaddMemberToListIsOpen()"
 ></app-add-user>
+<app-add-new-list
+    *ngIf="newListOpen"
+    (onClose)="toggleNewListOpen()"
+></app-add-new-list>
+
+<app-confirmation
+    *ngIf="removeListModalOpen"
+    (onConfirm)="removeList()"
+    (onAbort)="toggleRemoveListOpen()"
+    [data]="listToShow"
+    [type]="'removeContributionList'"
+></app-confirmation>
 
 

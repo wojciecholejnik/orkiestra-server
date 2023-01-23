@@ -12,22 +12,31 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
 
   currentYear: number = new Date().getFullYear();
   showingYear: number = new Date().getFullYear();
-  list$: Subscription = new Subscription();
+  $list: Subscription = new Subscription();
   listToShow: ContributionsList = {} as ContributionsList;
   addMemberToListIsOpen = false;
+  newListOpen = false;
+  removeListModalOpen = false;
+  $removeList?: Subscription;
 
 
   constructor(private contribubtionsService: ContributionsService) { }
 
   ngOnInit(): void {
 
-    this.list$ = this.contribubtionsService.listToShow.subscribe(list => this.listToShow = list);
+    this.$list = this.contribubtionsService.listToShow.subscribe(list => {
+      this.listToShow = list;
+      if (this.listToShow.year) {
+        this.showingYear = new Date().getFullYear();
+      }
+    });
     this.contribubtionsService.getListForYear(this.currentYear);
 
   }
 
   ngOnDestroy(): void {
-    this.list$?.unsubscribe();
+    this.$list?.unsubscribe();
+    this.$removeList?.unsubscribe();
   }
 
   goNextYear(){
@@ -44,7 +53,20 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
     this.addMemberToListIsOpen = !this.addMemberToListIsOpen
   }
 
-  removeList() {
+  toggleNewListOpen() {
+    this.newListOpen = !this.newListOpen;
+  }
 
+  toggleRemoveListOpen() {
+    this.removeListModalOpen = !this.removeListModalOpen;
+  }
+
+  removeList() {
+    this.$removeList = this.contribubtionsService.removeList(this.listToShow._id).subscribe({
+      next: () => {
+        this.contribubtionsService.listToShow.next({} as ContributionsList);
+        this.toggleRemoveListOpen();
+      }
+    })
   }
 }

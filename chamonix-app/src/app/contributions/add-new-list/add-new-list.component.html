@@ -1,1 +1,14 @@
-<p>add-new-list works!</p>
+<app-modal-wrapper>
+    <div class="action-modal">
+        <h2>Nowa lista</h2>
+
+        <div class="year-selector">
+            <input type="number" [(ngModel)]="yearToSave">
+        </div>
+
+        <div class="buttons-wrapper">
+            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button class="btn btn-primary" (click)="addNewList()">Zapisz</button>
+        </div>
+    </div>
+</app-modal-wrapper>

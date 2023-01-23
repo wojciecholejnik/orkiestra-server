@@ -22,7 +22,7 @@ export class ContributionsService {
   }
 
   createNewList(year: number): Observable<ContributionsList> {
-    return this.http.post<ContributionsList>(`${this.apiHost}/addContributionList`, year, this.httpOptions)
+    return this.http.post<ContributionsList>(`${this.apiHost}/addContributionList`, {year: year}, this.httpOptions)
   }
 
   getListForYear(year: number) {
@@ -44,7 +44,9 @@ export class ContributionsService {
   editListMembers(members: MemberToSend[], listId: string) {
     return this.http.post<ContributionsList>(`${this.apiHost}/editListMembers`, {members, listId}, this.httpOptions)
   }
+
+  removeList(listId: string) {
+    return this.http.post<any>(`${this.apiHost}/removeContributionsList`, {listId: listId}, this.httpOptions)
+  }
   
 }
-
-type MemberOnTheList = {firstName: string, lastName: string, _id: string, onTheList: boolean}

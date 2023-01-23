@@ -6,6 +6,7 @@ router.post('/addContributionList', contributionsController.createContributionLi
 router.get('/getContributionListForYear/:year', contributionsController.getContributionListForYear);
 router.post('/editContributeListForMember', contributionsController.editContributeListForMember);
 router.post('/editListMembers', contributionsController.editListMembers);
+router.post('/removeContributionsList', contributionsController.removeList);
 
 
 module.exports = router;

@@ -9,7 +9,7 @@ import { ContributionsService } from '../contributions.service';
 })
 export class AddNewListComponent implements OnInit, OnDestroy {
 
-  @Output()onClose: EventEmitter<any> = new EventEmitter();
+  @Output() onClose: EventEmitter<any> = new EventEmitter();
   $save?: Subscription;
   yearToSave = 0
 
@@ -26,6 +26,7 @@ export class AddNewListComponent implements OnInit, OnDestroy {
   addNewList(){
     this.$save = this.constributionsService.createNewList(this.yearToSave).subscribe({
       next: (res)=> {
+        console.log(res)
         this.constributionsService.listToShow.next(res);
         this.closeModal();
       },

@@ -49,6 +49,10 @@ export class ConfirmationComponent implements OnInit {
         if (this.type === 'deletePresence') {
             this.confirmationText = 'Czy na pewno usunąć litę obecności z dnia ' + this.datePipe.transform(this.data.date, 'dd.MM.YYYY') + ' ?'
         }
+
+        if (this.type === 'removeContributionList') {
+            this.confirmationText = 'Czy na pewno usunąć listę składek za rok ' + this.data.year + ' ?'
+        }
     }
 
     confirm(){

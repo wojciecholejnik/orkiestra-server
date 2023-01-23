@@ -2,7 +2,7 @@ const Musician = require('../models/musician.model');
 const ContributionList = require('../models/contribution.model');
 
 exports.createContributionList = async (req, res) => {
-  const year = req.body.year
+  const year = req.body.year;
   try {
 
     const isListEgzist = await ContributionList.find({year: year});
@@ -24,7 +24,7 @@ exports.createContributionList = async (req, res) => {
         isClosed: false,
         members: b,
       }).save().then((list) => {
-        res.json({message: list})
+        res.json(list)
       })
     })
     
@@ -120,6 +120,22 @@ exports.editListMembers = async (req, res) => {
       }
     } else {
       res.status(404).json({message: 'Contribution list not found.'})
+    }
+
+  } catch (e) {
+    res.status(500).json({message: e})
+  }
+}
+
+exports.removeList = async (req, res) => {
+  const listId = req.body.listId
+  try {
+    const list = ContributionList.findById(listId);
+    if (!list) {
+      res.status(404).json({message: "List not found"})
+    } else {
+      await ContributionList.deleteOne({_id: listId});
+      res.json({message: "List removed"});
     }
 
   } catch (e) {
