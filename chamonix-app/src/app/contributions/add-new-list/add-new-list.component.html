@@ -2,13 +2,14 @@
     <div class="action-modal">
         <h2>Nowa lista</h2>
 
+        <p class="confirmation">Wybierz rok dla którego ma być utworzona nowa lista :</p>
         <div class="year-selector">
-            <input type="number" [(ngModel)]="yearToSave">
+            <input [disabled]="saving" type="number" [(ngModel)]="yearToSave">
         </div>
 
         <div class="buttons-wrapper">
-            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
-            <button class="btn btn-primary" (click)="addNewList()">Zapisz</button>
+            <button [disabled]="saving" class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button [disabled]="saving" class="btn btn-primary" (click)="addNewList()">{{saving ? 'Zapisywanie...' : 'Dodaj'}}</button>
         </div>
     </div>
 </app-modal-wrapper>

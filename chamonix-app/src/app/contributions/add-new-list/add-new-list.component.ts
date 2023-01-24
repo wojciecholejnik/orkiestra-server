@@ -13,6 +13,7 @@ export class AddNewListComponent implements OnInit, OnDestroy {
   @Output() onClose: EventEmitter<any> = new EventEmitter();
   $save?: Subscription;
   yearToSave = 0
+  saving = false;
 
   constructor(private constributionsService: ContributionsService, private toastService: ToastService) { }
 
@@ -25,6 +26,7 @@ export class AddNewListComponent implements OnInit, OnDestroy {
   }
 
   addNewList(){
+    this.saving = true;
     this.$save = this.constributionsService.createNewList(this.yearToSave).subscribe({
       next: (res)=> {
         this.constributionsService.listToShow.next(res);
@@ -36,6 +38,7 @@ export class AddNewListComponent implements OnInit, OnDestroy {
         } else {
           this.toastService.show('Wystąpił nieznany błąd.', { classname: 'bg-danger text-light', delay: 5000 })
         }
+        this.saving = false
       }
     })
   }

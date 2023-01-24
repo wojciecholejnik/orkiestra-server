@@ -6,8 +6,16 @@
     (hidden)="toastService.remove(toast)"
   >
     <ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
-    <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
+      <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
     </ng-template>
 
-    <ng-template #text>{{ toast.textOrTpl }}</ng-template>
+    <ng-template #text>
+      <ng-container *ngIf="toast.classname == 'bg-danger text-light'">
+        <span><i class="bi bi-exclamation-square" style="margin-right: 6px;"></i></span>
+      </ng-container>
+      <ng-container *ngIf="toast.classname == 'bg-success text-light'">
+        <span><i class="bi bi-info-square" style="margin-right: 6px;"></i></span>
+      </ng-container>
+      <ng-container>{{toast.textOrTpl}}</ng-container>
+    </ng-template>
 </ngb-toast>

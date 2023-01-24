@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { Subscription } from 'rxjs';
 import { MembersService } from 'src/app/members/members.service';
 import { ContributionListMember, MemberOnTheList, MemberToSend } from 'src/app/shared/models';
+import { ToastService } from 'src/app/shared/toast-service/toast.service';
 import { ContributionsService } from '../contributions.service';
 
 @Component({
@@ -18,19 +19,29 @@ export class AddUserComponent implements OnInit, OnDestroy {
   $allMembers?: Subscription;
   $addMembers?: Subscription;
   $save?: Subscription;
+  saving = false;
+  membersLoading = true;
+  membersLoadingFailedMessage = '';
 
-  constructor(private membersService: MembersService, private contributionsService: ContributionsService) { }
+  constructor(
+    private membersService: MembersService,
+    private contributionsService: ContributionsService,
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.$allMembers = this.membersService.getActiveMembers().subscribe({
-      next: (res) => this.allMembers = res.map(member => ({
-        _id: member._id,
-        firstName: member.firstName,
-        lastName: member.lastName,
-        onTheList: this.currentMembers.find(item => item.member._id === member._id) ? true : false
-      })),
+      next: (res) => {
+        this.allMembers = res.map(member => ({
+          _id: member._id,
+          firstName: member.firstName,
+          lastName: member.lastName,
+          onTheList: this.currentMembers.find(item => item.member._id === member._id) ? true : false
+        }));
+        this.membersLoading = false;
+      },
       error: (e) => {
-        //TODO: handle error
+        this.membersLoading = false;
+        this.membersLoadingFailedMessage = "Nie udało się pobrać listy użytkowników. Spróbuj ponownie."
       }
     })
   }
@@ -46,6 +57,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    this.saving = true;
     const DTO: MemberToSend[] = [];
     this.allMembers?.forEach(member => {
       if (member.onTheList) {
@@ -59,7 +71,12 @@ export class AddUserComponent implements OnInit, OnDestroy {
     this.$save = this.contributionsService.editListMembers(DTO, this.listId).subscribe({
       next: (res) => {
         this.contributionsService.listToShow.next(res);
-        this.closeModal()
+        this.closeModal();
+        this.toastService.show('Zmiany zostały zapisane.', { classname: 'bg-success text-light', delay: 5000 })
+      },
+      error: () => {
+        this.toastService.show('Nie udało się zapisać zmian. Spróbuj ponownie.', { classname: 'bg-danger text-light', delay: 5000 })
+        this.saving = false;
       }
     })
   }

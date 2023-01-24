@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { ContributionsList, DeviceType, Roles } from 'src/app/shared/models';
 import { ContributionsService } from '../contributions.service';
 import { NavigationService } from '../../main-wrapper/navigation-service.service';
+import { ToastService } from 'src/app/shared/toast-service/toast.service';
 
 @Component({
   selector: 'app-contributions-wrapper',
@@ -24,7 +25,10 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
   deviceType: DeviceType = 'laptop';
   canEdit = false;
 
-  constructor(private contribubtionsService: ContributionsService, private navigationService: NavigationService) { }
+  constructor(
+    private contribubtionsService: ContributionsService,
+    private navigationService: NavigationService,
+    private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.$deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
@@ -77,6 +81,11 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
       next: () => {
         this.contribubtionsService.listToShow.next({} as ContributionsList);
         this.toggleRemoveListOpen();
+        this.toastService.show('Lista została usunięta.', { classname: 'bg-success text-light', delay: 5000 })
+      },
+      error: () => {
+        this.toggleRemoveListOpen();
+        this.toastService.show('Nie udało się usunąć tej listy. Spróbuj ponownie.', { classname: 'bg-danger text-light', delay: 5000 })
       }
     })
   }

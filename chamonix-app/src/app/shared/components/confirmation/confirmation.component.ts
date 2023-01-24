@@ -12,12 +12,14 @@ export class ConfirmationComponent implements OnInit {
     @Input() data: Member | any;
     @Output() onConfirm = new EventEmitter<boolean>();
     @Output() onAbort = new EventEmitter<boolean>();
+    saving = false;
 
     confirmationText = 'Czy na pewnoe chcesz to zrobić ??!';
 
     constructor(private datePipe: DatePipe) { }
 
     ngOnInit(): void {
+        this.saving = false;
         if (this.type === 'removeMember') {
             this.confirmationText = 'Czy na pewno chcesz usunąć członka ' + this.data.firstName + ' ' + this.data.lastName + ' ?'
         }
@@ -57,6 +59,7 @@ export class ConfirmationComponent implements OnInit {
 
     confirm(){
         this.onConfirm.emit(true);
+        this.saving = true;
     }
 
     abort(){

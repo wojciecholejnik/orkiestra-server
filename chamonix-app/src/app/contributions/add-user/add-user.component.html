@@ -5,12 +5,12 @@
         <h2>Edytuj użytkowników</h2>
         <p class="confirmation">rok:<strong>{{' ' + year}}</strong></p>
 
-        <div class="actions">
-            <button class="btn btn-primary" (click)="checkAll('check')">Wszyscy</button>
-            <button class="btn btn-primary" (click)="checkAll('uncheck')">Nikt</button>
+        <div class="actions" *ngIf="!membersLoading && allMembers">
+            <button [disabled]="saving" class="btn btn-primary" (click)="checkAll('check')">Wszyscy</button>
+            <button [disabled]="saving" class="btn btn-primary" (click)="checkAll('uncheck')">Nikt</button>
         </div>
 
-        <div class="table-wrapper">
+        <div class="table-wrapper" *ngIf="!membersLoading && allMembers">
             <table class="table table-stripped">
                 <thead>
                     <th></th>
@@ -27,10 +27,18 @@
                 </tbody>
             </table>
         </div>
+        <div class="members-loading" *ngIf="membersLoading">
+            <app-loading></app-loading>
+        </div>
+        <div class="member-failed-loaded-message" *ngIf="!membersLoading && membersLoadingFailedMessage">
+            {{membersLoadingFailedMessage}}
+        </div>
 
         <div class="buttons-wrapper">
-            <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
-            <button class="btn btn-primary" (click)="save()">Potwierdź</button>
+            <button class="btn btn-secondary" (click)="closeModal()" [disabled]="saving">Anuluj</button>
+            <button class="btn btn-primary" (click)="save()" [disabled]="membersLoadingFailedMessage || saving">{{
+                saving ? 'Zapisywanie...' : 'Potwierdź'
+            }}</button>
         </div>
     </div>
 

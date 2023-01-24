@@ -6,8 +6,8 @@
         <p class="confirmation">{{confirmationText}}</p>
 
         <div class="buttons-wrapper">
-            <button class="btn btn-secondary" (click)="abort()">Anuluj</button>
-            <button class="btn btn-primary" (click)="confirm()">Potwierdź</button>
+            <button [disabled]="saving" class="btn btn-secondary" (click)="abort()">Anuluj</button>
+            <button [disabled]="saving" class="btn btn-primary" (click)="confirm()">{{saving ? 'Zapisywanie...' : 'Potwierdź'}}</button>
         </div>
 
     </div>
