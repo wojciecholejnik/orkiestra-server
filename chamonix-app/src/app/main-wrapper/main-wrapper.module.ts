@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DiaryModule } from '../diary/diary.module';
 import { ContributionsModule } from '../contributions/contributions.module';
 import { ManageComponent } from './header/manage/manage.component';
+import { CalendarModule } from '../calendar/calendar.module';
 
 
 
@@ -32,7 +33,8 @@ import { ManageComponent } from './header/manage/manage.component';
         FormsModule,
         ReactiveFormsModule,
         DiaryModule,
-        ContributionsModule
+        ContributionsModule,
+        CalendarModule
     ],
     exports: [
         MainWrapperComponent
