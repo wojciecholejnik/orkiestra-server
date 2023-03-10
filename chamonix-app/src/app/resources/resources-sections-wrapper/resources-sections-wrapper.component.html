@@ -1,3 +1,6 @@
 <ng-container *ngFor="let section of sections; trackBy: trackByFn">
-    <app-resources-section-group *ngIf="section" [section]="section"></app-resources-section-group>
+    <app-resources-section-group *ngIf="!loading && section" [section]="section"></app-resources-section-group>
 </ng-container>
+<div class="loading-wrapper" *ngIf="loading">
+    <app-loading></app-loading>
+</div>

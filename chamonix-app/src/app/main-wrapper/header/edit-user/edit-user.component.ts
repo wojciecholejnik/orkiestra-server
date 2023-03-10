@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -15,7 +16,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     loggedUser?: User;
     form?: FormGroup;
     _editUser?: Subscription;
-    error = false;
+    error = '';
 
     constructor(
         private navigationService: NavigationService,
@@ -105,8 +106,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
                 next: () => {
                     this.navigationService.isUserLogged.next(false);
                 },
-                error: () => {
-                    this.error = true;
+                error: (e: HttpErrorResponse ) => {
+                    this.error = e.error.message;
                 }
             })
         }

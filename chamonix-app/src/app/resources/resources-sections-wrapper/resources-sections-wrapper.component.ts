@@ -13,6 +13,7 @@ export class ResourcesSectionsWrapperComponent implements OnInit, OnDestroy {
     _sections?: Subscription;
     _sectionsShouldGet?: Subscription;
     sections: any[] = [];
+    loading = false;
 
     constructor(private resourcesService: ResourcesService) { }
 
@@ -24,7 +25,11 @@ export class ResourcesSectionsWrapperComponent implements OnInit, OnDestroy {
     }
 
     getSections() {
-        this._sections = this.resourcesService.getSections().subscribe(sections => this.sections = sections);
+        this.loading = true;
+        this._sections = this.resourcesService.getSections().subscribe(sections => {
+            this.sections = sections;
+            this.loading = false;
+        });
     }
 
     ngOnDestroy(): void {

@@ -32,6 +32,9 @@
                 <input id="new-password-2" type="password" autocomplete="off" formControlName="newPassword2">
             </div>
         </form>
+        <div class="error-message">
+            <p>{{error}}</p>
+        </div>
 
         <div class="buttons-wrapper">
             <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>

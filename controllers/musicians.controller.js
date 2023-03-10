@@ -334,17 +334,22 @@ exports.editUser = async (req, res) => {
     
     if (user) {
       if (user.password === req.body.password) {
-        await Musician.updateOne({_id: req.body.id}, {$set: {
-          name: req.body.name ? req.body.name : user.name,
-          password: req.body.password1 ? req.body.password1 : user.password,
-          login: req.body.login ? req.body.login : user.login,
-          role: req.body.role ? req.body.role : user.role,
-        }})
-        await user.save();
-        res.json("user updated")
+        const isLoginExist = await Musician.findOne({login: req.body.login});
+        if (!isLoginExist || (isLoginExist._id.equals(user._id))) {
+          await Musician.updateOne({_id: req.body.id}, {$set: {
+            name: req.body.name ? req.body.name : user.name,
+            password: req.body.password1 ? req.body.password1 : user.password,
+            login: req.body.login ? req.body.login : user.login,
+            role: req.body.role ? req.body.role : user.role,
+          }})
+          await user.save();
+          res.json("user updated")
+        } else {
+          res.status(402).json({message: "Taki login już istnieje"})
+        }
       }
       else {
-        res.status(404).json({ message: 'invalid credentials'});
+        res.status(404).json({ message: 'Podane hasło jest niewłaściwe'});
       }
     } else {
       res.status(404).json({ message: 'user not found'});

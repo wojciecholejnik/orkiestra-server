@@ -20,6 +20,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
   @Output() disableButtons: EventEmitter<boolean> = new EventEmitter();
   addingNewLessonMode = false;
   editingLessonMode = false;
+  saving = false;
   confirmDeleteIsOpen = false;
   lessonToDelete?: Lesson;
   newLesson: Lesson = {} as Lesson;
@@ -99,6 +100,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
 
   saveNewLesson(): void {
     if (this.areAllUserMatched() && this.canEditPresence()) {
+      this.saving = true;
       const DTO = {
         date: new Date(this.newLesson.date),
         type: this.newLesson.type,
@@ -111,6 +113,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
           this.addingNewLessonMode = false;
           this.newLesson = {} as Lesson;
           this.disableButtons.emit(false);
+          this.saving = false;
         })
       }
       if (this.editingLessonMode) {
@@ -120,6 +123,7 @@ export class DiaryTableComponent implements OnInit, OnDestroy {
           this.editingLessonMode = false;
           this.newLesson = {} as Lesson;
           this.disableButtons.emit(false);
+          this.saving = false;
         })
       }
     }

@@ -43,6 +43,7 @@ export class DiaryOrchestraLessonsComponent implements OnInit, OnDestroy {
     }
 
     getPresences(): void {
+      this.presencesLoading = true;
         this._presences = this.diaryService.readPresences().subscribe(presences => {
             this.presences = presences.map((lesson: Lesson) => ({...lesson, date: new Date(lesson.date)}));
             this.filterLessons();

@@ -1,7 +1,7 @@
 
 <div *ngIf="canEditPresence()" class="action-buttons">
-  <button [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">Zapisz</button>
-  <button [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
+  <button [disabled]="saving" [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">{{saving ? 'Zapisywanie...' : 'Zapisz'}}</button>
+  <button [disabled]="saving" [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
   <button *ngIf="!addingNewLessonMode" class="btn btn-primary" (click)="addNewLesson()"><i class="bi bi-plus"></i>Dodaj</button>
 </div>
 
@@ -109,8 +109,8 @@
 </div>
 
 <div class="action-buttons">
-  <button [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">Zapisz</button>
-  <button [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
+  <button [disabled]="saving" [hidden]="!addingNewLessonMode" class="btn btn-primary" (click)="saveNewLesson()">{{saving ? 'Zapisywanie...' : 'Zapisz'}}</button>
+  <button [disabled]="saving" [hidden]="!addingNewLessonMode" class="btn btn-danger" (click)="abortAddNewLesson()">Anuluj</button>
 </div>
 
 <div *ngIf="!loading && !dataToShow.length" class="card no-events-info">

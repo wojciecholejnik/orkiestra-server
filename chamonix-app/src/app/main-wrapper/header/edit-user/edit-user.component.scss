@@ -18,3 +18,11 @@ form {
         }
     }
 }
+
+.error-message {
+    
+    height: 40px;
+    p {
+        color: $origin-red;
+    }
+}
