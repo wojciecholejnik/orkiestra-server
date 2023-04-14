@@ -16,7 +16,7 @@ const sortByLastName = function(a, b) {
 }
 
 exports.createMusician = async (req, res) => {
-  const newMusician = {...req.body, role: "3", login: '', password: '', contributionsAccounts: 0};
+  const newMusician = {...req.body, role: "3", login: '', password: '', contributionsAccount: 0};
 
   try {
     const musician = new Musician(newMusician);
