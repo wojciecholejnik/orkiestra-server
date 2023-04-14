@@ -1,0 +1,24 @@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>lp</th>
+            <th>Nazwa</th>
+            <th>Data</th>
+            <th>Członkowie</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let event of list; let i = index">
+            <tr>
+                <td>{{i+1}}</td>
+                <td>{{event.title}}</td>
+                <td>
+                    <ng-container>{{(event.dateFrom | date:'dd.MM.YYY')}}</ng-container>
+                    <ng-container *ngIf="event.dateTo">{{" - " + (event.dateTo | date:'dd.MM.YYYY')}}</ng-container>
+                </td>
+                <td>{{event.membersParticipating.length + event.externalMembers.length}}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>

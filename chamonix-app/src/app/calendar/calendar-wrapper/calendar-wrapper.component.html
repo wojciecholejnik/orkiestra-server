@@ -1,1 +1,19 @@
-<p>calendar-wrapper works!</p>
+<div class="module-container">
+    <div class="year-selector">
+        <button class="btn btn-primary" (click)="goPreviousYear()"><i class="bi bi-chevron-left"></i></button>
+        <span>{{ showingYear }}</span>
+        <button class="btn btn-primary" (click)="goNextYear()"><i class="bi bi-chevron-right"></i></button>
+    </div>
+
+    <div *ngIf="loading" class="loading-wrapper">
+        <app-loading></app-loading>
+    </div>
+
+    <div class="no-list-info" *ngIf="!listToShow && !loading">
+        Dla wybranego roku nie ma jeszcze żadnych wydarzeń.
+    </div>
+
+    <div class="table-wrapper" *ngIf="listToShow  && !loading">
+        <app-events-list  [list]="listToShow"></app-events-list>
+    </div>
+</div>
