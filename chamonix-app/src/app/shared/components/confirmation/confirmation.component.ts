@@ -55,6 +55,10 @@ export class ConfirmationComponent implements OnInit {
         if (this.type === 'removeContributionList') {
             this.confirmationText = 'Czy na pewno usunąć listę składek za rok ' + this.data.year + ' ?'
         }
+
+        if (this.type === 'removeEvent') {
+            this.confirmationText = 'Czy na pewno usunąć wydarzenie ' + this.data.title + ' ?'
+        }
     }
 
     confirm(){

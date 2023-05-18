@@ -1,0 +1,124 @@
+<div class="trigger">
+    <button class="btn btn-primary" (click)="openModal()">Dodaj wydarzenie</button>
+</div>
+
+<app-modal-wrapper *ngIf="isOpen">
+    <div class="action-modal">
+        <div class="loading-wrapper" *ngIf="requestPending"><app-loading></app-loading></div>
+        <ng-container *ngIf="!requestPending">
+            <h2>{{eventToEdit ? "Edytuj wydarzenie" : "Dodaj wydarzenie"}}</h2>
+            <div class="wrapper">
+                <div class="control">
+                    <p class="control-label">Nazwa: </p>
+                    <div class="control-value">
+                        <input
+                            class="form-control"
+                            type="text"
+                            [(ngModel)]="newEvent.title"
+                        />
+                    </div>
+                </div>
+
+                <div class="control">
+                    <p class="control-label">Data rozpoczęcia: </p>
+                    <div class="control-value">
+                        <input
+                            class="form-control"
+                            placeholder="yyyy-mm-dd"
+                            type="date"
+                            [(ngModel)]="newEvent.dateFrom"
+                        />
+                    </div>
+                </div>
+
+                <div class="control">
+                    <p class="control-label">Data zakończenia: </p>
+                    <div class="control-value">
+                        <input
+                            class="form-control"
+                            placeholder="yyyy-mm-dd"
+                            type="date"
+                            [(ngModel)]="newEvent.dateTo"
+                        />
+                    </div>
+                </div>
+                
+                <div class="control">
+                    <p class="control-label">Adres: </p>
+                    <div class="control-value">
+                        <textarea id="address" cols="2" [(ngModel)]="newEvent.address"></textarea>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <p class="control-label">Opis:</p>
+                    <div class="control-value">
+                        <textarea id="description" class="description" [(ngModel)]="newEvent.description"></textarea>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <p class="control-label pointer" (click)="toggleMembersLIstVisible()">Członkowie: </p>
+                    <div class="control-value event-members">
+
+                        <div class="present">
+                            <p class="member-stat-header">{{'Obecni: ' + count(true)}}</p>
+                            <ng-container *ngIf="memberListVisible">
+                                <ng-container *ngFor="let member of eventMembers; let i = index">
+                                    <div class="member"  *ngIf="member.present"  (click)="togglePresence(i)">
+                                        <p>{{member.firstName + ' ' + member.lastName}}</p>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+
+                        <div class="unpresent">
+                            <p class="member-stat-header">{{'Nieobecni: ' + count(false)}}</p>
+                            <ng-container *ngIf="memberListVisible">
+                                <ng-container *ngFor="let member of eventMembers; let i = index">
+                                    <div class="member"  *ngIf="!member.present" (click)="togglePresence(i)">
+                                        <p>{{member.firstName + ' ' + member.lastName}}</p>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <p class="control-label pointer" (click)="toggleExternalMembersLIstVisible()">Członkowie zewnętrzni: </p>
+                    <div class="control-value external-members" *ngIf="externalMemberListVisible">
+                        <div class="external-member new-external-member">
+                            <input type="text" placeholder="imię i nazwisko" [(ngModel)]="newExternalMember.name">
+                            <input type="text" placeholder="instrument/rola" [(ngModel)]="newExternalMember.instrument">
+                            <input type="phone" placeholder="telefon" [(ngModel)]="newExternalMember.phone">
+                            <div class="buttons-wrapper">
+                                <button class="btn btn-primary btn-sm" (click)="addExternalMember()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></button>
+                                <button class="btn btn-secondary btn-sm" (click)="clearNewExternalMember()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>    
+                            </div>
+                        </div>
+                        <div class="external-member" *ngFor="let externalMember of externalEventMembers; let i = index" >
+                            <p>{{externalMember.name}}</p>
+                            <p>{{externalMember.instrument}}</p>
+                            <p>{{'tel: ' + externalMember.phone }}</p>
+                            <div class="buttons-wrapper" (click)="removeExternalMember(i)">
+                                <button class="btn btn-secondary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg></button>    
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="control-value" *ngIf="!externalMemberListVisible">
+                        {{externalEventMembers.length > 0 ? externalEventMembers.length : 'brak'}}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="buttons-wrapper">
+                <button class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+                <button class="btn btn-primary" (click)="saveEvent()">Zapisz</button>
+            </div>
+        </ng-container>
+    </div>
+</app-modal-wrapper>

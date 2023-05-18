@@ -1,0 +1,58 @@
+<app-modal-wrapper *ngIf="selectedEvent">
+    <div class="action-modal">
+
+        <h2>{{selectedEvent.title}}</h2>
+        <div class="wrapper">
+            <div class="control">
+                <p class="control-label">Data: </p>
+                <div class="control-value">
+                    {{selectedEvent.dateFrom | date:'dd.MM.YYYY'}}
+                    <ng-container *ngIf="selectedEvent.dateTo">
+                        {{' - '}}
+                        {{selectedEvent.dateTo | date:'dd.MM.YYYY'}}
+                    </ng-container>
+                </div>
+            </div>
+            
+            <div class="control">
+                <p class="control-label">Adres: </p>
+                <div class="control-value">
+                    <textarea cols="2" disabled>{{selectedEvent.address}}</textarea>
+                </div>
+            </div>
+
+            <div class="control">
+                <p class="control-label">Opis:</p>
+                <div class="control-value">
+                    <textarea class="description" disabled [value]="selectedEvent.description"></textarea>
+                </div>
+            </div>
+
+            <div class="control">
+                <p class="control-label">Członkowie zewnętrzni: </p>
+                <div class="control-value external-members">
+                    <div class="external-member" *ngFor="let externalMember of selectedEvent.externalMembers" >
+                        <p>{{externalMember.name}}</p>
+                        <p>{{externalMember.instrument}}</p>
+                        <p>{{'tel: ' + externalMember.phone }}</p>
+                    </div>
+                    <div *ngIf="selectedEvent.externalMembers.length == 0">Brak</div>
+                </div>
+            </div>
+
+            <div class="control">
+                <p class="control-label">Członkowie: </p>
+                <div class="control-value external-members">
+                    <div class="member" *ngFor="let member of selectedEvent.members" >
+                        <p>{{member.firstName + ' ' + member.lastName}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons-wrapper" [class.middle]="!userCanChange()">
+            <button *ngIf="userCanChange()" class="btn btn-primary" (click)="edit()">Edytuj</button>
+            <button class="btn btn-secondary" (click)="closeModal()">Zamknij</button>
+        </div>
+    </div>
+</app-modal-wrapper>

@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { Roles } from 'src/app/shared/models';
 import { ToastService } from 'src/app/shared/toast-service/toast.service';
 import { CalendarService } from '../calendar.service';
+import { OrchEvent } from '../calendar-types';
 
 @Component({
   selector: 'app-calendar-wrapper',
   templateUrl: './calendar-wrapper.component.html',
   styleUrls: ['./calendar-wrapper.component.scss']
 })
-export class CalendarWrapperComponent implements OnInit {
+export class CalendarWrapperComponent implements OnInit, OnDestroy {
 
   constructor(
     private calendarService: CalendarService,
@@ -20,100 +21,43 @@ export class CalendarWrapperComponent implements OnInit {
   canEdit = false;
   deviceType = 'laptop';
   loading = false;
-  listToShow: any[] = [];
-  currentYear: number = new Date().getFullYear();
+  events: OrchEvent[] = [];
   showingYear: number = new Date().getFullYear();
+  detailsModalIsOpen = false;
 
-  $deviceType?: Subscription;
-  $list?: Subscription;
+  private _deviceType?: Subscription;
+  private _events?: Subscription;
+  private _showingYear?: Subscription;
+  private _detailsModalIsOpen?: Subscription;
+  private _loading?: Subscription;
 
   ngOnInit(): void {
-    this.$deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
-    // this.$list = this.calendarService.listToShow.subscribe(list => {
-    //   this.listToShow = list;
-    //   if (list.year || list.error) {
-    //     this.loading = false;
-    //   }
-    //   if (list.year) {
-    //     this.showingYear = list.year
-    //   }
-    // });
-    //this.calendarService.getListForYear(this.currentYear);
-    this.canEdit = this.navigationService.getUser()?.role === Roles.bandDirector
-    this.listToShow = this.mockedEvents;
+    this.canEdit = this.navigationService.getUser()?.role === Roles.bandDirector;
+    this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
+    this._events = this.calendarService.$events.subscribe(events => this.events = events);
+    this._showingYear = this.calendarService.$showingYear.subscribe(year => this.showingYear = year);
+    this._detailsModalIsOpen = this.calendarService.$detailsModalIsOpen.subscribe(state => this.detailsModalIsOpen = state);
+    this._loading = this.calendarService.$loading.subscribe(state => this.loading = state);
+    this.calendarService.getEvents()
   }
 
   ngOnDestroy(): void {
-    this.$deviceType?.unsubscribe();
-    this.$list?.unsubscribe();
+    this._deviceType?.unsubscribe();
+    this._events?.unsubscribe();
+    this._showingYear?.unsubscribe();
+    this._detailsModalIsOpen?.unsubscribe();
+    this._loading?.unsubscribe();
   }
 
   goNextYear(){
-    this.loading = true;
-    this.showingYear += 1;
-    // this.contribubtionsService.getListForYear(this.showingYear);
+    this.calendarService.goNextYear()
   }
 
   goPreviousYear(){
-    this.loading = true;
-    this.showingYear -= 1;
-    // this.contribubtionsService.getListForYear(this.showingYear);
+    this.calendarService.goPreviousYear()
   }
 
-  mockedEvents = [
-    {
-      _id: '12eqdas2312',
-      dateFrom: new Date(),
-      dateTo: new Date(new Date().setDate(new Date().getDate() + 1)),
-      title: "Warsztaty orkiestrowe",
-      membersParticipating: [
-        {
-          _id: "6367b0005c83ed6633e28fcf",
-          firstName: "Anna",
-          lastName: "Adamczyk"
-        },
-        {
-          _id: "63679e3c5c83ed6633e28d7e",
-          firstName: "Magdalena",
-          lastName: "Adamczyk"
-        },
-        {
-          _id: "63679daf5c83ed6633e28d66",
-          firstName: "Artur",
-          lastName: "Duszczyk"
-        }
-      ],
-      externalMembers: [
-        {
-          name: "Ryszard Śliwa",
-          phone: "123456789"
-        }
-      ]
-    },
-    {
-      _id: '12eqdas2312',
-      dateFrom: new Date(new Date().setDate(new Date().getDate() -20)),
-      dateTo: null,
-      title: "Koncert",
-      membersParticipating: [
-        {
-          _id: "6367b0005c83ed6633e28fcf",
-          firstName: "Anna",
-          lastName: "Adamczyk"
-        },
-        {
-          _id: "63679e3c5c83ed6633e28d7e",
-          firstName: "Magdalena",
-          lastName: "Adamczyk"
-        },
-        {
-          _id: "63679daf5c83ed6633e28d66",
-          firstName: "Artur",
-          lastName: "Duszczyk"
-        }
-      ],
-      externalMembers: []
-    }
-  ]
-
+  userCanChange(): boolean {
+    return this.calendarService.canUserChangeEvent()
+  }
 }

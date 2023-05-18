@@ -1,0 +1,18 @@
+@import'../../../global-styling/colors.scss';
+
+tbody {
+    tr {
+        background-color: white;
+    }
+    
+    tr:hover {
+        background: $background-light-gray;
+        cursor: pointer;
+        color: $origin-red;
+    }
+}
+
+.action-buttons {
+    display: flex;
+    gap: 4px;
+}

@@ -8,9 +8,9 @@ import { Privileges, User, Roles, PrivilegesTypes, DeviceType } from '../shared/
 export class NavigationService  {
 
     activeModule: BehaviorSubject<any> = new BehaviorSubject([
-        {name: 'Członkowie', isActive: false},
+        {name: 'Członkowie', isActive: true},
         {name: 'Dziennik', isActive: false},
-        {name: 'Kalendarz', isActive: true},
+        {name: 'Kalendarz', isActive: false},
         {name: 'Zasoby', isActive: false},
         {name: 'Składki', isActive: false},
     ]);

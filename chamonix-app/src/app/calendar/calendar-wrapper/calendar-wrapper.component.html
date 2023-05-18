@@ -9,11 +9,14 @@
         <app-loading></app-loading>
     </div>
 
-    <div class="no-list-info" *ngIf="!listToShow && !loading">
+    <div class="no-list-info" *ngIf="events.length === 0 && !loading">
         Dla wybranego roku nie ma jeszcze żadnych wydarzeń.
     </div>
 
-    <div class="table-wrapper" *ngIf="listToShow  && !loading">
-        <app-events-list  [list]="listToShow"></app-events-list>
+    <div class="table-wrapper" *ngIf="events.length > 0 && !loading">
+        <app-events-list  [list]="events"></app-events-list>
     </div>
 </div>
+
+<app-event-details *ngIf="detailsModalIsOpen"></app-event-details>
+<app-new-event *ngIf="userCanChange()"></app-new-event>

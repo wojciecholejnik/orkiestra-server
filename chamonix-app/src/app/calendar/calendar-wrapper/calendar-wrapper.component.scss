@@ -1,5 +1,9 @@
 @import '../../../global-styling/mixins.scss';
 
+:host {
+  position: relative;
+}
+
 .module-container {
   padding: 10px;
   margin-bottom: 15px;
