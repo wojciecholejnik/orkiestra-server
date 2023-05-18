@@ -240,4 +240,5 @@ export type ConfirmationModalType =
 | 'removeInstrumentFromSection'
 | 'deletePresence'
 | 'removeContributionList'
+| 'removeEvent'
 | '';

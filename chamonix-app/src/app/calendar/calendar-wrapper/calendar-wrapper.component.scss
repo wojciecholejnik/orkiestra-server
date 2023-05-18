@@ -1,0 +1,52 @@
+@import '../../../global-styling/mixins.scss';
+
+:host {
+  position: relative;
+}
+
+.module-container {
+  padding: 10px;
+  margin-bottom: 15px;
+  height: calc(100vh - 140px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include phone {
+    display: block;
+  }
+}
+
+.table-wrapper {
+  
+  overflow: auto;
+}
+
+.year-selector {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  
+  span {
+    width: 125px;
+    text-align: center;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.no-list-info, .loading-wrapper {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

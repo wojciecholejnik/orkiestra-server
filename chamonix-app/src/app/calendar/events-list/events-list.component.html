@@ -1,0 +1,43 @@
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>lp</th>
+            <th>Nazwa</th>
+            <th>Data</th>
+            <th>Członkowie</th>
+            <th *ngIf="userCanChange()">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let event of list; let i = index">
+            <tr>
+                <td (click)="openModalDetails(event)">{{i+1}}</td>
+                <td (click)="openModalDetails(event)">{{event.title}}</td>
+                <td (click)="openModalDetails(event)">
+                    <ng-container>{{(event.dateFrom | date:'dd.MM.YYY')}}</ng-container>
+                    <ng-container *ngIf="event.dateTo && event.dateTo.length > 0">{{" - " + (event.dateTo | date:'dd.MM.YYYY')}}</ng-container>
+                </td>
+                <td (click)="openModalDetails(event)">{{event.members.length + event.externalMembers.length}}</td>
+                <td *ngIf="userCanChange()">
+                    <div class="action-buttons">
+                        <button class="btn btn-primary btn-sm"
+                            (click)="startEdit(event)"
+                        ><i class="bi bi-pencil"></i></button>
+                        <button class="btn btn-danger btn-sm"
+                            (click)="openRemoveModal(event)"
+                        ><i class="bi bi-trash3"></i></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
+
+<app-confirmation
+    *ngIf="removeEventModalOpen"
+    (onConfirm)="removeEvent()"
+    (onAbort)="abortRemove()"
+    [data]="eventToRemove"
+    [type]="'removeEvent'"
+></app-confirmation>
