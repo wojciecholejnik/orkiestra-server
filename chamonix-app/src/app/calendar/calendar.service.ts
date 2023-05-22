@@ -99,5 +99,4 @@ export class CalendarService implements OnDestroy {
     || this.navigationService.getUser()?.role === Roles.inspector
   }
 
-
 }

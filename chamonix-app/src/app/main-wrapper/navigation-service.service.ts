@@ -1,5 +1,5 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject, Subscription } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Privileges, User, Roles, PrivilegesTypes, DeviceType } from '../shared/models';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class NavigationService  {
         {name: 'Zasoby', isActive: false},
         {name: 'Składki', isActive: false},
     ]);
-    deviceType: BehaviorSubject<any> = new BehaviorSubject('laptop');
+    deviceType: BehaviorSubject<DeviceType> = new BehaviorSubject<DeviceType>(DeviceType.laptop);
     isUserLogged: Subject<any> = new Subject();
     private user?: User;
     private privileges: Privileges = {} as Privileges;
@@ -23,13 +23,13 @@ export class NavigationService  {
 
   setScreenWidth() {
     const width = window.innerWidth;
-    let type = '';
+    let type = DeviceType.laptop;
     if (width <= 801) {
-      type = 'phone';
+      type = DeviceType.phone;
     } else if (width > 801 && width <= 1200) {
-      type = 'tablet'
+      type = DeviceType.tablet
     } else {
-      type = 'laptop'
+      type = DeviceType.laptop
     }
 
     this.deviceType.next(type);

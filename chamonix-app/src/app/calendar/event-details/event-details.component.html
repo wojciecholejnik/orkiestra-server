@@ -29,23 +29,62 @@
             </div>
 
             <div class="control">
-                <p class="control-label">Członkowie zewnętrzni: </p>
-                <div class="control-value external-members">
-                    <div class="external-member" *ngFor="let externalMember of selectedEvent.externalMembers" >
-                        <p>{{externalMember.name}}</p>
-                        <p>{{externalMember.instrument}}</p>
-                        <p>{{'tel: ' + externalMember.phone }}</p>
-                    </div>
-                    <div *ngIf="selectedEvent.externalMembers.length == 0">Brak</div>
+                <p class="control-label">Mój status: </p>
+                    <ng-container *ngIf="isFromFuture(selectedEvent.dateFrom)">
+                        <div class=" control-value external-members toggleMyStatus">
+                            <div class="member">
+                                <p>{{renderMyStatus()}}</p>
+                            </div>
+                            <div class="member">
+                                <button 
+                                    [disabled]="changeStatusPending"
+                                    class="btn btn-sm btn-primary"
+                                    (click)="changeMyStatus()"
+                                >
+                                    {{changeStatusPending ? 'zapisywanie' : 'Zmień'}}</button>
+                            </div>
+                        </div> 
+                    </ng-container>
+                    <ng-container *ngIf="!isFromFuture(selectedEvent.dateFrom)">
+                        <div class="control-value external-members">
+                            <div class="member" >
+                                <p>{{renderMyStatus()}}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+            </div>
+
+            <div class="control">
+                <p class="control-label pointer" (click)="toggleMembersOpen()">Członkowie: </p>
+                <div class="control-value external-members pointer" (click)="toggleMembersOpen()">
+                    <ng-container *ngIf="!membersOpen">
+                        <div class="member" >
+                            <p>{{selectedEvent.members.length}}</p>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="membersOpen">
+                        <div class="member" *ngFor="let member of selectedEvent.members" >
+                            <p>{{member.firstName + ' ' + member.lastName}}</p>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
 
             <div class="control">
-                <p class="control-label">Członkowie: </p>
-                <div class="control-value external-members">
-                    <div class="member" *ngFor="let member of selectedEvent.members" >
-                        <p>{{member.firstName + ' ' + member.lastName}}</p>
-                    </div>
+                <p class="control-label pointer" (click)="toggleExternalMembersOpen()">Członkowie zewnętrzni: </p>
+                <div class="control-value external-members pointer" >
+                    <ng-container *ngIf="!externalMembersOpen">
+                        <div class="member" (click)="toggleExternalMembersOpen()">
+                            <p>{{selectedEvent.externalMembers.length}}</p>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="externalMembersOpen">
+                        <div class="external-member" *ngFor="let externalMember of selectedEvent.externalMembers" (click)="toggleExternalMembersOpen()">
+                            <p>{{externalMember.name}}</p>
+                            <p>{{externalMember.instrument}}</p>
+                            <p>{{'tel: ' + (externalMember.phone ? externalMember.phone : '---')}}</p>
+                        </div>
+                    </ng-container>
                 </div>
             </div>
         </div>

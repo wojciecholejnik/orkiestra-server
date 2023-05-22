@@ -1,3 +1,4 @@
+@import '../../../global-styling/mixins.scss';
 
 $border: 1px solid black;
 
@@ -145,4 +146,23 @@ textarea {
     &:hover {
         color: #17537e;
     }
+}
+
+@include phone {
+    .trigger {
+        position: unset;
+        text-align: center;
+        margin: 6px auto;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .control p.control-label {
+        width: 30%;
+        text-align: start;
+    }
+
 }

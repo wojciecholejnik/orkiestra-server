@@ -13,7 +13,7 @@ export class ContributionsTableComponent implements OnInit, OnDestroy {
   modalIsOpen = false;
   memberToModal?: ContributionListMember;
   $deviceType?: Subscription;
-  deviceType: DeviceType = 'laptop';
+  deviceType: DeviceType = DeviceType.laptop;
   canEdit = false;
 
   constructor(private navigationService: NavigationService) { }

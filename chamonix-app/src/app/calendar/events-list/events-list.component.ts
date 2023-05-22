@@ -59,4 +59,8 @@ export class EventsListComponent implements OnInit, OnDestroy {
     return this.calendarService.canUserChangeEvent()
   }
 
+  isFromPast(date: string): boolean {
+    return new Date(date) < new Date()
+  }
+
 }

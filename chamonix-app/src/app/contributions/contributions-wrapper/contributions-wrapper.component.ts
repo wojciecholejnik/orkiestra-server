@@ -22,7 +22,7 @@ export class ContributionsWrapperComponent implements OnInit, OnDestroy {
   removeListModalOpen = false;
   $removeList?: Subscription;
   loading = true;
-  deviceType: DeviceType = 'laptop';
+  deviceType: DeviceType = DeviceType.laptop;
   canEdit = false;
 
   constructor(

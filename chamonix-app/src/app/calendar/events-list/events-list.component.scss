@@ -1,8 +1,16 @@
 @import'../../../global-styling/colors.scss';
 
+table {
+    font-size: 13px;
+}
+
 tbody {
     tr {
-        background-color: white;
+        background-color: $light-green;
+
+        &.deprecated {
+            background-color: $background-light-gray;
+        }
     }
     
     tr:hover {

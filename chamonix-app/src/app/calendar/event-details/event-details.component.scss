@@ -1,3 +1,5 @@
+@import '../../../global-styling/mixins.scss';
+
 .action-modal {
     width: 800px;
     max-height: 600px;
@@ -18,10 +20,12 @@
     p.control-label {
         width: 20%;
         text-align: start;
+        font-size: 13px;
     }
 
     div.control-value {
         width: 80%;
+        font-size: 13px;
 
         &.external-members {
             display: flex;
@@ -38,6 +42,10 @@
                 border-bottom: 1px solid lightgray;
                 padding: 6px;
                 width: 40%;
+
+                button {
+                    width: 100%;
+                }
             }
         }
     }
@@ -55,4 +63,23 @@ textarea {
 
 .buttons-wrapper.middle {
     justify-content: center;
+}
+
+@include phone {
+
+    .action-modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .control p.control-label {
+        width: 30%;
+        text-align: start;
+    }
+
 }

@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <ng-container *ngFor="let event of list; let i = index">
-            <tr>
+            <tr [class.deprecated]="isFromPast(event.dateFrom)">
                 <td (click)="openModalDetails(event)">{{i+1}}</td>
                 <td (click)="openModalDetails(event)">{{event.title}}</td>
                 <td (click)="openModalDetails(event)">

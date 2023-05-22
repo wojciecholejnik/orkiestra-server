@@ -3,6 +3,8 @@ import { CalendarService } from '../calendar.service';
 import { Subscription } from 'rxjs';
 import { EventExternalMember, OrchEvent, OrchEventDTO } from '../calendar-types';
 import { MembersService } from 'src/app/members/members.service';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
+import { DeviceType } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-new-event',
@@ -34,15 +36,18 @@ export class NewEventComponent implements OnInit, OnDestroy {
   newEvent: OrchEventDTO = {...this.emptyEvent}
   eventToEdit?: OrchEvent;
   requestPending = false;
+  device: DeviceType = DeviceType.laptop
 
   private _isOpen?: Subscription;
   private _activeMembers?: Subscription;
   private _addNewEvent?: Subscription;
   private _editEventModalIsOpen?: Subscription;
+  private _device?: Subscription;
 
-  constructor(private calendarService: CalendarService, private membersService: MembersService) { }
+  constructor(private calendarService: CalendarService, private membersService: MembersService, private navigationService: NavigationService) { }
 
   ngOnInit(): void {
+    this._device = this.navigationService.deviceType.subscribe(type => this.device = type)
     this._isOpen = this.calendarService.$addNewEventModalIsOpen.subscribe(state => this.isOpen = state);
     this._editEventModalIsOpen = this.calendarService.$editEventModalIsOpen.subscribe(item => {
       this.eventToEdit = item;
@@ -55,6 +60,7 @@ export class NewEventComponent implements OnInit, OnDestroy {
             present: this.eventToEdit!.members.find(item => item._id === member._id) ? true : false
           }
         ))
+        this.externalEventMembers = this.eventToEdit.externalMembers;
       } else {
         this.newEvent = {...this.emptyEvent};
         this.externalEventMembers = [];
@@ -160,6 +166,10 @@ export class NewEventComponent implements OnInit, OnDestroy {
           })
         }
       }
+  }
+
+  phoneDevice(): boolean {
+    return this.device === DeviceType.phone
   }
 
 }

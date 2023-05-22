@@ -163,6 +163,12 @@ export interface Privileges {
     [key: string]: boolean
 }
 
+export enum DeviceType {
+    phone = 'phone',
+    tablet = 'tablet',
+    laptop = 'laptop'
+}
+
 export type PrivilegesTypes = "addNewRoleStaff" | "editPresence" | "addNewMember" | "editResourcesInstrument" | "editResourcesUniforms";
 
 export enum Roles {
@@ -225,9 +231,6 @@ export type MemberToSend = {
         paid: boolean
     }[]
 }
-
-export type DeviceType = 'phone' | 'tablet' | 'laptop';
-
 
 export type Sorting = 'asc' | 'desc' | '';
 export type ConfirmationModalType = 
