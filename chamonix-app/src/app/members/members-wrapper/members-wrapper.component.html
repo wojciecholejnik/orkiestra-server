@@ -1,4 +1,5 @@
 <app-members-navigation></app-members-navigation>
+<router-outlet></router-outlet>
 
 <!-- current members -->
 <app-members-table *ngIf="tabs.currentMembers && membersTableIsOpen" [membersType]="'currentMembers'"></app-members-table>
@@ -11,6 +12,3 @@
 
 <!-- main staff members -->
 <app-members-table *ngIf="tabs.students && membersTableIsOpen" [membersType]="'students'"></app-members-table>
-
-<!-- member details -->
-<app-member-details [id]="memberDetailsAreOpen" *ngIf="memberDetailsAreOpen"></app-member-details>

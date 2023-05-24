@@ -4,6 +4,7 @@ import { take } from "rxjs/operators";
 import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { Member, MembersTabs, Sorting } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-members-table',
@@ -41,7 +42,10 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     editMemberisOpen = false;
     deviceType = '';
 
-    constructor(private membersService: MembersService, private navigationService: NavigationService) {}
+    constructor(
+        private membersService: MembersService,
+        private navigationService: NavigationService,
+        private _router: Router) {}
 
     ngOnInit(): void {
         this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
@@ -202,8 +206,9 @@ export class MembersTableComponent implements OnInit, OnDestroy {
     }
 
     goToDetails(id: string) {
-        this.membersService.membersTableIsOpen.next(false);
-        this.membersService.memberDetailsAreOpen.next(id);
+        this._router.navigate([`main/members/details/${id}`])
+        // this.membersService.membersTableIsOpen.next(false);
+        // this.membersService.memberDetailsAreOpen.next(id);
     }
 
     canDoActionOnMember(): boolean {

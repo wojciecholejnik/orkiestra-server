@@ -245,3 +245,17 @@ export type ConfirmationModalType =
 | 'removeContributionList'
 | 'removeEvent'
 | '';
+
+export enum NavOptions {
+    members = 'members',
+    diary = 'diary',
+    calendar = 'calendar',
+    resources = 'resources',
+    contrbutions = 'contrbutions',
+}
+
+export interface ActiveModule {
+    name: string, 
+    isActive: boolean, 
+    href: NavOptions
+}

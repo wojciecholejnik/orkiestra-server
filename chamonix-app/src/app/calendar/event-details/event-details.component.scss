@@ -17,10 +17,17 @@
     justify-content: space-between;
     margin: 10px 0;
 
-    p.control-label {
+    .control-label {
+        gap: 4px;
         width: 20%;
+        display: flex;
         text-align: start;
-        font-size: 13px;
+        justify-content: flex-start;
+        align-items: center;
+        
+        p {
+            font-size: 13px;
+        }
     }
 
     div.control-value {
@@ -77,7 +84,7 @@ textarea {
         margin: 0 auto;
     }
 
-    .control p.control-label {
+    .control .control-label {
         width: 30%;
         text-align: start;
     }

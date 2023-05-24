@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { MembersTabs } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
+import { Location } from '@angular/common'
 
 @Component({
     selector: 'app-members-navigation',
@@ -22,7 +23,7 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
     memberDetailsAreOpen = '';
     deviceType = '';
 
-    constructor(private membersService: MembersService, private navigationService: NavigationService) { }
+    constructor(private membersService: MembersService, private navigationService: NavigationService, private location: Location) { }
 
     ngOnInit(): void {
         this.activeTabSubscription = this.membersService.activeTab.subscribe(tabs => this.membersTabs = tabs);
@@ -50,6 +51,7 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
     closeDetails(){
         this.membersService.memberDetailsAreOpen.next('');
         this.membersService.membersTableIsOpen.next(true);
+        this.location.back()
     }
 
     ngOnDestroy(): void {

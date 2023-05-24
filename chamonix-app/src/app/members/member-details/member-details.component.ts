@@ -5,6 +5,8 @@ import { Member } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
 import {Clipboard} from '@angular/cdk/clipboard'
 import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-member-details',
@@ -14,22 +16,36 @@ import { NavigationService } from 'src/app/main-wrapper/navigation-service.servi
 })
 export class MemberDetailsComponent implements OnInit, OnDestroy {
 
-    @Input() id!: string;
+    // @Input() id!: string;
     detailsSubscription?: Subscription;
     memberData: Member = {} as Member;
     editMemberisOpen = false;
     loading = true;
     contactInfoIsOpen = true;
+    id: string | null = null;
   
 
-  constructor(private membersService: MembersService, private clipboard: Clipboard, private navigationService: NavigationService) { }
+  constructor(
+    private membersService: MembersService,
+    private clipboard: Clipboard,
+    private navigationService: NavigationService,
+    private route: ActivatedRoute,
+    private location: Location
+) { }
 
     ngOnInit(): void {
-        this.getData();
+        this.id = this.route.snapshot.paramMap.get('id');;
+        if (this.id) {
+            this.membersService.membersTableIsOpen.next(false);
+            this.membersService.memberDetailsAreOpen.next(this.id);
+            this.getData(this.id);
+        } else {
+            this.location.back()
+        }
     }
 
-    getData(){
-        this.detailsSubscription = this.membersService.getMemberDetails(this.id).subscribe((data) => {
+    getData(id: string){
+        this.detailsSubscription = this.membersService.getMemberDetails(id).subscribe((data) => {
             this.memberData = data;
             this.loading = false;
         });
@@ -51,7 +67,7 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
     }
 
     closeModalAndGetData(){
-        this.getData();
+        this.getData(this.id!);
         this.editMemberisOpen = false;
     }
 

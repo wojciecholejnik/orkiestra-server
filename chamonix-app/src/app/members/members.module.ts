@@ -11,7 +11,13 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MemberUniformsComponent } from './member-uniforms/member-uniforms.component';
 import { AssignUniformsComponent } from './assign-uniforms/assign-uniforms.component';
 import { MemberInstrumentsComponent } from './member-instruments/member-instruments.component';
-import { NgbDropdown, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+    { path: '', component: MembersWrapperComponent },
+    { path: 'details/:id', component: MemberDetailsComponent }
+  ];
 
 @NgModule({
     declarations: [
@@ -30,10 +36,12 @@ import { NgbDropdown, NgbModule } from '@ng-bootstrap/ng-bootstrap';
         ReactiveFormsModule,
         SharedModule,
         ClipboardModule,
-        NgbModule
+        NgbModule,
+        RouterModule
     ],
     exports: [
-        MembersWrapperComponent
+        MembersWrapperComponent,
+        RouterModule
     ]
 })
 export class MembersModule { }

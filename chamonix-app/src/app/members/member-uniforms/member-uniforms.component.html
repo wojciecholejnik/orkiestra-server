@@ -1,8 +1,18 @@
-<div class="host-container">
+<div class="host-container" [class.preview]="isUserPreview()">
     <div class="header">
-        <h4 (click)="tableIsOpen()">Umundurowanie</h4>
+        <h4 (click)="tableIsOpen()">
+            Umundurowanie 
+            <ng-container *ngIf="isUserPreview()">
+            <span>{{' -  ' + userDetails.firstName + ' ' + userDetails.lastName}}</span>
+        </ng-container></h4>
+        <button class="btn btn-primary btn-sm copy" (click)="copyUrl()">
+            <i class="bi bi-share"></i>
+        </button>
         <button *ngIf="canEditUniforms()" class="btn btn-primary btn-sm" (click)="assignUniformsIsOpen=true">
             <i class="bi bi-pencil"></i>
+        </button>
+        <button *ngIf="isUserPreview()" class="btn btn-primary btn-sm" (click)="back">
+            <i class="bi bi-arrow-left"></i>
         </button>
     </div>
     
@@ -11,6 +21,7 @@
     </div>
     
     <div class="content">
+        
         <table class="table" *ngIf="isOpen">
             <ng-container *ngFor="let group of uniformsGroups">
                 <thead>

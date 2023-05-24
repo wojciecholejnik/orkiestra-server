@@ -4,7 +4,9 @@
         <h2>{{selectedEvent.title}}</h2>
         <div class="wrapper">
             <div class="control">
-                <p class="control-label">Data: </p>
+                <div class="control-label">
+                    <p>Data:</p>
+                </div>
                 <div class="control-value">
                     {{selectedEvent.dateFrom | date:'dd.MM.YYYY'}}
                     <ng-container *ngIf="selectedEvent.dateTo">
@@ -15,21 +17,27 @@
             </div>
             
             <div class="control">
-                <p class="control-label">Adres: </p>
+                <div class="control-label">
+                    <p>Adres:</p>
+                </div>
                 <div class="control-value">
                     <textarea cols="2" disabled>{{selectedEvent.address}}</textarea>
                 </div>
             </div>
 
             <div class="control">
-                <p class="control-label">Opis:</p>
+                <div class="control-label">
+                    <p>Opis:</p>
+                </div>
                 <div class="control-value">
                     <textarea class="description" disabled [value]="selectedEvent.description"></textarea>
                 </div>
             </div>
 
             <div class="control">
-                <p class="control-label">Mój status: </p>
+                <div class="control-label">
+                    <p>Mój status:</p>
+                </div>
                     <ng-container *ngIf="isFromFuture(selectedEvent.dateFrom)">
                         <div class=" control-value external-members toggleMyStatus">
                             <div class="member">
@@ -55,7 +63,10 @@
             </div>
 
             <div class="control">
-                <p class="control-label pointer" (click)="toggleMembersOpen()">Członkowie: </p>
+                <div class="control-label pointer" (click)="toggleMembersOpen()">
+                    <p>Członkowie:</p> 
+                    <i *ngIf="selectedEvent.members.length > 0" class="bi" [class.bi-chevron-up]="membersOpen" [class.bi-chevron-down]="!membersOpen"></i>
+                </div>
                 <div class="control-value external-members pointer" (click)="toggleMembersOpen()">
                     <ng-container *ngIf="!membersOpen">
                         <div class="member" >
@@ -71,7 +82,10 @@
             </div>
 
             <div class="control">
-                <p class="control-label pointer" (click)="toggleExternalMembersOpen()">Członkowie zewnętrzni: </p>
+                <div class="control-label pointer" (click)="toggleExternalMembersOpen()">
+                    <p>Dadatkowo:</p>
+                    <i *ngIf="selectedEvent.externalMembers.length > 0" class="bi" [class.bi-chevron-up]="externalMembersOpen" [class.bi-chevron-down]="!externalMembersOpen"></i>
+                </div>
                 <div class="control-value external-members pointer" >
                     <ng-container *ngIf="!externalMembersOpen">
                         <div class="member" (click)="toggleExternalMembersOpen()">

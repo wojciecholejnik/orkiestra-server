@@ -1,8 +1,9 @@
-import { Component, HostListener, OnDestroy, OnInit, AfterContentChecked, ChangeDetectorRef  } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Subscription } from 'rxjs';
 import { NavOption, User } from '../shared/models';
 import { NavigationService } from './navigation-service.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-main-wrapper',
@@ -23,7 +24,8 @@ export class MainWrapperComponent implements OnInit, OnDestroy {
     constructor(
         private navigationService: NavigationService,
         private cookieService: CookieService,
-        private changeDetector: ChangeDetectorRef
+        private changeDetector: ChangeDetectorRef,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -31,6 +33,7 @@ export class MainWrapperComponent implements OnInit, OnDestroy {
         this._userLogged = this.navigationService.isUserLogged.subscribe(user => {
             this.userLogged = user;
             if (user) {
+                this.router.navigate([`main/members`]) 
                 this.saveToLocalStoarge(user)
                 this.addCookie();
                 this.navigationService.setUser(user);

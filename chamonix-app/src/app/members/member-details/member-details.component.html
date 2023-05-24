@@ -10,7 +10,7 @@
 
             <app-member-instruments [instruments]="memberData.resources.instruments"></app-member-instruments>
             
-            <app-member-uniforms [member]="memberData" [id]="id"  [canEdit]="canEdit()"></app-member-uniforms>
+            <app-member-uniforms *ngIf="id" [member]="memberData" [id]="id"  [canEdit]="canEdit()"></app-member-uniforms>
             
         </div>
 

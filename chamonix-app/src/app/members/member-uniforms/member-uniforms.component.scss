@@ -30,6 +30,9 @@
     button {
         width: 34px;
         height: 30px;
+        &.copy {
+            margin-right: 10px;
+        }
     }
 }
 
@@ -37,4 +40,30 @@ thead tr :hover {
     background: $background-light-gray;
     cursor: pointer;
     color: $origin-red;
+}
+
+.host-container.preview {
+    border: none;
+
+    .header {
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        &:hover {
+            cursor: default;
+            color: unset;
+        }
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    thead tr :hover {
+        background: $white;
+        cursor: default;
+        color: unset;
+    }
 }

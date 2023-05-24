@@ -14,8 +14,6 @@ import { ContributionsModule } from '../contributions/contributions.module';
 import { ManageComponent } from './header/manage/manage.component';
 import { CalendarModule } from '../calendar/calendar.module';
 
-
-
 @NgModule({
     declarations: [
         MainWrapperComponent,
@@ -34,10 +32,10 @@ import { CalendarModule } from '../calendar/calendar.module';
         ReactiveFormsModule,
         DiaryModule,
         ContributionsModule,
-        CalendarModule
+        CalendarModule,
     ],
     exports: [
-        MainWrapperComponent
+        MainWrapperComponent,
     ]
 })
 export class MainWrapperModule { }

@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Privileges, User, Roles, PrivilegesTypes, DeviceType } from '../shared/models';
+import { Privileges, User, Roles, PrivilegesTypes, DeviceType, NavOptions, ActiveModule } from '../shared/models';
 
 @Injectable({
      providedIn: 'root'
 })
 export class NavigationService  {
 
-    activeModule: BehaviorSubject<any> = new BehaviorSubject([
-        {name: 'Członkowie', isActive: true},
-        {name: 'Dziennik', isActive: false},
-        {name: 'Kalendarz', isActive: false},
-        {name: 'Zasoby', isActive: false},
-        {name: 'Składki', isActive: false},
+    activeModule: BehaviorSubject<ActiveModule[]> = new BehaviorSubject<ActiveModule[]>([
+        {name: 'Członkowie', isActive: true, href: NavOptions.members},
+        {name: 'Dziennik', isActive: false, href: NavOptions.diary},
+        {name: 'Kalendarz', isActive: false, href: NavOptions.calendar},
+        {name: 'Zasoby', isActive: false, href: NavOptions.resources},
+        {name: 'Składki', isActive: false, href: NavOptions.contrbutions},
     ]);
     deviceType: BehaviorSubject<DeviceType> = new BehaviorSubject<DeviceType>(DeviceType.laptop);
     isUserLogged: Subject<any> = new Subject();

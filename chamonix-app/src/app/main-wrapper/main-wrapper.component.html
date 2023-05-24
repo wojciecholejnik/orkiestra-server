@@ -2,11 +2,7 @@
     <app-header></app-header>
     <app-navigation></app-navigation>
     <div class="modules-container">
-        <app-members-wrapper *ngIf="navOptions[0].isActive"></app-members-wrapper>
-        <app-diary-wrapper *ngIf="navOptions[1].isActive"></app-diary-wrapper>
-        <app-calendar-wrapper *ngIf="navOptions[2].isActive"></app-calendar-wrapper>
-        <app-resources-wrapper *ngIf="navOptions[3].isActive"></app-resources-wrapper>
-        <app-contributions-wrapper *ngIf="navOptions[4].isActive"></app-contributions-wrapper>
+        <router-outlet></router-outlet>
     </div>
 </ng-container>
 
