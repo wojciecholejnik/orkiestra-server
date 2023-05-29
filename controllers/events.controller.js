@@ -21,6 +21,25 @@ exports.getEventsListForYear = async (req,res) => {
   }
 }
 
+exports.getNearestEvent = async (req,res) => {
+  
+  try {
+    const list = await Event.find({dateFrom: { $gte: new Date().toISOString() },}).populate([{
+      path: 'members', 
+      model: Musician,
+      select: ('firstName lastName')
+    }]).sort({dateFrom: 1})
+
+    if (!list) {
+      res.status(404).json({message: "Contribution list not found"})
+    } else {
+      res.json(list)
+    }
+  } catch (err) {
+    res.status(500).json({message: err})
+  }
+}
+
 exports.addNewEvent = async (req,res) => {
   const eventData = req.body;
 

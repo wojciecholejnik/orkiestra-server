@@ -18,7 +18,11 @@ export class DashboardService {
     this.apiHost = environment.baseApiUrl;
   }
 
-  readPresences(year: string): Observable<any> {
-    return this.http.get<Lesson>(`${this.apiHost}/readPresences/${year}`)
+  readPresences(year: string): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(`${this.apiHost}/readPresences/${year}`)
+  }
+
+  readNearesetEvent(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiHost}/getNearestEvent`)
   }
 }

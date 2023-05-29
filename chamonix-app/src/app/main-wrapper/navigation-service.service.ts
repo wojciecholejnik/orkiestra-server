@@ -103,4 +103,9 @@ export class NavigationService  {
     }
   }
 
+  logOut(): void {
+    localStorage.clear()
+    this.isUserLogged.next(undefined)
+  }
+
 }

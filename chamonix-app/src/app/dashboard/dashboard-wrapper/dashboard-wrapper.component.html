@@ -1,3 +1,5 @@
-<div class="module-container">
+<div class="module-container dashboard">
     <app-dashboard-events *ngIf="user" [user]="user"></app-dashboard-events>
+    <app-dashboard-presences *ngIf="user" [user]="user"></app-dashboard-presences>
+    <app-dashboard-uniforms *ngIf="user" [user]="user"></app-dashboard-uniforms>
 </div>

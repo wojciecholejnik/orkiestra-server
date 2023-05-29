@@ -66,3 +66,99 @@ button:disabled, input:disabled, select:disabled {
     cursor: pointer;
 }
 
+//Dashboard
+.module-container.dashboard {
+    gap: 10px;
+
+    .host {
+        border: 1px solid black;
+        width: calc(100vw - 35px);
+        max-width: 500px;
+        padding: 5px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow-y: auto;
+    }
+    
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid black;
+        padding-bottom: 4px;
+
+        .title {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    
+        label {
+            margin: 0 10px 0 0;
+        }
+    
+        .buttons-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+    }
+    
+    .control {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0;
+    
+        .control-label {
+            gap: 4px;
+            width: 20%;
+            display: flex;
+            text-align: start;
+            justify-content: flex-start;
+            align-items: center;
+            
+            p {
+                font-size: 13px;
+            }
+        }
+    
+        div.control-value {
+            width: 80%;
+            font-size: 13px;
+            
+            textarea {
+    
+                width: 100%;
+                padding: 5px;
+            
+                &.description {
+                    min-height: 100px;
+                }
+            }
+    
+            &.external-members {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+    
+                .external-member {
+                    border: 1px solid lightgray;
+                    padding: 6px;
+                    border-radius: 5px;
+                }
+    
+                .member {
+                    border-bottom: 1px solid lightgray;
+                    padding: 6px;
+                    width: 40%;
+                    font-weight: 600;
+    
+                    button {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+

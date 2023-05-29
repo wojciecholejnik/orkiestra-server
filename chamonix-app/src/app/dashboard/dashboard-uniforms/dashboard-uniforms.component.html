@@ -1,0 +1,27 @@
+<div class="host">
+    <div class="header">
+        <div class="title">Moje mundury</div>
+        
+    </div>
+    <div class="content">
+        
+        <table class="table">
+            <ng-container *ngFor="let group of uniformsGroups">
+                <thead>
+                    <tr>
+                        <th class="pointer" (click)="toggleIsOpen(group._id)" style="display: flex; justify-content: space-between;">
+                            <span>{{group.name + ' (' +  group.parts.length + ')'}}</span>
+                            <span><i class="bi bi-chevron-down" [class.bi-chevron-up]="group.isOpen"></i></span>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody class="mb-5" *ngIf="group.isOpen">
+                    <tr *ngFor="let part of group.parts">
+                            <td class="pl-5" [class.include]="isMemberHasPart(part.usingMembers)">{{part.name}}</td>
+                    </tr>
+                </tbody>
+            </ng-container>
+        </table>
+    </div>
+</div>

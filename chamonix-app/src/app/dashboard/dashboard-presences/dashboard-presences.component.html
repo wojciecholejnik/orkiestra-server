@@ -1,0 +1,37 @@
+<div class="host">
+    <div class="header">
+        <div class="title">Obecności</div>
+        <div class="range">
+            <label for="range">Zakres</label>
+            <select class="form-select" name="range" id="range" [(ngModel)]="range" (change)="onRangeChange()">
+                <option value="month">Miesiąc</option>
+                <option value="year">Rok</option>
+            </select>
+        </div>
+    </div>
+    <div class="selector">
+        <div class="year-preview" *ngIf="range === 'month'">{{selectedYear}}</div>
+        <div class="triggers">
+            <button class="btn btn-sm btn-primary" (click)="changeSelected('decrease')">
+                <i class="bi bi-chevron-bar-left"></i>
+            </button>
+            <span>{{range === 'month' ? showMonth() : selectedYear}}</span>
+            <button class="btn btn-sm btn-primary" (click)="changeSelected('increase')">
+                <i class="bi bi-chevron-bar-right"></i>
+            </button>
+        </div>
+    </div>
+    <div class="chart-col">
+        <div style="width: 100%; height: 200px;">
+            <ngx-charts-bar-horizontal
+                class="chart-container"
+                [results]="data"
+
+                [customColors]="customColors"
+                [yAxis]="true"
+                [showDataLabel]="true"
+            >
+            </ngx-charts-bar-horizontal>
+        </div>
+    </div>
+</div>

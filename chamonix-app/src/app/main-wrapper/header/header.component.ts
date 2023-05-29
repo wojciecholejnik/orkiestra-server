@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     }
     
     logout(){
-        this.navigationService.isUserLogged.next(undefined);
+        this.navigationService.logOut();
         this.menuIsOpen = false;
     }
     

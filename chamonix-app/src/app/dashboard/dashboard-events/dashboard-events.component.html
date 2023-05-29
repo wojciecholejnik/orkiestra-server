@@ -1,21 +1,66 @@
 <div class="host">
     <div class="header">
-        <label for="range">Zakres</label>
-        <select class="form-select" name="range" id="range" [(ngModel)]="range" (change)="onRangeChange()">
-            <option value="month">Miesiąc</option>
-            <option value="year">Rok</option>
-        </select>
-    </div>
-    <div class="selector">
-        <div class="year-preview" *ngIf="range === 'month'">{{selectedYear}}</div>
-        <div class="triggers">
-            <button class="btn btn-sm btn-primary" (click)="changeSelected('decrease')">
+        <div class="title">Najbliższe wydarzenia</div>
+        <div class="buttons-wrapper">
+            <button class="btn btn-sm btn-primary" (click)="showPreviousEvent()" [disabled]=disabledShowPrevious()>
                 <i class="bi bi-chevron-bar-left"></i>
             </button>
-            <span>{{range === 'month' ? showMonth() : selectedYear}}</span>
-            <button class="btn btn-sm btn-primary" (click)="changeSelected('increase')">
+            <button class="btn btn-sm btn-primary" (click)="showNextEvent()" [disabled]="disabledShowNext()">
                 <i class="bi bi-chevron-bar-right"></i>
             </button>
         </div>
     </div>
+
+    <ng-container *ngIf="selectedEvent" >
+
+        <div class="control">
+            <div class="control-label">
+                <p>Data:</p>
+            </div>
+            <div class="control-value">
+                {{selectedEvent.dateFrom | date:'dd.MM.YYYY'}}
+                <ng-container *ngIf="selectedEvent.dateTo">
+                    {{' - '}}
+                    {{selectedEvent.dateTo | date:'dd.MM.YYYY'}}
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Nazwa:</p>
+            </div>
+            <div class="control-value">
+                <textarea cols="2" disabled>{{selectedEvent.title}}</textarea>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Adres:</p>
+            </div>
+            <div class="control-value">
+                <textarea cols="2" disabled>{{selectedEvent.address}}</textarea>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Mój status:</p>
+            </div>
+                <div class=" control-value external-members toggleMyStatus">
+                    <div class="member">
+                        <p>{{renderMyStatus()}}</p>
+                    </div>
+                    <div class="member">
+                        <button 
+                            [disabled]="changeStatusPending"
+                            class="btn btn-sm btn-primary"
+                            (click)="changeMyStatus()"
+                        >
+                            {{changeStatusPending ? 'zapisywanie' : 'Zmień'}}</button>
+                    </div>
+                </div> 
+        </div>
+    </ng-container>
 </div>
