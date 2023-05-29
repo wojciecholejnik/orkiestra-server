@@ -29,6 +29,24 @@ exports.readPresences = async (req, res) => {
   }
 }
 
+exports.readPresencesByDate = async (req, res) => {
+
+  try {
+    const year = req.params.year;
+    console.log('year: ', year)
+    const presences = await Presence.find(
+      {
+        type: 'normal-lesson',
+        date: {"$regex": year}
+      }).sort({date: 1});
+      
+      res.json(presences);
+
+  } catch(err) {
+    res.status(500).json({ message: err });
+  }
+}
+
 exports.deletePresence = async (req, res) => {
 
   try {

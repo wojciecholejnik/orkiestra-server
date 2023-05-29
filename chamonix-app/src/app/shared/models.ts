@@ -247,6 +247,7 @@ export type ConfirmationModalType =
 | '';
 
 export enum NavOptions {
+    dashboard = 'dashboard',
     members = 'members',
     diary = 'diary',
     calendar = 'calendar',

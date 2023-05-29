@@ -21,13 +21,13 @@ import { ContributionsWrapperComponent } from './contributions/contributions-wra
 import { DiaryWrapperComponent } from './diary/diary-wrapper/diary-wrapper.component';
 import { MembersWrapperComponent } from './members/members-wrapper/members-wrapper.component';
 import { ResourcesWrapperComponent } from './resources/resources-wrapper/resources-wrapper.component';
-import { LoginComponent } from './login/login/login.component';
 import { MemberDetailsComponent } from './members/member-details/member-details.component';
+import { DashboardWrapperComponent } from './dashboard/dashboard-wrapper/dashboard-wrapper.component';
 
 registerLocaleData(localePl);
 
 const routes: Routes = [
-    { path: '', component: LoginComponent},
+    { path: '', redirectTo: '/main/dashboard', pathMatch: 'full'},
     { 
         path: 'main', 
         component: MainWrapperComponent,
@@ -39,10 +39,26 @@ const routes: Routes = [
                     { path: 'details/:id', component: MemberDetailsComponent }
                 ]
             },
-            { path: NavOptions.diary, component: DiaryWrapperComponent },
-            { path: NavOptions.calendar, component: CalendarWrapperComponent },
-            { path: NavOptions.resources, component: ResourcesWrapperComponent },
-            { path: NavOptions.contrbutions, component: ContributionsWrapperComponent }
+            { 
+                path: NavOptions.dashboard,
+                component: DashboardWrapperComponent 
+            },
+            { 
+                path: NavOptions.diary,
+                component: DiaryWrapperComponent 
+            },
+            { 
+                path: NavOptions.calendar, 
+                component: CalendarWrapperComponent 
+            },
+            { 
+                path: NavOptions.resources, 
+                component: ResourcesWrapperComponent 
+            },
+            { 
+                path: NavOptions.contrbutions, 
+                component: ContributionsWrapperComponent 
+            }
         ]
     },
     { path: 'uniforms-preview/:id', component: MemberUniformsComponent},

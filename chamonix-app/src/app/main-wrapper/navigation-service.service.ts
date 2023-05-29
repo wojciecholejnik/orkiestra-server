@@ -8,14 +8,15 @@ import { Privileges, User, Roles, PrivilegesTypes, DeviceType, NavOptions, Activ
 export class NavigationService  {
 
     activeModule: BehaviorSubject<ActiveModule[]> = new BehaviorSubject<ActiveModule[]>([
-        {name: 'Członkowie', isActive: true, href: NavOptions.members},
+        {name: 'Pulpit', isActive: true, href: NavOptions.dashboard},
+        {name: 'Członkowie', isActive: false, href: NavOptions.members},
         {name: 'Dziennik', isActive: false, href: NavOptions.diary},
         {name: 'Kalendarz', isActive: false, href: NavOptions.calendar},
         {name: 'Zasoby', isActive: false, href: NavOptions.resources},
         {name: 'Składki', isActive: false, href: NavOptions.contrbutions},
     ]);
     deviceType: BehaviorSubject<DeviceType> = new BehaviorSubject<DeviceType>(DeviceType.laptop);
-    isUserLogged: Subject<any> = new Subject();
+    isUserLogged: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
     private user?: User;
     private privileges: Privileges = {} as Privileges;
 

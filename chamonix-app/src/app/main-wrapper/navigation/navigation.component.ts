@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ActiveModule, NavOption, NavOptions } from 'src/app/shared/models';
+import { ActiveModule, NavOptions } from 'src/app/shared/models';
 import { NavigationService } from '../navigation-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',

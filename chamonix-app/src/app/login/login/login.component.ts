@@ -29,9 +29,9 @@ export class LoginComponent implements OnInit {
         const isUserLogged = this.cookieService.check('userLogged');
         if (isUserLogged) {
             this.readFromLocalStorage();
-            this.router.navigate([`/main/${NavOptions.members}`])   
+            this.router.navigate([`/main/${NavOptions.dashboard}`])   
         } else {
-            this.navigationService.isUserLogged.next(null);
+            this.navigationService.isUserLogged.next(undefined);
         }
         this.form = this.fb.group({
             login : this.fb.control('', Validators.required),
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
             this.membersService.loginUser(this.form.value).subscribe({
                 next: (res: User) => {
                     this.navigationService.isUserLogged.next(res);
-                    this.router.navigate([`/main/${NavOptions.members}`])            
+                    this.router.navigate([`/main/${NavOptions.dashboard}`])            
                 },
                 error: () => this.errorMessage = 'niewłaściwe login lub hasło'
             })

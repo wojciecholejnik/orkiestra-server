@@ -12,12 +12,7 @@ import { MemberUniformsComponent } from './member-uniforms/member-uniforms.compo
 import { AssignUniformsComponent } from './assign-uniforms/assign-uniforms.component';
 import { MemberInstrumentsComponent } from './member-instruments/member-instruments.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule, Routes } from '@angular/router';
-
-const routes: Routes = [
-    { path: '', component: MembersWrapperComponent },
-    { path: 'details/:id', component: MemberDetailsComponent }
-  ];
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -28,7 +23,7 @@ const routes: Routes = [
         MemberDetailsComponent,
         MemberUniformsComponent,
         AssignUniformsComponent,
-        MemberInstrumentsComponent,
+        MemberInstrumentsComponent
     ],
     imports: [
         CommonModule,

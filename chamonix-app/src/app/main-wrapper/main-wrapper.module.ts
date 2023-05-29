@@ -13,6 +13,7 @@ import { DiaryModule } from '../diary/diary.module';
 import { ContributionsModule } from '../contributions/contributions.module';
 import { ManageComponent } from './header/manage/manage.component';
 import { CalendarModule } from '../calendar/calendar.module';
+import { DashboardModule } from '../dashboard/dashboard.module';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { CalendarModule } from '../calendar/calendar.module';
         DiaryModule,
         ContributionsModule,
         CalendarModule,
+        DashboardModule
     ],
     exports: [
         MainWrapperComponent,

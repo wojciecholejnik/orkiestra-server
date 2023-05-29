@@ -41,13 +41,11 @@ export class MainWrapperComponent implements OnInit, OnDestroy {
                     const isLogged = this.cookieService.check('userLogged');
                     if (!isLogged) {
                         this.logout();
-                        this.navigationService.isUserLogged.next(null);
+                        this.navigationService.isUserLogged.next(undefined);
                         clearInterval(isLoggedInterval);
                     }
                 },1000)
-            }  else {
-                this.logout();
-            }
+            } 
         });
         this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
     }

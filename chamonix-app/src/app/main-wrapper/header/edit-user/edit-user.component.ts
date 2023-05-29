@@ -104,7 +104,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
             };
             this._editUser = this.membersService.editUser(DTO).subscribe({
                 next: () => {
-                    this.navigationService.isUserLogged.next(false);
+                    this.navigationService.isUserLogged.next(undefined);
                 },
                 error: (e: HttpErrorResponse ) => {
                     this.error = e.error.message;
