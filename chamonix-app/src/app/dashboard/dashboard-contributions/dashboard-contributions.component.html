@@ -1,0 +1,32 @@
+<div class="host">
+    <div *ngIf="loading" class="loading"><app-loading></app-loading></div>
+    <div class="header">
+        <div class="title">Składki</div>
+    </div>
+    <div class="content">
+        <div class="triggers">
+            <button class="btn btn-sm btn-primary" (click)="changeSelected('decrease')">
+                <i class="bi bi-chevron-bar-left"></i>
+            </button>
+            <span>{{showingYear}}</span>
+            <button class="btn btn-sm btn-primary" (click)="changeSelected('increase')">
+                <i class="bi bi-chevron-bar-right"></i>
+            </button>
+        </div>
+        <div *ngIf="memberMonths" class="month-indicator">
+            <div 
+                *ngFor="let month of memberMonths.months" 
+                class="month-tile" 
+                [class.paid]="month.paid"
+                [class.behind]="isBehindOnPayment(month.monthNumber)"
+                >{{showMonthName(month.monthNumber)}}
+            </div>
+        </div>
+        <div *ngIf="!memberMonths" class="no-data">
+            <div> 
+                Brak składek do wyświetlenia.
+            </div>
+        </div>
+        
+    </div>
+</div>

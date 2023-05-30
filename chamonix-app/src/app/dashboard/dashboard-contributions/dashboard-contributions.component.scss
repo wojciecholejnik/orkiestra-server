@@ -1,0 +1,58 @@
+@import '../../../global-styling/mixins.scss';
+@import '../../../global-styling/colors.scss';
+
+.triggers {
+    display: flex;
+    margin: 10px 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+.month-indicator {
+    display: flex;
+    flex-wrap: wrap;
+    width: 65%;
+    background: lightgrey;
+    justify-content: space-between;
+    margin-top: 12px;
+
+    @include phone {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .month-tile {
+        width: 24%;
+        height: 60px;
+        background: white;
+        margin: 2px 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid gray;
+        cursor: pointer;
+
+        
+        &.behind {
+            background: $light-red;
+        }
+
+        &.paid {
+            background: $light-green
+        }
+    }
+
+}
+
+.no-data {
+    text-align: center;
+    font-style: italic;
+    height: 204px;
+}

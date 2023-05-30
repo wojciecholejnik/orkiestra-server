@@ -16,6 +16,7 @@ export class DashboardPresencesComponent implements OnInit, OnDestroy {
   range: 'month' | 'year' = 'month';
   selectedYear = new Date().getFullYear();
   selectedMonth = new Date().getMonth();
+  loading = false;
 
   _lessons?: Subscription
 
@@ -30,6 +31,7 @@ export class DashboardPresencesComponent implements OnInit, OnDestroy {
   }
 
   getPresences(): void {
+    this.loading = true;
     let rangeValue = this.selectedYear.toString()
     if (this.range === 'month') {
       let monthValue = (this.selectedMonth + 1).toString()
@@ -77,7 +79,7 @@ export class DashboardPresencesComponent implements OnInit, OnDestroy {
           value: counted.late,
         },
       ];
-        
+      this.loading = false;
     })
   }
 

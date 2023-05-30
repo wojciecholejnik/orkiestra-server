@@ -33,7 +33,6 @@ exports.readPresencesByDate = async (req, res) => {
 
   try {
     const year = req.params.year;
-    console.log('year: ', year)
     const presences = await Presence.find(
       {
         type: 'normal-lesson',

@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { DashboardEventsComponent } from './dashboard-events/dashboard-events.component';
 import { DashboardUniformsComponent } from './dashboard-uniforms/dashboard-uniforms.component';
+import { SharedModule } from '../shared/shared.module';
+import { DashboardContributionsComponent } from './dashboard-contributions/dashboard-contributions.component';
 
 
 
@@ -15,11 +17,13 @@ import { DashboardUniformsComponent } from './dashboard-uniforms/dashboard-unifo
     DashboardPresencesComponent,
     DashboardEventsComponent,
     DashboardUniformsComponent,
+    DashboardContributionsComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }
