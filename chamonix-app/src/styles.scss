@@ -80,6 +80,18 @@ button:disabled, input:disabled, select:disabled {
         flex-direction: column;
         justify-content: space-between;
         overflow-y: auto;
+        position: relative;
+
+        .loading {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ebebeb;
+            opacity: 0.9;
+        }
     }
     
     .header {
