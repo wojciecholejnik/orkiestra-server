@@ -1,6 +1,6 @@
 <app-modal-wrapper *ngIf="selectedEvent">
     <div class="action-modal">
-
+        <img class="close-button" (click)="closeModal()" src="../../../assets/icons/close-button.svg">
         <h2>{{selectedEvent.title}}</h2>
         <div class="wrapper">
             <div class="control">
@@ -36,30 +36,45 @@
 
             <div class="control">
                 <div class="control-label">
+                    <p>Program:</p>
+                </div>
+                <div class="control-value">
+                    <textarea class="description" disabled [value]="selectedEvent.playlist"></textarea>
+                </div>
+            </div>
+
+            <div class="control">
+                <div class="control-label">
+                    <p>Strój:</p>
+                </div>
+                <div class="control-value">
+                    <textarea class="description" disabled [value]="selectedEvent.uniforms"></textarea>
+                </div>
+            </div>
+
+            <div class="control">
+                <div class="control-label">
                     <p>Mój status:</p>
                 </div>
-                    <ng-container *ngIf="isFromFuture(selectedEvent.dateFrom)">
-                        <div class=" control-value external-members toggleMyStatus">
-                            <div class="member">
-                                <p>{{renderMyStatus()}}</p>
-                            </div>
-                            <div class="member">
-                                <button 
-                                    [disabled]="changeStatusPending"
-                                    class="btn btn-sm btn-primary"
-                                    (click)="changeMyStatus()"
-                                >
-                                    {{changeStatusPending ? 'zapisywanie' : 'Zmień'}}</button>
-                            </div>
-                        </div> 
-                    </ng-container>
-                    <ng-container *ngIf="!isFromFuture(selectedEvent.dateFrom)">
-                        <div class="control-value external-members">
-                            <div class="member" >
-                                <p>{{renderMyStatus()}}</p>
-                            </div>
-                        </div>
-                    </ng-container>
+                <div class=" control-value external-members toggleMyStatus">
+                    <div class="member">
+                        <select 
+                            name="myStatus"
+                            id="myStatus"
+                            [(ngModel)]="currentMemberState"
+                            (change)="changeMyStatus()"
+                            [disabled]="!isFromFuture(selectedEvent.dateFrom)"
+                        >
+                            <option [value]="true">{{renderMyStatus(true)}}</option>
+                            <option [value]="false">{{renderMyStatus(false)}}</option>
+                            <option [value]="undefined">{{renderMyStatus(undefined)}}</option>
+                        </select>
+                    </div>
+                    <div class="loading-wrapper">
+                        <app-loading [small]="true" *ngIf="changeStatusPending"></app-loading>
+                    </div>
+                </div> 
+
             </div>
 
             <div class="control">
@@ -67,23 +82,42 @@
                     <p>Członkowie:</p> 
                     <i *ngIf="selectedEvent.members.length > 0" class="bi" [class.bi-chevron-up]="membersOpen" [class.bi-chevron-down]="!membersOpen"></i>
                 </div>
-                <div class="control-value external-members pointer" (click)="toggleMembersOpen()">
+                <div class="control-value external-members pointer event-members " (click)="toggleMembersOpen()">
                     <ng-container *ngIf="!membersOpen">
                         <div class="member" >
                             <p>{{selectedEvent.members.length}}</p>
                         </div>
                     </ng-container>
                     <ng-container *ngIf="membersOpen">
-                        <div class="member" *ngFor="let member of selectedEvent.members" >
-                            <p>{{member.firstName + ' ' + member.lastName}}</p>
+
+                        <div class="present">
+                            <p class="member-stat-header">{{'Obecni: ' + showPresent().length}}</p>
+                            <div class="example-list">
+                                <div class="example-box" *ngFor="let item of showPresent()">{{item.firstName + ' ' + item.lastName}}</div>
+                            </div>
                         </div>
+
+                        <div class="unpresent">
+                            <p class="member-stat-header">{{'Nieobecni: ' + showAbsent().length}}</p>
+                            <div class="example-list">
+                                <div class="example-box" *ngFor="let item of showAbsent()">{{item.firstName + ' ' + item.lastName}}</div>
+                            </div>
+                        </div>
+
+                        <div class="undecided">
+                            <p class="member-stat-header">{{'Niewiadomo: ' + eventMembersUnset.length}}</p>
+                            <div class="example-list">
+                                <div class="example-box" *ngFor="let item of eventMembersUnset">{{item.firstName + ' ' + item.lastName}}</div>
+                            </div>
+                        </div>
+
                     </ng-container>
                 </div>
             </div>
 
             <div class="control">
                 <div class="control-label pointer" (click)="toggleExternalMembersOpen()">
-                    <p>Dadatkowo:</p>
+                    <p>Dodatkowo:</p>
                     <i *ngIf="selectedEvent.externalMembers.length > 0" class="bi" [class.bi-chevron-up]="externalMembersOpen" [class.bi-chevron-down]="!externalMembersOpen"></i>
                 </div>
                 <div class="control-value external-members pointer" >
@@ -105,6 +139,7 @@
 
         <div class="buttons-wrapper" [class.middle]="!userCanChange()">
             <button *ngIf="userCanChange()" class="btn btn-primary" (click)="edit()">Edytuj</button>
+            <button class="btn btn-primary" (click)="copyUrl()"><i class="bi bi-share"></i></button>
             <button class="btn btn-secondary" (click)="closeModal()">Zamknij</button>
         </div>
     </div>

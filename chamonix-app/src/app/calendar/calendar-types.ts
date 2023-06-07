@@ -5,10 +5,13 @@ export interface OrchEvent {
     title: string,
     description: string,
     members: EventMember[],
+    membersAbsent: EventMember[],
     externalMembers: EventExternalMember[],
     address: string,
     closed: boolean,
-    year: number
+    year: number,
+    playlist: string,
+    uniforms: string,
   }
 
 export interface OrchEventDTO {
@@ -17,10 +20,13 @@ export interface OrchEventDTO {
   title: string,
   description: string,
   members: string[],
+  membersAbsent: string[],
   externalMembers: EventExternalMember[],
   address: string,
   closed: boolean,
-  year: number
+  year: number,
+  playlist: string,
+  uniforms: string,
 }
   
 export type EventMember = {

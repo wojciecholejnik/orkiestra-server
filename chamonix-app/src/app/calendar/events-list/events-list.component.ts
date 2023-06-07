@@ -3,6 +3,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { OrchEvent } from '../calendar-types';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-events-list',
@@ -12,7 +13,10 @@ import { Subscription } from 'rxjs';
 })
 export class EventsListComponent implements OnInit, OnDestroy {
 
-  constructor(private calendarService: CalendarService) { }
+  constructor(
+    private calendarService: CalendarService,
+    private _router: Router
+  ) { }
 
   @Input() list: OrchEvent[] = [];
   removeEventModalOpen = false;
@@ -29,6 +33,7 @@ export class EventsListComponent implements OnInit, OnDestroy {
 
   openModalDetails(event: OrchEvent): void {
     this.calendarService.selectEvent(event);
+    this._router.navigate([`main/calendar/details/${event._id}`])
   }
 
   startEdit(event: OrchEvent): void {

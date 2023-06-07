@@ -22,7 +22,10 @@ export class MembersWrapperComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.membersTableViewSubsscription = this.membersService.membersTableIsOpen.subscribe(state => this.membersTableIsOpen = state);
         this.membersTabsSubscription = this.membersService.activeTab.subscribe(tabs => this.tabs = tabs);
-        this.memberDetailsViewSubscription = this.membersService.memberDetailsAreOpen.subscribe(state => this.memberDetailsAreOpen = state)
+        this.memberDetailsViewSubscription = this.membersService.memberDetailsAreOpen.subscribe(state => this.memberDetailsAreOpen = state);
+        if (window.location.pathname.split('/').length === 3) {
+            this.closeDetails()
+        }
     }
 
     closeDetails(){

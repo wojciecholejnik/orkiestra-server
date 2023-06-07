@@ -24,6 +24,9 @@
                     {{selectedEvent.dateTo | date:'dd.MM.YYYY'}}
                 </ng-container>
             </div>
+            <button class="btn btn-sm btn-primary" (click)="showDetails()">
+                <i class="bi bi-fullscreen"></i>
+            </button>
         </div>
 
         <div class="control">
@@ -48,19 +51,24 @@
             <div class="control-label">
                 <p>Mój status:</p>
             </div>
-                <div class=" control-value external-members toggleMyStatus">
-                    <div class="member">
-                        <p>{{renderMyStatus()}}</p>
-                    </div>
-                    <div class="member">
-                        <button 
-                            [disabled]="changeStatusPending"
-                            class="btn btn-sm btn-primary"
-                            (click)="changeMyStatus()"
-                        >
-                            {{changeStatusPending ? 'zapisywanie' : 'Zmień'}}</button>
-                    </div>
-                </div> 
+            <div class=" control-value external-members toggleMyStatus">
+                <div class="member">
+                    <select 
+                        name="myStatus"
+                        id="myStatus"
+                        [(ngModel)]="currentMemberState"
+                        (change)="changeMyStatus()"
+                    >
+                        <option [value]="true">{{renderMyStatus(true)}}</option>
+                        <option [value]="false">{{renderMyStatus(false)}}</option>
+                        <option [value]="undefined">{{renderMyStatus(undefined)}}</option>
+                    </select>
+                </div>
+                <div class="loading-wrapper">
+                    <app-loading [small]="true" *ngIf="changeStatusPending"></app-loading>
+                </div>
+            </div> 
+
         </div>
     </ng-container>
 </div>

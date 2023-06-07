@@ -59,6 +59,10 @@ export class CalendarService implements OnDestroy {
     })
   }
 
+  getEventById(id: string): Observable<OrchEvent> {
+    return this.http.get<OrchEvent>(`${this.apiHost}/event-details/${id}`, this.httpOptions)
+  }
+
   goNextYear(): void {
     this.$showingYear.next(this.$showingYear.getValue() + 1);
     this.getEvents()

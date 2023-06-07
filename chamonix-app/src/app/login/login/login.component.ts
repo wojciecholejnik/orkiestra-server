@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { MembersService } from 'src/app/members/members.service';
 import { NavOptions, User } from 'src/app/shared/models';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-login',
@@ -22,14 +23,15 @@ export class LoginComponent implements OnInit {
         private navigationService: NavigationService,
         private membersService: MembersService,
         private cookieService: CookieService,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute,
+        private location: Location
     ) { }
 
     ngOnInit(): void {
         const isUserLogged = this.cookieService.check('userLogged');
         if (isUserLogged) {
             this.readFromLocalStorage();
-            this.router.navigate([`/main/${NavOptions.dashboard}`])   
         } else {
             this.navigationService.isUserLogged.next(undefined);
         }
@@ -44,7 +46,15 @@ export class LoginComponent implements OnInit {
             this.membersService.loginUser(this.form.value).subscribe({
                 next: (res: User) => {
                     this.navigationService.isUserLogged.next(res);
-                    this.router.navigate([`/main/${NavOptions.dashboard}`])            
+                    const nav = this.location.getState() as any;
+                    if (nav && nav.navigationId) {
+                        if (window.location.pathname.split('/').length === 2) {
+                            this.router.navigate([`/main/${NavOptions.dashboard}`])
+                        }
+                        if (window.location.pathname.split('/').length > 2) {
+                            this.router.navigate([window.location.pathname])
+                        }
+                    }
                 },
                 error: () => this.errorMessage = 'niewłaściwe login lub hasło'
             })

@@ -6,6 +6,8 @@ import { EventsListComponent } from './events-list/events-list.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { NewEventComponent } from './new-event/new-event.component';
 import { FormsModule } from '@angular/forms';
+import { EventPreviewComponent } from './event-preview/event-preview.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 
@@ -15,11 +17,13 @@ import { FormsModule } from '@angular/forms';
     EventsListComponent,
     EventDetailsComponent,
     NewEventComponent,
+    EventPreviewComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    DragDropModule
   ],
   exports:[CalendarWrapperComponent]
 })

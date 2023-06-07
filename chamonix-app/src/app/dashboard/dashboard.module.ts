@@ -8,6 +8,7 @@ import { DashboardEventsComponent } from './dashboard-events/dashboard-events.co
 import { DashboardUniformsComponent } from './dashboard-uniforms/dashboard-uniforms.component';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardContributionsComponent } from './dashboard-contributions/dashboard-contributions.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -23,7 +24,9 @@ import { DashboardContributionsComponent } from './dashboard-contributions/dashb
     CommonModule,
     FormsModule,
     NgxChartsModule,
+    RouterModule,
     SharedModule
-  ]
+  ],
+  exports: [RouterModule]
 })
 export class DashboardModule { }

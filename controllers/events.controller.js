@@ -5,17 +5,48 @@ exports.getEventsListForYear = async (req,res) => {
   const year = req.params.year;
   
   try {
-    const list = await Event.find({year: year}).populate([{
-      path: 'members', 
-      model: Musician,
-      select: ('firstName lastName')
-    }]).sort({dateFrom: 1})
+    const list = await Event.find({year: year}).populate([
+      {
+        path: 'members', 
+        model: Musician,
+        select: ('firstName lastName')
+      },
+      {
+        path: 'membersAbsent', 
+        model: Musician,
+        select: ('firstName lastName')
+      }
+    ]).sort({dateFrom: 1})
 
     if (!list) {
       res.status(404).json({message: "Contribution list not found"})
     } else {
       res.json(list)
     }
+  } catch (err) {
+    res.status(500).json({message: err})
+  }
+}
+
+exports.getEventsById = async (req,res) => {
+  
+  try {
+    const list = await Event.findOne({_id: req.params.id}).populate([
+      {
+        path: 'members', 
+        model: Musician,
+        select: ('firstName lastName'),
+        options: {sort: {lastName: 1}, collation: { locale: "pl", caseLevel: true }}
+      },
+      {
+        path: 'membersAbsent', 
+        model: Musician,
+        select: ('firstName lastName'),
+        options: {sort: {lastName: 1}, collation: { locale: "pl", caseLevel: true }}
+      }
+  ]).sort({dateFrom: 1})
+
+    res.json(list)
   } catch (err) {
     res.status(500).json({message: err})
   }

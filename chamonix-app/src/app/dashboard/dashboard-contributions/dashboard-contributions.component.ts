@@ -25,7 +25,6 @@ export class DashboardContributionsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._list = this.contribubtionsService.listToShow.subscribe(list => {
-      console.log(list)
       if (list.year || list.error) {
         this.loading = false;
       }

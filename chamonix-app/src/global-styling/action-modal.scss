@@ -1,7 +1,7 @@
 @import'./colors.scss';
 @import './mixins.scss';
 
-.action-modal {
+.action-modal, .event-details {
     background-color: $background-white;
     padding: 12px 0;
     display: flex;
@@ -13,9 +13,11 @@
     border-radius: $radius;
 
     @include phone {
-        width: 85%;
+        width: 100vw;
         padding: 12px;
-        max-height: 80vh;
+        max-height: 100vh;
+        // min-height: 100vh;
+        border-radius: 0;
     }
 
     // &.wide-modal {

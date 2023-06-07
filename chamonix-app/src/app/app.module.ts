@@ -23,13 +23,14 @@ import { MembersWrapperComponent } from './members/members-wrapper/members-wrapp
 import { ResourcesWrapperComponent } from './resources/resources-wrapper/resources-wrapper.component';
 import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { DashboardWrapperComponent } from './dashboard/dashboard-wrapper/dashboard-wrapper.component';
+import { EventPreviewComponent } from './calendar/event-preview/event-preview.component';
 
 registerLocaleData(localePl);
 
 const routes: Routes = [
-    { path: '', redirectTo: '/main/dashboard', pathMatch: 'full'},
+    { path: '', redirectTo: '/main', pathMatch: 'full'},
     { 
-        path: 'main', 
+        path: 'main',
         component: MainWrapperComponent,
         children: [
             { 
@@ -41,7 +42,10 @@ const routes: Routes = [
             },
             { 
                 path: NavOptions.dashboard,
-                component: DashboardWrapperComponent 
+                component: DashboardWrapperComponent,
+                children: [
+                    { path: 'calendar-event/:id', component: EventPreviewComponent }
+                ]
             },
             { 
                 path: NavOptions.diary,
@@ -49,7 +53,10 @@ const routes: Routes = [
             },
             { 
                 path: NavOptions.calendar, 
-                component: CalendarWrapperComponent 
+                component: CalendarWrapperComponent,
+                children: [
+                    { path: 'details/:id', component: MemberDetailsComponent }
+                ]
             },
             { 
                 path: NavOptions.resources, 
@@ -62,6 +69,7 @@ const routes: Routes = [
         ]
     },
     { path: 'uniforms-preview/:id', component: MemberUniformsComponent},
+    { path: 'calendar-event/:id', component: EventPreviewComponent},
   ];
 
 @NgModule({

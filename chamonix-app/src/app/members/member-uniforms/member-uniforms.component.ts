@@ -114,7 +114,6 @@ export class MemberUniformsComponent implements OnInit, OnDestroy {
         document.execCommand('copy');
         document.body.removeChild(selBox);
         this.toastService.show('Skopiowano', { classname: 'bg-success text-light', delay: 1500 })
-
     }
 
     back(): void {

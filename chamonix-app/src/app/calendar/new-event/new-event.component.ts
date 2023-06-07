@@ -5,6 +5,13 @@ import { EventExternalMember, OrchEvent, OrchEventDTO } from '../calendar-types'
 import { MembersService } from 'src/app/members/members.service';
 import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { DeviceType } from 'src/app/shared/models';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-new-event',
@@ -17,6 +24,9 @@ export class NewEventComponent implements OnInit, OnDestroy {
   memberListVisible = false;
   externalMemberListVisible = false;
   eventMembers: EventMemberMapped[] = [];
+  eventMembersPresent: EventMemberMapped[] = [];
+  eventMembersAbsent: EventMemberMapped[] = [];
+  eventMembersUnset: EventMemberMapped[] = [];
   newExternalMember: EventExternalMember = {
     name: '',
     instrument: '',
@@ -28,10 +38,13 @@ export class NewEventComponent implements OnInit, OnDestroy {
     title: '',
     description: '',
     members: [],
+    membersAbsent: [],
     externalMembers: [],
     address: '',
     closed: false,
-    year: 0
+    year: 0,
+    playlist: '',
+    uniforms: '',
   }
   newEvent: OrchEventDTO = {...this.emptyEvent}
   eventToEdit?: OrchEvent;
@@ -53,23 +66,44 @@ export class NewEventComponent implements OnInit, OnDestroy {
       this.eventToEdit = item;
       if (this.eventToEdit) {
         this.calendarService.$addNewEventModalIsOpen.next(true);
-        this.newEvent = {...this.eventToEdit, members: this.eventToEdit.members.map(item => item._id)}
+        this.newEvent = {
+          ...this.eventToEdit,
+          members: this.eventToEdit.members.map(item => item._id),
+          membersAbsent: this.eventToEdit.membersAbsent.map(item => item._id)
+        };
         this.eventMembers = this.eventMembers.map(member => (
           {
             ...member,
-            present: this.eventToEdit!.members.find(item => item._id === member._id) ? true : false
+            present: this.eventToEdit!.members.find(item => item._id === member._id) 
+            ? true 
+            : (this.eventToEdit!.membersAbsent.find(item => item._id === member._id) ? false : undefined)
           }
         ))
+        this.eventMembersPresent = this.eventMembers.filter(member => member.present === true);
+        this.eventMembersAbsent = this.eventMembers.filter(member => member.present === false);
+        this.eventMembersUnset = this.eventMembers.filter(member => member.present === undefined);
         this.externalEventMembers = this.eventToEdit.externalMembers;
+        setTimeout(() => {
+          const areas = document.querySelectorAll('textarea')
+          if (!areas) return
+          else {
+            areas.forEach(area => {
+              area.style.height = (area.scrollHeight + 2)+ 'px';
+            })
+          }
+        }, 100)
       } else {
         this.newEvent = {...this.emptyEvent};
         this.externalEventMembers = [];
         this.eventMembers = this.eventMembers.map(member => (
           {
             ...member,
-            present: false
+            present: undefined
           }
         ))
+        this.eventMembersAbsent = [];
+        this.eventMembersPresent = [];
+        this.eventMembersUnset = this.eventMembers
       }
 
     });
@@ -78,7 +112,7 @@ export class NewEventComponent implements OnInit, OnDestroy {
         _id: item._id,
         firstName: item.firstName,
         lastName: item.lastName,
-        present: false,
+        present: undefined,
       }
       )))
   }
@@ -90,20 +124,44 @@ export class NewEventComponent implements OnInit, OnDestroy {
     this._editEventModalIsOpen?.unsubscribe();
   }
 
+  drop(event: CdkDragDrop<EventMemberMapped[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+    this.sortMemberTable(this.eventMembersPresent);
+    this.sortMemberTable(this.eventMembersAbsent);
+    this.sortMemberTable(this.eventMembersUnset);
+  }
+
+  sortMemberTable(table: EventMemberMapped[]): void {
+    table.sort((a, b) => {
+      if (a.lastName > b.lastName ) {
+        return 1
+      } else if (a.lastName < b.lastName) {
+        return -1
+      } else {
+        return a.firstName > b.firstName ? 1 : -1
+      }
+    })
+  }
+
   openModal(): void {
     this.calendarService.openAddNewEventModal()
   }
 
   closeModal(): void {
     this.calendarService.closeAddNewEventModal()
-  }
-
-  count(present: boolean): number {
-    return present ? this.eventMembers.filter(member => member.present).length : this.eventMembers.filter(member => !member.present).length
-  }
-
-  togglePresence(index: number): void {
-    this.eventMembers[index].present = !this.eventMembers[index].present
   }
 
   toggleMembersLIstVisible(): void {
@@ -133,10 +191,12 @@ export class NewEventComponent implements OnInit, OnDestroy {
   }
 
   saveEvent(): void {
-    const presentMembers = this.eventMembers.filter(member => member.present);
+    const presentMembers = this.eventMembersPresent;
+    const absentMembers = this.eventMembersAbsent;
     const mapedNewEvent: OrchEventDTO = {
       ...this.newEvent,
       members: presentMembers.map(member => member._id),
+      membersAbsent: absentMembers.map(member => member._id),
       externalMembers: this.externalEventMembers,
       year: new Date(this.newEvent.dateFrom).getFullYear()
     }
@@ -162,7 +222,7 @@ export class NewEventComponent implements OnInit, OnDestroy {
             this.calendarService.$selectedEvent.next(null)
             this.calendarService.$loading.next(false);
             this.closeModal()
-            this.requestPending = true;
+            this.requestPending = false;
           })
         }
       }
@@ -178,5 +238,5 @@ interface EventMemberMapped {
   _id: string,
   firstName: string,
   lastName: string,
-  present: boolean,
+  present: boolean | undefined,
 }

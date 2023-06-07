@@ -1,12 +1,12 @@
 <div *ngIf="deviceType === 'laptop' || deviceType === 'tablet'" class="laptop-container">
     <ng-container *ngFor="let option of navOptions">
-        <div (click)="changeActiveItem(option)" class="nav-item" [class.active]="checkIsActive(option.href)"><h5>{{option.name}}</h5></div>
+        <div (click)="changeActiveItem(option.href)" class="nav-item" [class.active]="checkIsActive(option.href)"><h5>{{option.name}}</h5></div>
     </ng-container>
 </div>
 
 <div *ngIf="deviceType === 'phone'" class="phone-container">
     <ng-container *ngFor="let option of navOptions">
-        <div (click)="changeActiveItem(option)" class="nav-item tablet" [class.active]="checkIsActive(option.href)" *ngIf="option.isActive || navIsOpen" (click)="toggleNav()">
+        <div (click)="changeActiveItem(option.href)" class="nav-item tablet" [class.active]="checkIsActive(option.href)" *ngIf="option.isActive || navIsOpen" (click)="toggleNav()">
             <h5>{{option.name}}</h5>
             <div class="search-row-toggle" >
                 <svg [class.rotate]="navIsOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

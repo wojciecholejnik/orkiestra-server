@@ -38,7 +38,13 @@ export class CalendarWrapperComponent implements OnInit, OnDestroy {
     this._showingYear = this.calendarService.$showingYear.subscribe(year => this.showingYear = year);
     this._detailsModalIsOpen = this.calendarService.$detailsModalIsOpen.subscribe(state => this.detailsModalIsOpen = state);
     this._loading = this.calendarService.$loading.subscribe(state => this.loading = state);
-    this.calendarService.getEvents()
+    this.calendarService.getEvents();
+    if (window.location.pathname.split('/').length === 3) {
+      this.calendarService.$detailsModalIsOpen.next(false);
+    }
+    if (window.location.pathname.split('/').length > 3) {
+      this.calendarService.$detailsModalIsOpen.next(true);
+    }
   }
 
   ngOnDestroy(): void {

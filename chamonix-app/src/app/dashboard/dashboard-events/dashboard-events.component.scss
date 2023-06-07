@@ -1,0 +1,103 @@
+@import '../../../global-styling/mixins.scss';
+@import '../../../global-styling/colors.scss';
+
+$border: 1px solid black;
+
+.action-modal {
+    width: 800px;
+    max-height: 600px;
+    overflow-y: auto;
+    display: block;
+}
+
+.wrapper {
+    width: 80%;
+    margin: 0 auto;;
+}
+
+.control {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    .control-label {
+        gap: 4px;
+        width: 20%;
+        display: flex;
+        text-align: start;
+        justify-content: flex-start;
+        align-items: center;
+        
+        p {
+            font-size: 13px;
+        }
+    }
+
+    div.control-value {
+        width: 80%;
+        font-size: 13px;
+        min-height: 46px;
+
+        &.external-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            .external-member {
+                border: 1px solid lightgray;
+                padding: 6px;
+                border-radius: 5px;
+            }
+
+            .member {
+                border-bottom: 1px solid lightgray;
+                padding: 6px;
+                width: 40%;
+
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+textarea {
+
+    width: 100%;
+    padding: 5px;
+
+    &.description {
+        min-height: 100px;
+    }
+}
+
+select {
+    width: auto;
+    padding: 4px;
+}
+
+
+@include phone {
+
+    .action-modal {
+        width: 100vw;
+        max-height: 100vh;
+        min-height: 100vh;
+        border-radius: 0;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    // .control {
+    //     flex-wrap: wrap;
+
+    //     .control-value {
+    //         width: 100% !important;
+    //     }
+    // }
+
+}

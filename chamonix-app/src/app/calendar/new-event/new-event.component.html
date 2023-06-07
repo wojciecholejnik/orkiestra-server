@@ -58,30 +58,16 @@
                 </div>
 
                 <div class="control">
-                    <p class="control-label pointer" (click)="toggleMembersLIstVisible()">Członkowie: </p>
-                    <div class="control-value event-members">
+                    <p class="control-label">Program:</p>
+                    <div class="control-value">
+                        <textarea id="description" class="description" [(ngModel)]="newEvent.playlist"></textarea>
+                    </div>
+                </div>
 
-                        <div class="present">
-                            <p class="member-stat-header">{{'Obecni: ' + count(true)}}</p>
-                            <ng-container *ngIf="memberListVisible">
-                                <ng-container *ngFor="let member of eventMembers; let i = index">
-                                    <div class="member"  *ngIf="member.present"  (click)="togglePresence(i)">
-                                        <p>{{member.firstName + ' ' + member.lastName}}</p>
-                                    </div>
-                                </ng-container>
-                            </ng-container>
-                        </div>
-
-                        <div class="unpresent">
-                            <p class="member-stat-header">{{'Nieobecni: ' + count(false)}}</p>
-                            <ng-container *ngIf="memberListVisible">
-                                <ng-container *ngFor="let member of eventMembers; let i = index">
-                                    <div class="member"  *ngIf="!member.present" (click)="togglePresence(i)">
-                                        <p>{{member.firstName + ' ' + member.lastName}}</p>
-                                    </div>
-                                </ng-container>
-                            </ng-container>
-                        </div>
+                <div class="control">
+                    <p class="control-label">Strój:</p>
+                    <div class="control-value">
+                        <textarea id="description" class="description" [(ngModel)]="newEvent.uniforms"></textarea>
                     </div>
                 </div>
 
@@ -113,6 +99,65 @@
                         {{externalEventMembers.length > 0 ? externalEventMembers.length : 'brak'}}
                     </div>
                 </div>
+
+                <div class="control event-members">
+                    <p class="control-label pointer" (click)="toggleMembersLIstVisible()">Członkowie: </p>
+                    <div class="control-value event-members">
+
+                        <div class="present">
+                            <p class="member-stat-header">
+                                <i class="bi bi-person-plus"></i>
+                                {{': ' + eventMembersPresent.length}}
+                            </p>
+                            <div
+                                cdkDropList
+                                #presentList="cdkDropList"
+                                [cdkDropListData]="eventMembersPresent"
+                                [cdkDropListConnectedTo]="[absentList, unsetList]"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)"
+                            >
+                                <div class="example-box" *ngFor="let item of eventMembersPresent" cdkDrag>{{item.firstName + ' ' + item.lastName}}</div>
+                            </div>
+                        </div>
+
+                        <div class="unpresent">
+                            <p class="member-stat-header">
+                                <i class="bi bi-person-slash"></i>
+                                {{': ' + eventMembersAbsent.length}}
+                            </p>
+                            <div
+                                cdkDropList
+                                #absentList="cdkDropList"
+                                [cdkDropListData]="eventMembersAbsent"
+                                [cdkDropListConnectedTo]="[presentList, unsetList]"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)"
+                            >
+                                <div class="example-box" *ngFor="let item of eventMembersAbsent" cdkDrag>{{item.firstName + ' ' + item.lastName}}</div>
+                            </div>
+                        </div>
+
+                        <div class="undecided">
+                            <p class="member-stat-header">
+                                <i class="bi bi-patch-question"></i>
+                                {{ ': ' + eventMembersUnset.length}}
+                            </p>
+                            <div
+                                cdkDropList
+                                #unsetList="cdkDropList"
+                                [cdkDropListData]="eventMembersUnset"
+                                [cdkDropListConnectedTo]="[presentList, absentList]"
+                                class="example-list"
+                                (cdkDropListDropped)="drop($event)"
+                            >
+                                <div class="example-box" *ngFor="let item of eventMembersUnset" cdkDrag>{{item.firstName + ' ' + item.lastName}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
             </div>
             
             <div class="buttons-wrapper">

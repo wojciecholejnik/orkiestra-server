@@ -5,8 +5,11 @@ const eventSchema = new mongoose.Schema({
   dateFrom: { type: String, required: true },
   dateTo: { type: String, required: false },
   title: { type: String, required: true },
-  description: { type: String, required: true },
+  playlist: { type: String, required: false },
+  uniforms: { type: String, required: false },
+  description: { type: String, required: false },
   members: [{ type: ObjectId, ref: 'musicians'}],
+  membersAbsent: [{ type: ObjectId, ref: 'musicians'}],
   externalMembers: [{
     name: { type: String, required: true },
     instrument: { type: String, required: true },

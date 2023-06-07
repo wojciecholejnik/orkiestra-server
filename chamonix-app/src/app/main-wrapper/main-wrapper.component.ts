@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { NavOption, User } from '../shared/models';
 import { NavigationService } from './navigation-service.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-main-wrapper',
@@ -25,7 +26,8 @@ export class MainWrapperComponent implements OnInit, OnDestroy {
         private navigationService: NavigationService,
         private cookieService: CookieService,
         private changeDetector: ChangeDetectorRef,
-        private router: Router
+        private router: Router,
+        private location: Location
     ) { }
 
     ngOnInit(): void {
@@ -33,7 +35,6 @@ export class MainWrapperComponent implements OnInit, OnDestroy {
         this._userLogged = this.navigationService.isUserLogged.subscribe(user => {
             this.userLogged = user;
             if (user) {
-                this.router.navigate([`main/members`]) 
                 this.saveToLocalStoarge(user)
                 this.addCookie();
                 this.navigationService.setUser(user);

@@ -1,0 +1,89 @@
+<div *ngIf="event" class="event-details">
+
+    <div class="header">
+        <h2>{{event.title}}</h2>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="control">
+            <div class="control-label">
+                <p>Data:</p>
+            </div>
+            <div class="control-value">
+                {{event.dateFrom | date:'dd.MM.YYYY'}}
+                <ng-container *ngIf="event.dateTo">
+                    {{' - '}}
+                    {{event.dateTo | date:'dd.MM.YYYY'}}
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Adres:</p>
+            </div>
+            <div class="control-value">
+                <textarea cols="2" disabled>{{event.address}}</textarea>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Opis:</p>
+            </div>
+            <div class="control-value">
+                <textarea class="description" disabled [value]="event.description"></textarea>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Strój:</p>
+            </div>
+            <div class="control-value">
+                <textarea class="description" disabled [value]="event.uniforms"></textarea>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Program:</p>
+            </div>
+            <div class="control-value">
+                <textarea class="description" disabled [value]="event.playlist"></textarea>
+            </div>
+        </div>
+
+        <div class="control">
+            <div class="control-label">
+                <p>Członkowie:</p> 
+            </div>
+            <div class="control-value external-members event-members ">
+
+                <div class="present">
+                    <p class="member-stat-header">{{'Obecni: ' + showPresent().length}}</p>
+                    <div class="example-list">
+                        <div class="example-box" *ngFor="let item of showPresent()">{{item.firstName + ' ' + item.lastName}}</div>
+                    </div>
+                </div>
+
+                <div class="unpresent">
+                    <p class="member-stat-header">{{'Nieobecni: ' + showAbsent().length}}</p>
+                    <div class="example-list">
+                        <div class="example-box" *ngFor="let item of showAbsent()">{{item.firstName + ' ' + item.lastName}}</div>
+                    </div>
+                </div>
+
+                <div class="undecided">
+                    <p class="member-stat-header">{{'Niewiadomo: ' + eventMembersUnset.length}}</p>
+                    <div class="example-list">
+                        <div class="example-box" *ngFor="let item of eventMembersUnset">{{item.firstName + ' ' + item.lastName}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- <button class="btn btn-primary" (click)="back()">Zamknij</button> -->
+</div>

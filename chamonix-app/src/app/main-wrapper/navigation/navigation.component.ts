@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActiveModule, NavOptions } from 'src/app/shared/models';
 import { NavigationService } from '../navigation-service.service';
-import { Router } from '@angular/router';
+import { Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -22,19 +22,29 @@ export class NavigationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._navOptions = this.navigationService.activeModule.subscribe(options => this.navOptions = options);
     this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
+    this.checkActive(window.location.pathname.split('/')[2])
+    this._router.events.subscribe((val: any) => {
+      if (val && val.id && val.url && val.urlAfterRedirects && !val.state) {
+        this.checkActive(window.location.pathname.split('/')[2])
+      }
+    })
   }
 
-  changeActiveItem(module: ActiveModule){
-    this.checkIsActive(module.href)
-    this._router.navigate([`main/${module.href}`])
+  changeActiveItem(href: string){
+    this.checkIsActive(href as NavOptions)
+    this._router.navigate([`main/${href}`])
+    this.checkActive(href);
+    this.navigationService.activeModule.next(this.navOptions);
+  }
+
+  checkActive(href: string) {
     this.navOptions.forEach(option => {
-      if (option.name !== module.name) {
+      if (option.href !== href) {
         option.isActive = false;
       } else {
         option.isActive = true;
       }
     })
-    this.navigationService.activeModule.next(this.navOptions);
   }
 
   ngOnDestroy(): void {
