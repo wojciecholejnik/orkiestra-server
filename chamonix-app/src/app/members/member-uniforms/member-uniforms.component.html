@@ -32,8 +32,8 @@
                 </thead>
                 <tbody class="mb-5" *ngIf="group.isOpen">
                     <tr *ngFor="let part of group.parts">
-                        <ng-container *ngIf="isMemberHasPart(part.usingMembers)">
-                            <td class="pl-5">{{part.name}}</td>
+                        <ng-container >
+                            <td class="pl-5" [class.include]="isMemberHasPart(part.usingMembers)">{{part.name}}</td>
                         </ng-container>
                     </tr>
                 </tbody>

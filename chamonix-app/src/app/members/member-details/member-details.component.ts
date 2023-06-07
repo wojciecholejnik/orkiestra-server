@@ -16,7 +16,6 @@ import { Location } from '@angular/common';
 })
 export class MemberDetailsComponent implements OnInit, OnDestroy {
 
-    // @Input() id!: string;
     detailsSubscription?: Subscription;
     memberData: Member = {} as Member;
     editMemberisOpen = false;

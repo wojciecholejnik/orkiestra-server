@@ -18,10 +18,10 @@
 .month-indicator {
     display: flex;
     flex-wrap: wrap;
-    width: 65%;
+    width: 90%;
     background: lightgrey;
     justify-content: space-between;
-    margin-top: 12px;
+    margin: 12px auto 0;
 
     @include phone {
         width: 100%;

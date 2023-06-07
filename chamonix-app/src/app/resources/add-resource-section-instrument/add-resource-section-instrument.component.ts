@@ -49,7 +49,6 @@ export class AddResourceSectionInstrumentComponent implements OnInit, OnDestroy 
                 _id: this.editingItem?._id,
                 name: this.instrumentForm.controls.name.value
             };
-            console.log(DTO);
             this._addInstrument = this.resourcesService.updateInstrumentInSection(DTO).subscribe(() => {
                 this.onAddInstrument.next(true);
             });

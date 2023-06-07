@@ -13,6 +13,14 @@
 
 table {
     font-size: 13px;
+
+    tbody tr td {
+        color: #9e9e9e61;
+    
+        &.include {
+            color: black
+        }
+    }
 }
 
 .header {
