@@ -46,3 +46,4 @@ chamonix-app/.DS_Store
 chamonix-app/Thumbs.db
 
 chamonix-app/package-lock.json
+.env

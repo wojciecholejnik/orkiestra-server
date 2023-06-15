@@ -46,7 +46,6 @@
                         </div>
                     </ul>
                 </div>
-
                 <div class="card">
                     <div class="card-header">
                         Rola użytkownika
@@ -62,11 +61,19 @@
                         </div>
                         <div class="radio-container">
                             <input (change)="setFilters()" class="" type="radio" name="member-role" id="inspector-role" value="2" [(ngModel)]="filters.userRole">
-                            <label for="inspector-role">Inspektor</label>
+                            <label for="inspector-role">"Prezes :)"</label>
                         </div>
                         <div class="radio-container">
                             <input (change)="setFilters()" class="" type="radio" name="member-role" id="member-role" value="3" [(ngModel)]="filters.userRole">
                             <label for="member-role">Członek</label> 
+                        </div>
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-role" id="member-role" value="4" [(ngModel)]="filters.userRole">
+                            <label for="member-role">Skarbnik</label> 
+                        </div>
+                        <div class="radio-container">
+                            <input (change)="setFilters()" class="" type="radio" name="member-role" id="member-role" value="5" [(ngModel)]="filters.userRole">
+                            <label for="member-role">Obserwator</label> 
                         </div>
                     </ul>
                 </div>
@@ -106,6 +113,7 @@
                                 <option value="2">inspektor</option>
                                 <option value="3">członek</option>
                                 <option value="4">skarbnik</option>
+                                <option value="5">obserwator</option>
                             </select>
                         </td>
                         <td>

@@ -13,6 +13,9 @@
         <div class="bookmark-item" [class.active]="membersTabs.exMembers" (click)="toggleActiveTab('exMembers')">
             Byli członkowie
         </div>
+        <div *ngIf="shouldRenderSpectators()" class="bookmark-item" [class.active]="membersTabs.spectators" (click)="toggleActiveTab('spectators')">
+            Obserwatorzy
+        </div>
     </div>
 
     <select 
@@ -25,6 +28,7 @@
         <option value="mainStaff">Muzycy</option>
         <option value="students">Uczniowie</option>
         <option value="exMembers">Byli członkowie</option>
+        <option value="spectators">Obseratorzy</option>
     </select>
     
     <div *ngIf="canAddMember()" class="actions">

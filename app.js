@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -12,6 +13,7 @@ const contributionsRoutes = require('./routes/contributions.routes ');
 const eventsRoutes = require('./routes/events.routes ');
 
 const app = express();
+
 app.use(cors());
 // support parsing of application/json type post data
 app.use(bodyParser.json());
@@ -20,14 +22,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, './public/client')));
+app.use((req,res,next) => {
 
+  if (req.originalUrl === "/api/user/login") {
+    next();
+    return 
+  }
 
-const dbURI = `mongodb+srv://chamonix-app:chamonix-app@cluster0.bpoyn.mongodb.net/orkiestra`;
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+})
+
+const dbURI = process.env.DB_URI;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.once('open', () => {console.log('Databse connected.')});
 db.once('error', () => {console.log('error')});
-
 
 app.use('/api', musiciansRoutes);
 app.use('/api', sectionsRoutes);

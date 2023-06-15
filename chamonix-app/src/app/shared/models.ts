@@ -8,6 +8,7 @@ export interface MembersTabs {
     exMembers: boolean,
     students: boolean,
     mainStaff: boolean,
+    spectators: boolean,
     [key: string]: boolean
 }
 
@@ -151,7 +152,7 @@ export interface User {
     login: string,
     firstName: string,
     lastName: string,
-    role: string
+    role: Roles
 }
 
 export interface Privileges {
@@ -176,7 +177,8 @@ export enum Roles {
     instructor = '1',
     inspector = '2',
     member = '3',
-    paymaster = '4'
+    paymaster = '4',
+    spectator = '5'
 }
 
 export interface DiaryTabs {

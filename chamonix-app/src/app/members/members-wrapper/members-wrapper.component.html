@@ -12,3 +12,6 @@
 
 <!-- main staff members -->
 <app-members-table *ngIf="tabs.students && membersTableIsOpen" [membersType]="'students'"></app-members-table>
+
+<!-- spectators members -->
+<app-members-table *ngIf="tabs.spectators && membersTableIsOpen" [membersType]="'spectators'"></app-members-table>

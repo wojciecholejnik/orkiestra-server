@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainWrapperModule } from './main-wrapper/main-wrapper.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +24,8 @@ import { ResourcesWrapperComponent } from './resources/resources-wrapper/resourc
 import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { DashboardWrapperComponent } from './dashboard/dashboard-wrapper/dashboard-wrapper.component';
 import { EventPreviewComponent } from './calendar/event-preview/event-preview.component';
+import { AuthService } from './shared/authInterceptorService/authService';
+import { AuthInterceptorService } from './shared/authInterceptorService/authInterceptorService';
 
 registerLocaleData(localePl);
 
@@ -88,7 +90,17 @@ const routes: Routes = [
         RouterModule.forRoot(routes)
     ],
     exports: [ RouterModule ],
-    providers: [DatePipe, CookieService, ToastService],
+    providers: [
+        DatePipe,
+        CookieService,
+        ToastService,
+        AuthService, 
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptorService,
+            multi: true
+        },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

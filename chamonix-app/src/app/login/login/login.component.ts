@@ -44,8 +44,9 @@ export class LoginComponent implements OnInit {
     login(){
         if (this.isFormValid()) {
             this.membersService.loginUser(this.form.value).subscribe({
-                next: (res: User) => {
-                    this.navigationService.isUserLogged.next(res);
+                next: (res: {token: string, user: User}) => {
+                    localStorage.setItem('token', res.token);
+                    this.navigationService.isUserLogged.next(res.user);
                     const nav = this.location.getState() as any;
                     if (nav && nav.navigationId) {
                         if (window.location.pathname.split('/').length === 2) {
