@@ -23,8 +23,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, './public/client')));
 app.use((req,res,next) => {
-
-  if (req.originalUrl === "/api/user/login") {
+  console.log(req.originalUrl)
+  if (
+    req.originalUrl === "/api/user/login"
+    || !req.originalUrl.includes('api')
+  ) {
     next();
     return 
   }
