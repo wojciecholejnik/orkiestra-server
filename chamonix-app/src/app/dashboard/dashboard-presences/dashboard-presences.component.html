@@ -22,17 +22,24 @@
             </button>
         </div>
     </div>
-    <div class="chart-col">
-        <div style="width: 100%; height: 200px;">
-            <ngx-charts-bar-horizontal
-                class="chart-container"
-                [results]="data"
+    <ng-container *ngIf="!disabledView()">
+        <div class="chart-col">
+            <div style="width: 100%; height: 200px;">
+                <ngx-charts-bar-horizontal
+                    class="chart-container"
+                    [results]="data"
 
-                [customColors]="customColors"
-                [yAxis]="true"
-                [showDataLabel]="true"
-            >
-            </ngx-charts-bar-horizontal>
+                    [customColors]="customColors"
+                    [yAxis]="true"
+                    [showDataLabel]="true"
+                >
+                </ngx-charts-bar-horizontal>
+            </div>
         </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="disabledView()">
+        <div class="chart-col" style="width: 100%; height: 200px;">
+            <p style="text-align: center;">Widok tylko dla aktywnych członków.</p>
+        </div>
+    </ng-container>
 </div>

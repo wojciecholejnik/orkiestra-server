@@ -57,7 +57,10 @@ export class NavigationService  {
           addNewRoleStaff: true,
           editPresence: true,
           editResourcesInstrument: true,
-          editResourcesUniforms: true
+          editResourcesUniforms: true,
+          editContributions: true,
+          editDiary: true,
+          editCalendar: true
         };
         break
       }
@@ -67,7 +70,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: true,
           editResourcesInstrument: true,
-          editResourcesUniforms: false
+          editResourcesUniforms: false,
+          editContributions: false,
+          editDiary: true,
+          editCalendar: true
         };
         break
       }
@@ -77,7 +83,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: false,
           editResourcesInstrument: false,
-          editResourcesUniforms: true
+          editResourcesUniforms: true,
+          editContributions: false,
+          editDiary: false,
+          editCalendar: true
         };
         break
       }
@@ -87,7 +96,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: false,
           editResourcesInstrument: false,
-          editResourcesUniforms: false
+          editResourcesUniforms: false,
+          editContributions: false,
+          editDiary: false,
+          editCalendar: false
         };
         break
       }
@@ -97,7 +109,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: false,
           editResourcesInstrument: false,
-          editResourcesUniforms: false
+          editResourcesUniforms: false,
+          editContributions: false,
+          editDiary: false,
+          editCalendar: false
         }
       }
     }

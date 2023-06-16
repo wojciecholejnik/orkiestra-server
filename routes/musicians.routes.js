@@ -14,6 +14,7 @@ router.post('/musicians', musicianController.createMusician);
 router.post('/musician/:id', musicianController.updateMusician);
 router.post('/musician/delete/:id', musicianController.deleteMusician);
 router.get('/musicians/instructors', musicianController.readInstructors);
+router.get('/musician/resourceInstruments/:id', musicianController.readMemberInstruments)
 
 router.get('/member/details/uniforms/:id', musicianController.readMemberUniforms);
 

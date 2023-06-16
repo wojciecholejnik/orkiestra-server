@@ -382,6 +382,28 @@ exports.readMemberUniforms = async (req, res) => {
   }
 }
 
+exports.readMemberInstruments = async (req, res) => {
+  jwt.verify(req.token, process.env.TOKEN_KEY, async (err)=>{
+    if(err) {
+        res.sendStatus(403);
+    } else {
+      try {
+        const resourceInstruments = await ResourceInstrument.find({user: req.params.id}).populate({
+          path: 'type', 
+          model: Instrument,
+          select: '-user'
+        }).sort('type');
+        res.json(resourceInstruments)
+    
+      }
+      catch(err) {
+        res.status(500).json({ message: err });
+      }
+    }
+  })
+  
+}
+
 exports.loginUser = async (req, res) => {
   try {
     const user = await Musician
@@ -472,7 +494,7 @@ exports.readInstructors = async (req, res) => {
         res.sendStatus(403);
     } else {
       try {
-        const musicians = await Musician.find({ $or:[ {'role':"1"}, {'role':"0"}]})
+        const musicians = await Musician.find({ isActive: true, $or:[ {'role':"1"}, {'role':"0"}]})
         .select('-phone -email -address1 -address2 -instrument -isChild -parentName -parentPhone -isActive -joiningDate -birthDate -isStudent -isInstructor -login -password')
         .sort({lastName: 1});
       

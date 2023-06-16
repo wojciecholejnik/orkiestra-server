@@ -9,6 +9,7 @@ import { DashboardUniformsComponent } from './dashboard-uniforms/dashboard-unifo
 import { SharedModule } from '../shared/shared.module';
 import { DashboardContributionsComponent } from './dashboard-contributions/dashboard-contributions.component';
 import { RouterModule } from '@angular/router';
+import { DashbordIntrumentsComponent } from './dashbord-intruments/dashbord-intruments.component';
 
 
 
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
     DashboardEventsComponent,
     DashboardUniformsComponent,
     DashboardContributionsComponent,
+    DashbordIntrumentsComponent,
   ],
   imports: [
     CommonModule,

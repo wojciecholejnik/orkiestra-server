@@ -161,6 +161,9 @@ export interface Privileges {
     addNewMember: boolean,
     editResourcesInstrument: boolean,
     editResourcesUniforms: boolean,
+    editContributions: boolean,
+    editDiary: boolean,
+    editCalendar: boolean
     [key: string]: boolean
 }
 

@@ -1,13 +1,13 @@
 <app-modal-wrapper>
     <div class="action-modal">
         <div>
-            <h2 *ngIf="!editingItem">Dodaj instrument</h2>
-            <h2 *ngIf="editingItem">Edytuj instrument</h2>
+            <h2 *ngIf="!editingItem">Dodaj sprzęt</h2>
+            <h2 *ngIf="editingItem">Edytuj sprzęt</h2>
         </div>
 
         <div class="scrollable">
             <div class="mb-3 mt-4 selector">
-                <label for="birthDate">Sekcja</label>
+                <label for="birthDate">Grupa</label>
                 <app-loading *ngIf="sectionsLoading" [small]="true"></app-loading>
                 <select *ngIf="sections && !sectionsLoading" [(ngModel)]="activeSection" (change)="getInstrumentsBbySection()">
                     <option *ngFor="let section of sections" [value]="section._id">{{section.name}}</option>
@@ -16,7 +16,7 @@
     
             <div *ngIf="activeSection" class="mb-3 selector">
                 <p *ngIf="!instrumentsBySection.length">
-                    Ta sekcja nie ma przypisanych żadnych instrumentów. Wróć do zakładki 'Sekcje' i dodaj instrument.
+                    Ta grupa nie ma przypisanych żadnych sprzętów. Wróć do zakładki 'Grupy' i dodaj instrument.
                 </p>
                 <label *ngIf="instrumentsBySection.length" for="instrumentsBySection">Instrument</label>
                 <app-loading *ngIf="!instrumentsReady" [small]="true"></app-loading>

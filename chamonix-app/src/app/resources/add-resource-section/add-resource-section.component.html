@@ -1,8 +1,8 @@
 <app-modal-wrapper>
     <div class="action-modal">
         <div>
-            <h2 *ngIf="!editingItem">Dodaj sekcję</h2>
-            <h2 *ngIf="editingItem">Edytuj sekcję</h2>
+            <h2 *ngIf="!editingItem">Dodaj grupę</h2>
+            <h2 *ngIf="editingItem">Edytuj grupę</h2>
         </div>
         <form
             id="sectionForm"
@@ -21,7 +21,7 @@
             </div>
             
             <div class="mb-3 mt-4 selector form-floating">
-                <label for="birthDate">Instruktor</label>
+                <label for="birthDate">Opiekun</label>
                 <app-loading *ngIf="instructorsLoading" [small]="true"></app-loading>
                 <select class="form-select form-control" *ngIf="instructors && !instructorsLoading" formControlName="instructor">
                     <option value="">brak</option>

@@ -5,12 +5,12 @@
     </div>
     <div class="content">
         
-        <table class="table">
+        <table class="table" *ngIf="!disabledView()">
             <ng-container *ngFor="let group of uniformsGroups">
                 <thead>
                     <tr>
                         <th class="pointer" (click)="toggleIsOpen(group._id)" style="display: flex; justify-content: space-between;">
-                            <span>{{group.name + ' (' +  group.parts.length + ')'}}</span>
+                            <span>{{group.name + countOwned(group)}}</span>
                             <span><i class="bi bi-chevron-down" [class.bi-chevron-up]="group.isOpen"></i></span>
                         </th>
 
@@ -23,5 +23,9 @@
                 </tbody>
             </ng-container>
         </table>
+
+        <div class="disabled-view" style="width: 100%;" *ngIf="disabledView()">
+            <p style="text-align: center; margin-top: 50px;">Widok tylko dla aktywnych członków.</p>
+        </div>
     </div>
 </div>
