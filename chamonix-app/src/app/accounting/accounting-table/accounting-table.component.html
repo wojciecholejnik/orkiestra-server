@@ -1,0 +1,20 @@
+<table class="table table-bordered table-hover">
+    <thead *ngIf="deviceType !== 'phone'">
+        <th class="date">Data</th>
+        <th class="author">Autor</th>
+        <th class="description">Opis</th>
+        <th class="value">Wartość</th>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let entry of list.history">
+            <tr >
+               <td class="date">{{entry.date | date:(!isPhoneType() ? 'dd.MM.yyyy' : 'dd.MM.yy')}}</td>
+               <td class="author">{{!isPhoneType() ? entry.author : showAuthorForPhoneDevice(entry.author)}}</td>
+               <td class="description">{{entry.description}}</td>
+               <td class="value" [class.green]="entry.value > 0" [class.red]="entry.value < 0">{{formatValue(entry.value)}}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+</table>
+
+

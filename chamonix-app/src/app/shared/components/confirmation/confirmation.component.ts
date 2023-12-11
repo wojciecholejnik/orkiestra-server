@@ -59,6 +59,10 @@ export class ConfirmationComponent implements OnInit {
         if (this.type === 'removeEvent') {
             this.confirmationText = 'Czy na pewno usunąć wydarzenie ' + this.data.title + ' ?'
         }
+
+        if (this.type === 'addNewBudget') {
+            this.confirmationText = 'Czy na pewno chcesz otworzyć nowy budżet dla roku ' + this.data.year + ' ? Tej akcji nie można będzie cofnąć.'
+        }
     }
 
     confirm(){

@@ -249,6 +249,7 @@ export type ConfirmationModalType =
 | 'deletePresence'
 | 'removeContributionList'
 | 'removeEvent'
+| 'addNewBudget'
 | '';
 
 export enum NavOptions {
@@ -258,10 +259,26 @@ export enum NavOptions {
     calendar = 'calendar',
     resources = 'resources',
     contrbutions = 'contrbutions',
+    accounting = 'accounting',
 }
 
 export interface ActiveModule {
     name: string, 
     isActive: boolean, 
     href: NavOptions
+}
+
+export interface AccountingList {
+    _id: string,
+    year: number,
+    isClosed: boolean,
+    balance: number,
+    history: AccountingHistoryItem[]
+}
+
+export interface AccountingHistoryItem {
+    author: string,
+    date: string,
+    value: number,
+    description: string
 }

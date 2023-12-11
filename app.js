@@ -9,8 +9,9 @@ const sectionsRoutes = require('./routes/sections.routes');
 const instrumentsRoutes = require('./routes/instruments.routes');
 const resourcesInstrumentRoutes = require('./routes/resourcesInstruments.routes');
 const presenceRoutes = require('./routes/presence.routes');
-const contributionsRoutes = require('./routes/contributions.routes ');
-const eventsRoutes = require('./routes/events.routes ');
+const contributionsRoutes = require('./routes/contributions.routes');
+const eventsRoutes = require('./routes/events.routes');
+const accountingRoutes = require('./routes/accounting.routes');
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use('/api', resourcesInstrumentRoutes);
 app.use('/api', presenceRoutes);
 app.use('/api', contributionsRoutes);
 app.use('/api', eventsRoutes);
+app.use('/api', accountingRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/client/index.html'));
 });

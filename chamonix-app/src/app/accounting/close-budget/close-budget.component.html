@@ -1,0 +1,48 @@
+<app-modal-wrapper>
+
+    <div class="action-modal">
+        <h2>Zamknij budżet</h2>
+
+        <p class="confirmation">
+            za rok <strong>{{year}}</strong>
+            <br><br>Tej czynności nie będzie można cofnąć !
+        </p>
+
+        <app-loading *ngIf="activeToTransferLoading"></app-loading>
+
+        <div class="active-budgets-wrapper" *ngIf="!activeToTransferLoading && acctiveToTransfer.length">
+            Wybierz budżet na który chcesz przesunąć środki za zamykany rok:
+            <table class="table striped">
+                <thead>
+                    <th></th>
+                    <th>rok</th>
+                    <th>saldo</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let budget of acctiveToTransfer" (click)="checkBudget(budget._id)">
+                        <td><input type="checkbox" [(ngModel)]="budget.checked"></td>
+                        <td>{{budget.year}}</td>
+                        <td>{{budget.balance}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="no-budgetsToTransfer-info" *ngIf="!activeToTransferLoading && !acctiveToTransfer.length">
+            Brak aktywnych budżetów do przesunięcia. Nie możesz zamknąć obecnego budżetu.
+            <br>Aby zamknąć budżet za rok {{year}} otwórz nowy budżet na kolejny rok.
+        </div>
+                   
+
+        <div class="buttons-wrapper">
+            <button  class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button  class="btn btn-primary" (click)="save()" [disabled]="validate()">
+                <ng-container >Potwierdź</ng-container>
+                <!-- <ng-container *ngIf="saving">Zapisywanie...</ng-container> -->
+            </button>
+        </div>
+
+    </div>
+
+</app-modal-wrapper>

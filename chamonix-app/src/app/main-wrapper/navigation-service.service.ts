@@ -14,6 +14,7 @@ export class NavigationService  {
         {name: 'Kalendarz', isActive: false, href: NavOptions.calendar},
         {name: 'Zasoby', isActive: false, href: NavOptions.resources},
         {name: 'Składki', isActive: false, href: NavOptions.contrbutions},
+        {name: 'Księgowość', isActive: false, href: NavOptions.accounting},
     ]);
     deviceType: BehaviorSubject<DeviceType> = new BehaviorSubject<DeviceType>(DeviceType.laptop);
     isUserLogged: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);

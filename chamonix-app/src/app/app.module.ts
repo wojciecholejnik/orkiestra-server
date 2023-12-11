@@ -26,6 +26,7 @@ import { DashboardWrapperComponent } from './dashboard/dashboard-wrapper/dashboa
 import { EventPreviewComponent } from './calendar/event-preview/event-preview.component';
 import { AuthService } from './shared/authInterceptorService/authService';
 import { AuthInterceptorService } from './shared/authInterceptorService/authInterceptorService';
+import { AccountingWrapperComponent } from './accounting/accounting-wrapper/accounting-wrapper.component';
 
 registerLocaleData(localePl);
 
@@ -67,6 +68,10 @@ const routes: Routes = [
             { 
                 path: NavOptions.contrbutions, 
                 component: ContributionsWrapperComponent 
+            },
+            { 
+                path: NavOptions.accounting, 
+                component: AccountingWrapperComponent 
             }
         ]
     },

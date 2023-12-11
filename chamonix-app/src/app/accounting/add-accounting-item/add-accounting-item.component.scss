@@ -1,0 +1,46 @@
+@import '../../../global-styling/mixins.scss';
+
+.form {
+    label {
+        border: unset;
+        margin-bottom: 0;
+        input {
+            width: auto;
+        }
+    }
+}
+
+.values-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 25px;
+    margin-bottom: 20px;
+
+
+    input[type=number] {
+        width: auto;
+        margin-bottom: 0;
+        @include phone {
+            max-width: 120px;
+        }
+    }
+
+    .green {
+        color: green
+    }
+
+    .red {
+        color: red
+    }
+}
+
+input[type=date] {
+    margin-top: 20px;
+    
+    @include phone {
+        width: 100%;
+        min-width: 340px;
+    }
+}
+

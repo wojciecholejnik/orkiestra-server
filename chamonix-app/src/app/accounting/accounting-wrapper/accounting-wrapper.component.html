@@ -1,0 +1,67 @@
+<div class="module-container">
+
+    <div class="actions" *ngIf="deviceType === 'laptop' && canEdit">
+        <button class="btn btn-primary" *ngIf="!listToShow && !loading" (click)="openModalAddNewBudget()">Otwórz nowy budżet</button>
+        <button class="btn btn-secondary" *ngIf="canCloseList()" (click)="openModalCloseBudget()">Zamknij budżet</button>
+        <button class="btn btn-primary" *ngIf="canCloseList()" (click)="openModalAddNewItem()">Dodaj nowy wpis</button>
+    </div>
+    <div class="actions" *ngIf="deviceType === 'phone' && canEdit">
+        <button class="btn btn-primary" *ngIf="!listToShow && !loading" (click)="openModalAddNewBudget()"><i class="bi bi-folder-plus"></i></button>
+        <button class="btn btn-secondary" *ngIf="canCloseList()" (click)="openModalCloseBudget()"><i class="bi bi-x-square"></i></button>
+        <button class="btn btn-primary" *ngIf="canCloseList()" (click)="openModalAddNewItem()"><i class="bi bi-file-earmark-plus"></i></button>
+    </div>
+
+    <div class="year-selector">
+        <button class="btn btn-primary" (click)="goPreviousYear()"><i class="bi bi-chevron-left"></i></button>
+        <span>{{ showingYear }}</span>
+        <button class="btn btn-primary" (click)="goNextYear()"><i class="bi bi-chevron-right"></i></button>
+    </div>
+
+
+    <div *ngIf="loading" class="loading-wrapper">
+        <app-loading></app-loading>
+      </div>
+
+    <div class="no-list-info" *ngIf="!listToShow && !loading">
+        Dla wybranego roku nie ma jeszcze list przychodów i rozchodów.
+    </div>
+
+    <div class="budget-info" *ngIf="listToShow">
+        <div>
+            <span>Status budżetu: </span>
+            <span class="budget-status" [class.green]="!listToShow.isClosed">{{listToShow.isClosed ? 'zamknięty' : 'otwarty'}}</span>
+        </div>
+        <div>
+            <span>Saldo: </span>
+            <strong>{{formatValue(listToShow.balance)}}</strong>
+        </div>
+    </div>
+
+    <div class="table-wrapper" *ngIf="listToShow">
+        <app-accounting-table  [list]="listToShow"></app-accounting-table>
+    </div>
+</div>
+
+<app-confirmation
+    *ngIf="newBudgetModalOpen"
+    (onAbort)="cloaseModalAddNewBudget()"
+    (onConfirm)="createNewBudget()"
+    [data]="{year: this.showingYear}"
+    [type]="'addNewBudget'"
+></app-confirmation>
+
+<app-add-accounting-item 
+    *ngIf="listToShow && addItemModalIsOpen"
+    [year]="this.showingYear"
+    [budgetId]="this.listToShow._id"
+    (onClose)="closeModalAddNewItem()"
+></app-add-accounting-item>
+    
+<app-close-budget
+    *ngIf="listToShow && closeBudgetModalIsOpen"
+    [year]="this.listToShow.year"
+    [id]="this.listToShow._id"
+    (onClose)="closeModalCloseBudget()" 
+></app-close-budget>
+
+

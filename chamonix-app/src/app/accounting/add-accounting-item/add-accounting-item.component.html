@@ -1,0 +1,59 @@
+<app-modal-wrapper>
+
+    <div class="action-modal">
+        <h2>Dodaj nowy wpis</h2>
+
+        <p class="confirmation">
+            dla budżetu na rok <strong>{{year}}</strong>
+        </p>
+        
+        
+        <div class="form">
+            <div class="values-wrapper">
+                <div class="types">
+                    <label>
+                        <input type="radio" name="type" value="+" [(ngModel)]="newItem.type">
+                        Przychód
+                    </label><br/>
+                    <label>
+                        <input type="radio" name="type" value="-" [(ngModel)]="newItem.type">
+                        Rozchód
+                    </label>
+                </div>
+                <span *ngIf="newItem.type === '+'" style="color: green;">+</span>
+                <span *ngIf="newItem.type === '-'" style="color: red;">-</span>
+                <input 
+                    class="form-control" 
+                    type="number" 
+                    placeholder="Suma"
+                    min="0" 
+                    [(ngModel)]="newItem.value"
+                    [class.green]="newItem.type === '+'"
+                    [class.red]="newItem.type === '-'"
+                    [disabled]="!newItem.type"
+                >
+                <span [class.green]="newItem.type === '+'"
+                [class.red]="newItem.type === '-'">zł</span>
+            </div>
+            <textarea class="form-control" type="text" placeholder="Opis" [(ngModel)]="newItem.description" rows="3"></textarea>
+
+            <input
+                class="form-control"
+                placeholder="yyyy-mm-dd"
+                type="date"
+                [min]="year+'-01-01'"
+                [max]="year+'-12-31'"
+                [(ngModel)]="newItem.date"
+            />
+        </div>
+
+        <div class="buttons-wrapper">
+            <button  class="btn btn-secondary" (click)="closeModal()">Anuluj</button>
+            <button  class="btn btn-primary" (click)="save()">
+                <ng-container>Potwierdź</ng-container>
+            </button>
+        </div>
+
+    </div>
+
+</app-modal-wrapper>

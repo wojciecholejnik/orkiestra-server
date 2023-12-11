@@ -14,6 +14,8 @@ import { ContributionsModule } from '../contributions/contributions.module';
 import { ManageComponent } from './header/manage/manage.component';
 import { CalendarModule } from '../calendar/calendar.module';
 import { DashboardModule } from '../dashboard/dashboard.module';
+import { AccountingWrapperComponent } from '../accounting/accounting-wrapper/accounting-wrapper.component';
+import { AccountingModuleModule } from '../accounting/accounting.module';
 
 @NgModule({
     declarations: [
@@ -34,7 +36,8 @@ import { DashboardModule } from '../dashboard/dashboard.module';
         DiaryModule,
         ContributionsModule,
         CalendarModule,
-        DashboardModule
+        DashboardModule,
+        AccountingModuleModule
     ],
     exports: [
         MainWrapperComponent,

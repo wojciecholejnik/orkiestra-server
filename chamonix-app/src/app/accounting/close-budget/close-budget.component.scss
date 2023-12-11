@@ -1,0 +1,22 @@
+
+
+table {
+    input {
+        width: unset;
+    }
+
+    tbody {
+        tr {
+            cursor: pointer;
+
+            &:hover {
+                background-color: #ebebeb;
+            }
+        }
+    }
+}
+
+.no-budgetsToTransfer-info {
+    margin: 15px 25px;
+    color: red;
+}
