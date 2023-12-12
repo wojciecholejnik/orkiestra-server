@@ -8,6 +8,7 @@ export interface MembersTabs {
     exMembers: boolean,
     students: boolean,
     mainStaff: boolean,
+    spectators: boolean,
     [key: string]: boolean
 }
 
@@ -151,7 +152,7 @@ export interface User {
     login: string,
     firstName: string,
     lastName: string,
-    role: string
+    role: Roles
 }
 
 export interface Privileges {
@@ -160,6 +161,9 @@ export interface Privileges {
     addNewMember: boolean,
     editResourcesInstrument: boolean,
     editResourcesUniforms: boolean,
+    editContributions: boolean,
+    editDiary: boolean,
+    editCalendar: boolean
     [key: string]: boolean
 }
 
@@ -176,7 +180,8 @@ export enum Roles {
     instructor = '1',
     inspector = '2',
     member = '3',
-    paymaster = '4'
+    paymaster = '4',
+    spectator = '5'
 }
 
 export interface DiaryTabs {
@@ -244,6 +249,7 @@ export type ConfirmationModalType =
 | 'deletePresence'
 | 'removeContributionList'
 | 'removeEvent'
+| 'addNewBudget'
 | '';
 
 export enum NavOptions {
@@ -253,10 +259,26 @@ export enum NavOptions {
     calendar = 'calendar',
     resources = 'resources',
     contrbutions = 'contrbutions',
+    accounting = 'accounting',
 }
 
 export interface ActiveModule {
     name: string, 
     isActive: boolean, 
     href: NavOptions
+}
+
+export interface AccountingList {
+    _id: string,
+    year: number,
+    isClosed: boolean,
+    balance: number,
+    history: AccountingHistoryItem[]
+}
+
+export interface AccountingHistoryItem {
+    author: string,
+    date: string,
+    value: number,
+    description: string
 }

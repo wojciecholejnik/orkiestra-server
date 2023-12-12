@@ -140,6 +140,10 @@ export class MembersTableComponent implements OnInit, OnDestroy {
             this._members = this.membersService.getStudentsMembers().subscribe(studentsMembers => {
                 this.handleGetMembers(studentsMembers);
             }); 
+        } else if (this.activeTab && this.activeTab.spectators) {
+            this._members = this.membersService.getSpectatorsMembers().subscribe(spectatorsMembers => {
+                this.handleGetMembers(spectatorsMembers);
+            }); 
         }
     }
 
@@ -207,8 +211,6 @@ export class MembersTableComponent implements OnInit, OnDestroy {
 
     goToDetails(id: string) {
         this._router.navigate([`main/members/details/${id}`])
-        // this.membersService.membersTableIsOpen.next(false);
-        // this.membersService.memberDetailsAreOpen.next(id);
     }
 
     canDoActionOnMember(): boolean {

@@ -1,0 +1,43 @@
+@import '../../../global-styling/mixins.scss';
+@import '../../../global-styling/colors.scss';
+
+
+table {
+    max-width: 1100px;
+    font-size: 13px;    
+    td {
+        vertical-align: middle;
+    }
+}
+
+.green {
+    color: $font-green
+}
+
+.red {
+    color: $font-red
+}
+
+@include phone {
+    table {
+        td {
+            padding: 5px 2px;
+            font-size: 10px;
+
+            &.date {
+                min-width: 50px;
+            }
+            &.author {
+                min-width: 75px;
+            }
+            &.description {
+                min-width: 100px;
+            }
+            &.value {
+                min-width: 50px;
+                text-align: end;
+            }
+        }
+    }
+
+}

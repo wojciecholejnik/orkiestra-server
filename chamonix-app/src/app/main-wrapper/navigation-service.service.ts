@@ -14,6 +14,7 @@ export class NavigationService  {
         {name: 'Kalendarz', isActive: false, href: NavOptions.calendar},
         {name: 'Zasoby', isActive: false, href: NavOptions.resources},
         {name: 'Składki', isActive: false, href: NavOptions.contrbutions},
+        {name: 'Księgowość', isActive: false, href: NavOptions.accounting},
     ]);
     deviceType: BehaviorSubject<DeviceType> = new BehaviorSubject<DeviceType>(DeviceType.laptop);
     isUserLogged: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
@@ -57,7 +58,10 @@ export class NavigationService  {
           addNewRoleStaff: true,
           editPresence: true,
           editResourcesInstrument: true,
-          editResourcesUniforms: true
+          editResourcesUniforms: true,
+          editContributions: true,
+          editDiary: true,
+          editCalendar: true
         };
         break
       }
@@ -67,7 +71,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: true,
           editResourcesInstrument: true,
-          editResourcesUniforms: false
+          editResourcesUniforms: false,
+          editContributions: false,
+          editDiary: true,
+          editCalendar: true
         };
         break
       }
@@ -77,7 +84,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: false,
           editResourcesInstrument: false,
-          editResourcesUniforms: true
+          editResourcesUniforms: true,
+          editContributions: false,
+          editDiary: false,
+          editCalendar: true
         };
         break
       }
@@ -87,7 +97,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: false,
           editResourcesInstrument: false,
-          editResourcesUniforms: false
+          editResourcesUniforms: false,
+          editContributions: false,
+          editDiary: false,
+          editCalendar: false
         };
         break
       }
@@ -97,7 +110,10 @@ export class NavigationService  {
           addNewRoleStaff: false,
           editPresence: false,
           editResourcesInstrument: false,
-          editResourcesUniforms: false
+          editResourcesUniforms: false,
+          editContributions: false,
+          editDiary: false,
+          editCalendar: false
         }
       }
     }

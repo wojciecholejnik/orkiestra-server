@@ -16,13 +16,17 @@
                 </div>
             </div>
             
-            <div class="control">
-                <div class="control-label">
+            <div class="test" style="display: flex;">
+                <!-- <div class="control-label">
                     <p>Adres:</p>
-                </div>
-                <div class="control-value">
+                </div> -->
+                <label class="control-label" for="address" style="width: 20%;">Adres:</label>
+                <div name="address" id="address" class="grow-wrap" style="width: 100%;">
                     <textarea cols="2" disabled>{{selectedEvent.address}}</textarea>
                 </div>
+                <!-- <div class="control-value">
+                    <textarea cols="2" disabled>{{selectedEvent.address}}</textarea>
+                </div> -->
             </div>
 
             <div class="control">
@@ -52,7 +56,7 @@
                 </div>
             </div>
 
-            <div class="control">
+            <div class="control" *ngIf="!disabledView()">
                 <div class="control-label">
                     <p>Mój status:</p>
                 </div>

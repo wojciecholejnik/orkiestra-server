@@ -1,7 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 import { MembersService } from 'src/app/members/members.service';
-import { UniformGroupAndPart, User } from 'src/app/shared/models';
+import { Roles, UniformGroupAndPart, User } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-dashboard-uniforms',
@@ -17,7 +18,8 @@ export class DashboardUniformsComponent implements OnInit, OnDestroy {
   _uniformsGroupsAndParts?: Subscription;
 
   constructor(
-    private membersService: MembersService
+    private membersService: MembersService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
@@ -50,8 +52,23 @@ export class DashboardUniformsComponent implements OnInit, OnDestroy {
   }
 
   isMemberHasPart(ids: string[]) {
-      const index = ids.indexOf(this.user._id);
-      return index >= 0
+    const index = ids.indexOf(this.user._id);
+    return index >= 0
+  }
+
+  disabledView(): boolean {
+    return this.navigationService.getUser()?.role === Roles.spectator
+  }
+
+  countOwned(group: {name: string, parts: [{name: string, usingMembers: string[]}]}): string {
+    let counter = 0;
+    group.parts.forEach(checkGroup => {
+      if (this.isMemberHasPart(checkGroup.usingMembers)) {
+        counter ++
+      }
+    })
+
+    return ` (${counter}/${group.parts.length})`
   }
 
 }

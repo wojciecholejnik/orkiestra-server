@@ -44,30 +44,50 @@
                 </div>
                 
                 <div class="control">
-                    <p class="control-label">Adres: </p>
-                    <div class="control-value">
-                        <textarea id="address" cols="2" [(ngModel)]="newEvent.address"></textarea>
+                    <label class="control-label" for="address" style="width: 20%;">Adres:</label>
+                    <div name="address" id="address" class="grow-wrap" style="width: 80%;">
+                        <textarea
+                            id="test-textarea"
+                            [(ngModel)]="newEvent.address"
+                            onInput="this.parentNode.dataset.replicatedValue = this.value"
+                            onchange="this.parentNode.dataset.replicatedValue = this.value"
+                        >{{newEvent.address}}</textarea>
                     </div>
                 </div>
 
                 <div class="control">
-                    <p class="control-label">Opis:</p>
-                    <div class="control-value">
-                        <textarea id="description" class="description" [(ngModel)]="newEvent.description"></textarea>
+                    <label class="control-label" for="address" style="width: 20%;">Opis:</label>
+                    <div name="address" id="address" class="grow-wrap" style="width: 80%;">
+                        <textarea
+                            id="test-textarea"
+                            [(ngModel)]="newEvent.description"
+                            onInput="this.parentNode.dataset.replicatedValue = this.value"
+                            onchange="this.parentNode.dataset.replicatedValue = this.value"
+                        >{{newEvent.description}}</textarea>
                     </div>
                 </div>
 
                 <div class="control">
-                    <p class="control-label">Program:</p>
-                    <div class="control-value">
-                        <textarea id="description" class="description" [(ngModel)]="newEvent.playlist"></textarea>
+                    <label class="control-label" for="address" style="width: 20%;">Program:</label>
+                    <div name="address" id="address" class="grow-wrap" style="width: 80%;">
+                        <textarea
+                            id="test-textarea"
+                            [(ngModel)]="newEvent.playlist"
+                            onInput="this.parentNode.dataset.replicatedValue = this.value"
+                            onchange="this.parentNode.dataset.replicatedValue = this.value"
+                        >{{newEvent.playlist}}</textarea>
                     </div>
                 </div>
 
                 <div class="control">
-                    <p class="control-label">Strój:</p>
-                    <div class="control-value">
-                        <textarea id="description" class="description" [(ngModel)]="newEvent.uniforms"></textarea>
+                    <label class="control-label" for="address" style="width: 20%;">Strój:</label>
+                    <div name="address" id="address" class="grow-wrap" style="width: 80%;">
+                        <textarea
+                            id="test-textarea"
+                            [(ngModel)]="newEvent.uniforms"
+                            onInput="this.parentNode.dataset.replicatedValue = this.value"
+                            onchange="this.parentNode.dataset.replicatedValue = this.value"
+                        >{{newEvent.uniforms}}</textarea>
                     </div>
                 </div>
 

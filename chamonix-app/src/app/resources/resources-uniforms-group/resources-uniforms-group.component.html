@@ -7,7 +7,7 @@
             <h4>{{uniformsGroup.name}}</h4>
             <p>liczba elementów: <ng-container>{{parts ? parts.length : '0'}}</ng-container></p>
         </div>
-        <div class="filters">
+        <div class="filters" *ngIf="canEdit()">
             <button class="btn btn-primary btn-sm" (click)="openModalEditGroup()">
                 <i class="bi bi-pencil"></i>
                 edytuj
@@ -49,7 +49,7 @@
                         </div>
                     </td>
                     <td class="actions">
-                        <div class="actions-wrapper">
+                        <div class="actions-wrapper" *ngIf="canEdit()">
                             <button class="btn btn-primary btn-sm" (click)="selectEditingPart(item)">
                                 <i class="bi bi-pencil"></i>
                             </button>

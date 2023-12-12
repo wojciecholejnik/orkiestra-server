@@ -120,4 +120,15 @@ export class MemberUniformsComponent implements OnInit, OnDestroy {
         this.location.back()
     }
 
+    countOwned(group: {name: string, parts: [{name: string, usingMembers: string[]}]}): string {
+        let counter = 0;
+        group.parts.forEach(checkGroup => {
+          if (this.isMemberHasPart(checkGroup.usingMembers)) {
+            counter ++
+          }
+        })
+    
+        return ` (${counter}/${group.parts.length})`
+      }
+
 }

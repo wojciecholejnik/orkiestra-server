@@ -77,10 +77,6 @@ select {
     padding: 4px;
 }
 
-.buttons-wrapper.middle {
-    justify-content: center;
-}
-
 .event-members {
     display: flex;
     gap: 0 !important;
@@ -139,18 +135,18 @@ select {
     height: 100%;
   }
   
-  .example-box {
-    padding: 5px;
-    border-bottom: solid 1px #ccc;
-    color: rgba(0, 0, 0, 0.87);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    background: white;
-    font-size: 12px;
-  }
+.example-box {
+padding: 5px;
+border-bottom: solid 1px #ccc;
+color: rgba(0, 0, 0, 0.87);
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+box-sizing: border-box;
+background: white;
+font-size: 12px;
+}
 
 @include phone {
 
@@ -159,6 +155,7 @@ select {
         max-height: 100vh;
         min-height: 100vh;
         border-radius: 0;
+        padding-bottom: 100px;
     }
 
     .wrapper {

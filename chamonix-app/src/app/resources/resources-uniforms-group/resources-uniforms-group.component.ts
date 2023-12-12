@@ -1,6 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ResourcesService } from '../resources.service';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 
 @Component({
     selector: 'app-resources-uniforms-group',
@@ -21,16 +22,16 @@ export class ResourcesUniformsGroupComponent implements OnInit, OnDestroy, OnCha
   selectedPart?: Part;
   removePartIsOpen = false;
 
-  constructor(private resourcesService: ResourcesService) { 
+  constructor(private resourcesService: ResourcesService, private navigationService: NavigationService) { 
   }
 
   ngOnInit(): void {
     this.getParts();
   }
 
-ngOnChanges(changes: SimpleChanges): void {
-    this.getParts();
-}
+  ngOnChanges(changes: SimpleChanges): void {
+      this.getParts();
+  }
 
   getParts() {
     this._getParts = this.resourcesService.getPartsForUniformsGroup(this.uniformsGroup?._id).subscribe({
@@ -116,6 +117,10 @@ ngOnChanges(changes: SimpleChanges): void {
       inUse: part.usingMembers.length,
       free: part.state - part.usingMembers.length
     }
+  }
+
+  canEdit(): boolean {
+    return this.navigationService.checkPrivilege("editResourcesUniforms")
   }
 
 }

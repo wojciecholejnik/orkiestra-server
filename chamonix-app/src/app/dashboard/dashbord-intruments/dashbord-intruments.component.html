@@ -1,0 +1,32 @@
+<div class="host">
+    <div class="header">
+        <div class="title">Mój sprzęt</div>
+        
+    </div>
+    <div class="content">
+        
+        <div class="host-container" *ngIf="!disabledView()">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>rodzaj</th>
+                        <th>marka</th>
+                        <th>model</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let instrument of instruments">
+                        <td>{{instrument.type.name}}</td>
+                        <td>{{instrument.brand}}</td>
+                        <td>{{instrument.model}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
+        <div class="disabled-view" style="width: 100%;" *ngIf="disabledView()">
+            <p style="text-align: center; margin-top: 50px;">Widok tylko dla aktywnych członków.</p>
+        </div>
+    </div>
+</div>

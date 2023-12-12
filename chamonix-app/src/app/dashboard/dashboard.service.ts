@@ -25,4 +25,8 @@ export class DashboardService {
   readNearesetEvent(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiHost}/getNearestEvent`)
   }
+
+  readMusicianInstruments(musicianId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiHost}/musician/resourceInstruments/${musicianId}`)
+  }
 }

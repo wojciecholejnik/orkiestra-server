@@ -6,6 +6,7 @@ import { NavigationService } from 'src/app/main-wrapper/navigation-service.servi
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/shared/toast-service/toast.service';
 import { MembersService } from 'src/app/members/members.service';
+import { Roles } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-event-details',
@@ -231,5 +232,9 @@ export class EventDetailsComponent implements OnInit, OnDestroy {
     document.execCommand('copy');
     document.body.removeChild(selBox);
     this.toastService.show('Skopiowano', { classname: 'bg-success text-light', delay: 1500 })
+  }
+
+  disabledView(): boolean {
+    return this.navigationService.getUser()?.role === Roles.spectator
   }
 }

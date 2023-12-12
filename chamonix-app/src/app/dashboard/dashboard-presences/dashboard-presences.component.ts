@@ -1,8 +1,9 @@
 import { Component, Input, OnDestroy, OnInit,  } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Lesson, User } from 'src/app/shared/models';
+import { Lesson, Roles, User } from 'src/app/shared/models';
 import { DashboardService } from '../dashboard.service';
 import { SingleSeries } from '@swimlane/ngx-charts';
+import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
 
 @Component({
   selector: 'app-dashboard-presences',
@@ -20,7 +21,37 @@ export class DashboardPresencesComponent implements OnInit, OnDestroy {
 
   _lessons?: Subscription
 
-  constructor(private dashboardService: DashboardService) { }
+  data: SingleSeries = [
+    {
+      name: 'Obecności',
+      value: 0,
+    },
+    {
+      name: 'Nieobecności',
+      value: 0,
+    },
+    {
+      name: 'Spóźnień',
+      value: 0,
+    },
+  ];
+
+  customColors: any[] = [
+    {
+      name: 'Obecności',
+      value: 'green'
+    },
+    {
+      name: 'Spóźnień',
+      value: 'yellow'
+    },
+    {
+      name: 'Nieobecności',
+      value: 'red'
+    },
+  ];
+
+  constructor(private dashboardService: DashboardService, private navigationService: NavigationService) { }
 
   ngOnInit(): void {
     this.getPresences()
@@ -167,38 +198,8 @@ export class DashboardPresencesComponent implements OnInit, OnDestroy {
     }
   }
 
-  countPerMonth(): void {
-
+  disabledView(): boolean {
+    return this.navigationService.getUser()?.role === Roles.spectator
   }
-
-  data: SingleSeries = [
-    {
-      name: 'Obecności',
-      value: 5,
-    },
-    {
-      name: 'Nieobecności',
-      value: 2,
-    },
-    {
-      name: 'Spóźnień',
-      value: 1,
-    },
-  ];
-
-  customColors: any[] = [
-    {
-      name: 'Obecności',
-      value: 'green'
-    },
-    {
-      name: 'Spóźnień',
-      value: 'yellow'
-    },
-    {
-      name: 'Nieobecności',
-      value: 'red'
-    },
-  ];
 
 }

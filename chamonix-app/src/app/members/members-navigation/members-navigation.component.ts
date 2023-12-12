@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NavigationService } from 'src/app/main-wrapper/navigation-service.service';
-import { MembersTabs } from 'src/app/shared/models';
+import { MembersTabs, Roles } from 'src/app/shared/models';
 import { MembersService } from '../members.service';
 import { Location } from '@angular/common'
 
@@ -12,25 +12,31 @@ import { Location } from '@angular/common'
 })
 export class MembersNavigationComponent implements OnInit, OnDestroy {
 
-    activeTabSubscription?: Subscription;
-    addMemberIsOpenSubscription?: Subscription;
-    membersTableViewSubsscription?: Subscription;
-    memberDetailsViewSubscription?: Subscription;
-    deviceTypeSubscription?: Subscription;
+    private _activeTab?: Subscription;
+    private _addMemberIsOpen?: Subscription;
+    private _membersTableView?: Subscription;
+    private _memberDetailsView?: Subscription;
+    private _deviceType?: Subscription;
+
+    userRole?: Roles;
     membersTabs: MembersTabs = {} as MembersTabs;
     addMemberIsOpen: boolean = false;
     membersTableIsOpen = true;
     memberDetailsAreOpen = '';
     deviceType = '';
 
-    constructor(private membersService: MembersService, private navigationService: NavigationService, private location: Location) { }
+    constructor(
+        private membersService: MembersService,
+        private navigationService: NavigationService,
+        private location: Location) { }
 
     ngOnInit(): void {
-        this.activeTabSubscription = this.membersService.activeTab.subscribe(tabs => this.membersTabs = tabs);
-        this.addMemberIsOpenSubscription = this.membersService.addMembersIsOpen.subscribe(value => this.addMemberIsOpen = value);
-        this.memberDetailsViewSubscription = this.membersService.memberDetailsAreOpen.subscribe(state => this.memberDetailsAreOpen = state);
-        this.membersTableViewSubsscription = this.membersService.membersTableIsOpen.subscribe(state => this.membersTableIsOpen = state);
-        this.deviceTypeSubscription = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
+        this._activeTab = this.membersService.activeTab.subscribe(tabs => this.membersTabs = tabs);
+        this._addMemberIsOpen = this.membersService.addMembersIsOpen.subscribe(value => this.addMemberIsOpen = value);
+        this._memberDetailsView = this.membersService.memberDetailsAreOpen.subscribe(state => this.memberDetailsAreOpen = state);
+        this._membersTableView = this.membersService.membersTableIsOpen.subscribe(state => this.membersTableIsOpen = state);
+        this._deviceType = this.navigationService.deviceType.subscribe(type => this.deviceType = type);
+        this.userRole = this.navigationService.getUser()?.role
     }
 
     toggleActiveTab(tabtoChange: any ){
@@ -55,14 +61,18 @@ export class MembersNavigationComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.addMemberIsOpenSubscription?.unsubscribe();
-        this.activeTabSubscription?.unsubscribe();
-        this.membersTableViewSubsscription?.unsubscribe();
-        this.memberDetailsViewSubscription?.unsubscribe();
-        this.deviceTypeSubscription?.unsubscribe();
+        this._addMemberIsOpen?.unsubscribe();
+        this._activeTab?.unsubscribe();
+        this._membersTableView?.unsubscribe();
+        this._memberDetailsView?.unsubscribe();
+        this._deviceType?.unsubscribe();
     }
 
     canAddMember(): boolean {
         return this.navigationService.checkPrivilege('addNewMember')
+    }
+
+    shouldRenderSpectators(): boolean {
+        return this.userRole === Roles.bandDirector || this.userRole === Roles.spectator
     }
 }

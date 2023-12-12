@@ -4,7 +4,7 @@
         <i *ngIf="isOpen" class="bi bi-chevron-double-up" (click)="toggleIsOpen()"></i>
         <div class="info" (click)="toggleIsOpen()">
             <h4>{{section.name}}</h4>
-            <span>instruktor: </span>
+            <span>opiekun: </span>
             <span><strong>{{section.instructor ? renderInstructorName(section.instructor) : 'brak'}}</strong></span>
         </div>
         <div *ngIf="canEditInstruments()" class="filters">

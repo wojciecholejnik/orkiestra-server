@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { CalendarService } from '../calendar.service';
 import { Subscription } from 'rxjs';
 import { EventExternalMember, OrchEvent, OrchEventDTO } from '../calendar-types';
@@ -8,9 +8,7 @@ import { DeviceType } from 'src/app/shared/models';
 import {
   CdkDragDrop,
   moveItemInArray,
-  transferArrayItem,
-  CdkDrag,
-  CdkDropList,
+  transferArrayItem
 } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -88,10 +86,10 @@ export class NewEventComponent implements OnInit, OnDestroy {
           if (!areas) return
           else {
             areas.forEach(area => {
-              area.style.height = (area.scrollHeight + 2)+ 'px';
+              this.setKeywordText(area, area.value)
             })
           }
-        }, 100)
+        }, 50)
       } else {
         this.newEvent = {...this.emptyEvent};
         this.externalEventMembers = [];
@@ -231,6 +229,15 @@ export class NewEventComponent implements OnInit, OnDestroy {
   phoneDevice(): boolean {
     return this.device === DeviceType.phone
   }
+
+  setKeywordText(area: HTMLTextAreaElement | null, text: string): void {
+    if (area) {
+      area.value = text;
+      var evt = document.createEvent("Events");
+      evt.initEvent("change", true, true);
+      area.dispatchEvent(evt);
+    }
+}
 
 }
 

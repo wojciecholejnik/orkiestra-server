@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { NavOptions, User } from 'src/app/shared/models';
+import { NavOptions, Roles, User } from 'src/app/shared/models';
 import { DashboardService } from '../dashboard.service';
 import { OrchEvent, OrchEventDTO } from 'src/app/calendar/calendar-types';
 import { CalendarService } from 'src/app/calendar/calendar.service';
@@ -159,6 +159,10 @@ export class DashboardEventsComponent implements OnInit, OnDestroy {
 
   showDetails(): void {
     this._router.navigate([`/main/${NavOptions.calendar}/details/${this.selectedEvent?._id}`])
+  }
+
+  disabledView(): boolean {
+    return this.navigationService.getUser()?.role === Roles.spectator
   }
 
 }
